@@ -1,98 +1,239 @@
-# Contributing to E-gov Document Request API
+# 👥 Guide des Collaborateurs — E-Gov Document
 
-Thank you for your interest in contributing to the E-gov Document Request API project! This document outlines the guidelines and processes for contributing to this open-source project.
+Ce fichier explique à chaque membre de l'équipe comment travailler sur le projet.
 
-## Table of Contents
-- [Code of Conduct](#code-of-conduct)
-- [Getting Started](#getting-started)
-- [Development Workflow](#development-workflow)
-- [Branching Strategy](#branching-strategy)
-- [Commit Guidelines](#commit-guidelines)
-- [Pull Request Process](#pull-request-process)
-- [Code Standards](#code-standards)
-- [Testing](#testing)
-- [Documentation](#documentation)
+---
 
-## Code of Conduct
-This project adheres to a code of conduct. By participating, you are expected to uphold this code. Please report unacceptable behavior to [project-maintainer@example.com].
+## 🌿 Branches
 
-## Getting Started
-1. Fork the repository on GitHub
-2. Clone your fork locally: `git clone https://github.com/your-username/e-gov-document-request-api.git`
-3. Set up the development environment (see README.md for details)
-4. Create a new branch for your feature or bug fix
+```
+main          → Production — NE PAS TOUCHER DIRECTEMENT
+develop       → Intégration — tout le monde merge ici
+│
+├── feature/api             → API / Backend
+├── feature/database        → Modèles MongoDB + Seeds
+├── feature/frontend-web    → React
+├── feature/mobile          → Flutter
+└── feature/ui-devops       → UI + Déploiement
+```
 
-## Development Workflow
-1. Choose an issue from the issue tracker or create a new one
-2. Create a feature branch from `develop`
-3. Implement your changes
-4. Write tests for your changes
-5. Ensure all tests pass
-6. Update documentation if necessary
-7. Commit your changes
-8. Push your branch to your fork
-9. Create a Pull Request
+---
 
-## Branching Strategy
-We use Git Flow branching model:
-- `main`: Production-ready code
-- `develop`: Integration branch for features
-- `feature/*`: Feature branches (e.g., `feature/user-authentication`)
-- `hotfix/*`: Hotfix branches for production issues
-- `release/*`: Release preparation branches
+## ⚙️ Cloner le projet
 
-## Commit Guidelines
-- Use clear, descriptive commit messages
-- Start with a verb in imperative mood (e.g., "Add", "Fix", "Update")
-- Reference issue numbers when applicable (e.g., "Fix #123: Handle null pointer exception")
-- Keep commits focused on a single change
+```bash
+git clone https://github.com/Blackdry13579/E-gov-Document-Request-API-.git
+cd E-gov-Document-Request-API-
+```
 
-## Pull Request Process
-1. Ensure your PR is based on the latest `develop` branch
-2. Provide a clear description of the changes
-3. Reference any related issues
-4. Ensure all CI checks pass
-5. Request review from at least one maintainer
-6. Address any feedback from reviewers
-7. Once approved, a maintainer will merge your PR
+---
 
-**Note:** As the project lead, all contributions must go through the Pull Request process. Direct pushes to `main` or `develop` are not allowed.
+## 🔴 PERSONNE 2 — Base de données
 
-## Code Standards
-- Follow the existing code style in the project
-- Use meaningful variable and function names
-- Add comments for complex logic
-- Ensure code is readable and maintainable
+**Ta responsabilité :** Modèles Mongoose dans `backend/src/models/`
 
-### Backend (Node.js/Express)
-- Use ESLint for code linting
-- Follow RESTful API conventions
-- Validate input data
-- Handle errors appropriately
+> ⚠️ Tu travailles EN PREMIER. L'API ne peut pas démarrer sans tes modèles.
 
-### Frontend (React)
-- Use functional components with hooks
-- Follow React best practices
-- Ensure accessibility (WCAG guidelines)
+```bash
+# 1. Se mettre sur ta branche
+git checkout feature/database
 
-### Mobile (Flutter)
-- Follow Flutter style guidelines
-- Use Dart's effective style
-- Ensure platform-specific optimizations
+# 2. Installer les dépendances
+cd backend && npm install
 
-## Testing
-- Write unit tests for new functionality
-- Write integration tests for API endpoints
-- Ensure all tests pass before submitting a PR
-- Aim for good test coverage
+# 3. Configurer MongoDB
+cp .env.example .env
+# Remplir MONGODB_URI avec ton URL MongoDB Atlas
 
-## Documentation
-- Update API documentation for any endpoint changes
-- Update README.md if necessary
-- Add code comments for complex functions
-- Update this CONTRIBUTING.md if processes change
+# 4. Tester la connexion
+node -e "require('./src/config/database')"
+# Doit afficher: ✅ MongoDB connecté
+```
 
-## Questions?
-If you have any questions about contributing, please open an issue or contact the maintainers.
+**MongoDB Atlas — Obtenir l'URI :**
+1. https://cloud.mongodb.com → Créer cluster gratuit (M0)
+2. Database Access → Créer utilisateur
+3. Network Access → Ajouter `0.0.0.0/0`
+4. Connect → Connect your application → Copier l'URI
 
-Happy contributing! 🚀
+**Tes fichiers :**
+```
+backend/src/models/
+├── User.js
+├── DocumentType.js
+├── Demande.js
+├── Notification.js
+└── AuditLog.js
+```
+
+---
+
+## 🔵 PERSONNE 3 — Frontend Web
+
+**Ta responsabilité :** Interface React dans `frontend-web/`
+
+> ⚠️ Utilise uniquement les routes dans `docs/API-CONTRACT.md`. Ne crée jamais tes propres routes.
+
+```bash
+# 1. Se mettre sur ta branche
+git checkout feature/frontend-web
+
+# 2. Installer les dépendances
+cd frontend-web && npm install
+
+# 3. Configurer l'URL API
+echo "REACT_APP_API_URL=http://localhost:3000/api" > .env
+
+# 4. Lancer le Mock API (terminal séparé)
+cd mock && npm install && node server.js
+```
+
+**Envoyer le JWT dans les requêtes :**
+```javascript
+// Après login
+localStorage.setItem('token', response.data.token)
+
+// Dans chaque requête protégée
+axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+```
+
+**Format réponse API :**
+```javascript
+{ success: true, data: {...} }      // succès
+{ success: false, message: "..." }  // erreur
+```
+
+---
+
+## 🟢 PERSONNE 4 — Mobile Flutter
+
+**Ta responsabilité :** Application Flutter dans `frontend-mobile/`
+
+> ⚠️ Les routes API sont IDENTIQUES à celles du web. Référence : `docs/API-CONTRACT.md`
+
+```bash
+# 1. Se mettre sur ta branche
+git checkout feature/mobile
+
+# 2. Installer les dépendances
+cd frontend-mobile && flutter pub get
+```
+
+**URL API dans Flutter :**
+```dart
+// lib/services/api_service.dart
+const String baseUrl = 'http://10.0.2.2:3000/api'; // Android émulateur
+// const String baseUrl = 'http://localhost:3000/api'; // iOS simulateur
+```
+
+> ⚠️ Sur Android émulateur, utiliser `10.0.2.2` et non `localhost`
+
+**Dépendances recommandées :**
+```yaml
+dependencies:
+  dio: ^5.3.0
+  flutter_secure_storage: ^9.0.0
+  provider: ^6.1.0
+```
+
+---
+
+## 🟡 PERSONNE 5 — UI / DevOps
+
+**Ta responsabilité :** Design Figma + Déploiement
+
+```bash
+git checkout feature/ui-devops
+```
+
+**Déploiement Backend (Render) :**
+1. https://render.com → New Web Service
+2. Branch: `main` · Build: `cd backend && npm install` · Start: `cd backend && npm start`
+3. Ajouter les variables d'environnement depuis `.env.example`
+
+**Déploiement Frontend (Vercel) :**
+1. https://vercel.com → New Project → Root: `frontend-web`
+2. Variable: `REACT_APP_API_URL=https://votre-api.onrender.com/api`
+
+---
+
+## 🔄 Faire un Pull Request
+
+### ⚠️ Règle importante — MERGE uniquement, pas de rebase
+On utilise **git merge** pour synchroniser les branches, **jamais git rebase**.
+
+Pourquoi ? Le rebase réécrit l'historique des commits — si quelqu'un d'autre travaille sur la même branche, ça crée des conflits compliqués. Le merge est plus sûr et l'historique reste lisible pour tout le monde.
+
+```bash
+# 1. Se mettre sur ta branche
+git checkout feature/ta-branche
+
+# 2. Récupérer les derniers changements de develop
+git fetch origin
+git merge origin/develop
+# Si conflits → les résoudre, puis git add . && git commit
+
+# 3. Pousser ta branche
+git push origin feature/ta-branche
+```
+
+**Sur GitHub :**
+1. Cliquer **"Compare & pull request"**
+2. Base: `develop` ← Compare: `feature/ta-branche`
+3. Titre clair + description de ce qui a été fait
+4. **"Create pull request"** → prévenir le Lead
+
+### Comment résoudre un conflit
+```bash
+# Après git merge origin/develop, si conflit:
+# Git va indiquer les fichiers en conflit
+
+# 1. Ouvrir le fichier en conflit
+# Tu verras quelque chose comme:
+# <<<<<<< HEAD (ton code)
+# ton code ici
+# =======
+# leur code ici
+# >>>>>>> origin/develop
+
+# 2. Garder ce qui est correct, supprimer les marqueurs
+# 3. Sauvegarder le fichier
+
+# 4. Marquer comme résolu
+git add fichier-en-conflit
+git commit -m "fix: résolution conflit merge develop"
+git push origin feature/ta-branche
+```
+
+---
+
+## 📝 Format des commits
+
+```
+feat(scope): description     → nouvelle fonctionnalité
+fix(scope): description      → correction de bug
+chore(scope): description    → maintenance
+docs(scope): description     → documentation
+
+Exemples:
+feat(api): route création demande
+feat(web): page tableau de bord citoyen
+fix(database): validation email unique
+```
+
+---
+
+## 🚨 Règles absolues
+
+```
+❌ Ne jamais pousser directement sur main ou develop
+❌ Ne jamais commiter le fichier .env
+❌ Ne jamais inventer des routes API
+❌ Ne jamais merger son propre Pull Request
+✅ Toujours tirer develop avant de commencer
+✅ Toujours tester localement avant de pousser
+```
+
+---
+
+*E-Gov Document — Mars 2026*
