@@ -1,0 +1,69 @@
+# ================================
+# SECRETS & ENVIRONNEMENT
+# ================================
+.env
+.env.local
+.env.production
+.env.development
+backend/.env
+frontend-web/.env
+frontend-mobile/.env
+
+# ================================
+# DÉPENDANCES (trop lourdes)
+# ================================
+**/node_modules/
+frontend-mobile/.dart_tool/
+frontend-mobile/.pub-cache/
+frontend-mobile/build/
+
+# ================================
+# FICHIERS DE BUILD
+# ================================
+**/build/
+**/dist/
+frontend-web/build/
+frontend-mobile/build/
+*.apk
+*.aab
+*.ipa
+
+# ================================
+# LOGS
+# ================================
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+
+# ================================
+# CLOUDINARY / UPLOADS LOCAUX
+# ================================
+backend/uploads/
+backend/tmp/
+
+# ================================
+# CERTIFICATS & CLÉS
+# ================================
+*.pem
+*.key
+*.cert
+*.p12
+*.jks
+keystore/
+
+# ================================
+# IDE & SYSTÈME
+# ================================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# ================================
+# TESTS & COVERAGE
+# ================================
+coverage/
+.nyc_output/
