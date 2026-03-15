@@ -1,69 +1,37 @@
-# ================================
-# SECRETS & ENVIRONNEMENT
-# ================================
-.env
-.env.local
-.env.production
-.env.development
-backend/.env
-frontend-web/.env
-frontend-mobile/.env
-
-# ================================
-# DÉPENDANCES (trop lourdes)
-# ================================
+# Node
+node_modules/
 **/node_modules/
-frontend-mobile/.dart_tool/
-frontend-mobile/.pub-cache/
-frontend-mobile/build/
 
-# ================================
-# FICHIERS DE BUILD
-# ================================
-**/build/
-**/dist/
-frontend-web/build/
-frontend-mobile/build/
-*.apk
-*.aab
-*.ipa
+# npm
+package-lock.json
 
-# ================================
-# LOGS
-# ================================
+# Yarn
+yarn.lock
+
+# Dart/Flutter
+.flutter-plugins
+.packages
+.pub-cache/
+.pub/
+build/
+ios/Pods/
+
+# Env
+.env
+.env.*
+
+# Logs
+logs
 *.log
-logs/
 npm-debug.log*
 yarn-debug.log*
+yarn-error.log*
 
-# ================================
-# CLOUDINARY / UPLOADS LOCAUX
-# ================================
-backend/uploads/
-backend/tmp/
-
-# ================================
-# CERTIFICATS & CLÉS
-# ================================
-*.pem
-*.key
-*.cert
-*.p12
-*.jks
-keystore/
-
-# ================================
-# IDE & SYSTÈME
-# ================================
+# VSCode
 .vscode/
-.idea/
-.DS_Store
-Thumbs.db
-*.swp
-*.swo
 
-# ================================
-# TESTS & COVERAGE
-# ================================
-coverage/
-.nyc_output/
+# Mac
+.DS_Store
+
+# Misc
+*.swp
