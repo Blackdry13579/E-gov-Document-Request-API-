@@ -13,7 +13,8 @@ const seedAdmin = async () => {
       email: 'admin@egov.bf',
       telephone: '77123456',
       password: 'adminpassword123',
-      role: 'ADMIN'
+      role: 'ADMIN',
+      isAdmin: true
     };
 
     const admin = await User.findOneAndUpdate(
