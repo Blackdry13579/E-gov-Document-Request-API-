@@ -17,14 +17,14 @@ const mongoSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
 const compression = require('compression');
 const connectDB = require('./config/database');
-const seedDocuments = require('./config/seeds');
+const seedAll = require('./config/seeds');
 const errorHandler = require('./middleware/errorHandler');
 const logger = require('./utils/logger');
 
 // Connexion à la base de données
 const startServer = async () => {
   await connectDB();
-  await seedDocuments();
+  await seedAll();
 };
 startServer();
 

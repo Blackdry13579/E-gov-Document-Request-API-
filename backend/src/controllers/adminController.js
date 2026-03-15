@@ -1,5 +1,8 @@
 const Demande = require('../models/Demande');
 const User = require('../models/User');
+const Service = require('../models/Service');
+const Role = require('../models/Role');
+const DocumentType = require('../models/DocumentType');
 const AuditLog = require('../models/AuditLog');
 const AppError = require('../utils/AppError');
 const asyncHandler = require('../middleware/asyncHandler');
@@ -57,13 +60,22 @@ exports.getStatsGlobales = asyncHandler(async (req, res) => {
  * Gérer les agents (création)
  */
 exports.createUser = asyncHandler(async (req, res, next) => {
-  const { nom, prenom, email, telephone, role, service, password } = req.body;
+  const { nom, prenom, email, telephone, roleId, serviceId, password, isAdmin = false } = req.body;
 
-  // Seul l'admin peut créer un autre admin ou agent
   const existingUser = await User.findOne({ email });
   if (existingUser) return next(new AppError('Cet email est déjà utilisé', 400));
 
   const passwordTemp = password || Math.random().toString(36).slice(-8);
+  
+  let roleCode = 'CITOYEN';
+  let isAgent = false;
+
+  if (roleId) {
+    const roleObj = await Role.findById(roleId);
+    if (!roleObj) return next(new AppError('Rôle spécifié invalide', 400));
+    roleCode = roleObj.code;
+    isAgent = true;
+  }
 
   const newUser = await User.create({
     nom,
@@ -71,12 +83,15 @@ exports.createUser = asyncHandler(async (req, res, next) => {
     email,
     telephone,
     password: passwordTemp,
-    role,
-    service
+    role: roleCode,
+    roleId: isAgent ? roleId : null,
+    serviceId: isAgent ? serviceId : null,
+    isAgent,
+    isAdmin
   });
 
   await AuditLog.createLog({
-    action: 'CREATION_AGENT',
+    action: 'CREATION_USER',
     categorie: 'ADMIN',
     auteurId: req.user._id,
     auteurEmail: req.user.email,
@@ -84,10 +99,9 @@ exports.createUser = asyncHandler(async (req, res, next) => {
     auteurIp: req.ip,
     cibleType: 'User',
     cibleId: newUser._id,
-    description: `Création du compte ${role} pour ${email}`
+    description: `Création du compte ${roleCode} pour ${email}`
   });
 
-  // Simulation envoi email
   console.log(`[EMAIL SIM] Credentials pour ${email}: Password = ${passwordTemp}`);
 
   res.status(201).json({
@@ -200,7 +214,6 @@ exports.getAllDemandes = asyncHandler(async (req, res) => {
 
   // Si filtrage par service, on doit d'abord trouver les IDs des documents de ce service
   if (req.query.service) {
-    const DocumentType = require('../models/DocumentType');
     const serviceDocs = await DocumentType.find({ service: req.query.service }).select('_id');
     const docTypeIds = serviceDocs.map(d => d._id);
     filter.documentTypeId = { $in: docTypeIds };
@@ -225,4 +238,148 @@ exports.getAllDemandes = asyncHandler(async (req, res) => {
     currentPage: page,
     data: demandes
   });
+});
+
+/**
+ * SERVICES CRUD
+ */
+exports.getAllServices = asyncHandler(async (req, res) => {
+  const services = await Service.find().sort('nom');
+  res.status(200).json({ success: true, data: services });
+});
+
+exports.createService = asyncHandler(async (req, res, next) => {
+  const { nom, code, description, responsable } = req.body;
+  
+  const existing = await Service.findByCode(code);
+  if (existing) return next(new AppError('Un service avec ce code existe déjà', 400));
+
+  const service = await Service.create({ nom, code, description, responsable });
+
+  await AuditLog.createLog({
+    action: 'CREATE_SERVICE',
+    categorie: 'ADMIN',
+    auteurId: req.user._id,
+    cibleType: 'Service',
+    cibleId: service._id,
+    description: `Création du service ${nom} (${code})`
+  });
+
+  res.status(201).json({ success: true, data: service });
+});
+
+exports.updateService = asyncHandler(async (req, res, next) => {
+  const service = await Service.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+  if (!service) return next(new AppError('Service non trouvé', 404));
+
+  await AuditLog.createLog({
+    action: 'UPDATE_SERVICE',
+    categorie: 'ADMIN',
+    auteurId: req.user._id,
+    cibleType: 'Service',
+    cibleId: service._id,
+    description: `Mise à jour du service ${service.nom}`
+  });
+
+  res.status(200).json({ success: true, data: service });
+});
+
+exports.deleteService = asyncHandler(async (req, res, next) => {
+  const service = await Service.findById(req.params.id);
+  if (!service) return next(new AppError('Service non trouvé', 404));
+
+  service.actif = false;
+  await service.save();
+
+  await AuditLog.createLog({
+    action: 'DELETE_SERVICE',
+    categorie: 'ADMIN',
+    auteurId: req.user._id,
+    cibleType: 'Service',
+    cibleId: service._id,
+    description: `Désactivation du service ${service.nom}`
+  });
+
+  res.status(200).json({ success: true, message: 'Service désactivé' });
+});
+
+/**
+ * ROLES CRUD
+ */
+exports.getAllRoles = asyncHandler(async (req, res) => {
+  const roles = await Role.find().populate('serviceId', 'nom code');
+  res.status(200).json({ success: true, data: roles });
+});
+
+exports.createRole = asyncHandler(async (req, res, next) => {
+  const { nom, code, serviceId, permissions, description } = req.body;
+
+  const existing = await Role.findByCode(code);
+  if (existing) return next(new AppError('Un rôle avec ce code existe déjà', 400));
+
+  const role = await Role.create({ nom, code, serviceId, permissions, description });
+
+  await AuditLog.createLog({
+    action: 'CREATE_ROLE',
+    categorie: 'ADMIN',
+    auteurId: req.user._id,
+    cibleType: 'Role',
+    cibleId: role._id,
+    description: `Création du rôle ${nom} (${code})`
+  });
+
+  res.status(201).json({ success: true, data: role });
+});
+
+exports.updateRole = asyncHandler(async (req, res, next) => {
+  const role = await Role.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  
+  await AuditLog.createLog({
+    action: 'UPDATE_ROLE',
+    categorie: 'ADMIN',
+    auteurId: req.user._id,
+    cibleType: 'Role',
+    cibleId: role._id,
+    description: `Mise à jour du rôle ${role.nom}`
+  });
+  res.status(200).json({ success: true, data: role });
+});
+
+exports.deleteRole = asyncHandler(async (req, res, next) => {
+  const role = await Role.findById(req.params.id);
+  role.actif = false;
+  await role.save();
+
+  await AuditLog.createLog({
+    action: 'DELETE_ROLE',
+    categorie: 'ADMIN',
+    auteurId: req.user._id,
+    cibleType: 'Role',
+    cibleId: role._id,
+    description: `Désactivation du rôle ${role.nom}`
+  });
+  res.status(200).json({ success: true, message: 'Rôle désactivé' });
+});
+
+/**
+ * DOCUMENTS CRUD
+ */
+exports.createDocument = asyncHandler(async (req, res, next) => {
+  const existing = await DocumentType.findOne({ code: req.body.code });
+  if (existing) return next(new AppError('Un document avec ce code existe déjà', 400));
+
+  const documentType = await DocumentType.create(req.body);
+  res.status(201).json({ success: true, data: documentType });
+});
+
+exports.updateDocument = asyncHandler(async (req, res, next) => {
+  const documentType = await DocumentType.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  res.status(200).json({ success: true, data: documentType });
+});
+
+exports.toggleDocument = asyncHandler(async (req, res, next) => {
+  const dt = await DocumentType.findById(req.params.id);
+  dt.actif = !dt.actif;
+  await dt.save();
+  res.status(200).json({ success: true, data: dt });
 });
