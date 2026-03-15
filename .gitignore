@@ -1,37 +1,70 @@
-# Node
-node_modules/
-**/node_modules/
-
-# npm
-package-lock.json
-
-# Yarn
-yarn.lock
-
-# Dart/Flutter
-.flutter-plugins
-.packages
-.pub-cache/
-.pub/
-build/
-ios/Pods/
-
-# Env
+# ================================
+# SECRETS & ENVIRONNEMENT
+# ================================
 .env
-.env.*
+.env.local
+.env.production
+.env.development
+backend/.env
+frontend-web/.env
+frontend-mobile/.env
 
-# Logs
-logs
+# ================================
+# DÉPENDANCES (trop lourdes)
+# ================================
+**/node_modules/
+frontend-mobile/.dart_tool/
+frontend-mobile/.pub-cache/
+frontend-mobile/build/
+
+# ================================
+# FICHIERS DE BUILD
+# ================================
+**/build/
+**/dist/
+frontend-web/build/
+frontend-mobile/build/
+
+*.apk
+*.aab
+*.ipa
+
+# ================================
+# LOGS
+# ================================
 *.log
+logs/
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 
-# VSCode
+# ================================
+# CLOUDINARY / UPLOADS LOCAUX
+# ================================
+backend/uploads/
+backend/tmp/
+
+# ================================
+# CERTIFICATS & CLÉS
+# ================================
+*.pem
+*.key
+*.cert
+*.p12
+*.jks
+keystore/
+
+# ================================
+# IDE & SYSTÈME
+# ================================
 .vscode/
-
-# Mac
+.idea/
 .DS_Store
-
-# Misc
+Thumbs.db
 *.swp
+*.swo
+
+# ================================
+# TESTS & COVERAGE
+# ================================
+coverage/
+.nyc_output/

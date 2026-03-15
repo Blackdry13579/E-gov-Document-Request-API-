@@ -1,46 +1,57 @@
-# Frontend Web Application
+# E-Gov Document Platform — Frontend Web
 
-This directory contains the React web application for the E-gov Document Request system.
+Interface citoyenne moderne pour la demande et le suivi de documents administratifs au Burkina Faso.
 
-## Technologies Used
-- React
-- React Router for navigation
-- Axios for API calls
-- Context API for state management
-- Material-UI or similar for UI components
+## 🚀 Technologies
 
-## Project Structure
+- **Core:** React 18 + Vite
+- **Styling:** Tailwind CSS v4 (Design System customisé)
+- **Navigation:** React Router 6 (Routes protégées)
+- **State Management:** React Context (Auth, Notifications)
+- **Icons:** Material Symbols & Lucide React
+- **Animations:** Framer Motion
+
+## 📂 Structure du Projet
+
+```text
+src/
+├── components/     # Composants UI atomiques et Layouts
+├── context/        # États globaux (Auth, Notif)
+├── pages/          # Pages de l'application
+├── services/       # Appels API (Axios)
+├── utils/          # Constantes et formateurs
+├── App.jsx         # Structure globale
+├── Router.jsx      # Configuration des routes
+└── index.css       # Design System Tailwind v4
 ```
-frontend-web/
-├── public/              # Static assets
-├── src/
-│   ├── components/      # Reusable UI components
-│   ├── pages/           # Page components
-│   ├── services/        # API service functions
-│   ├── context/         # React context providers
-│   ├── App.js           # Main app component
-│   └── index.js         # App entry point
-├── package.json         # Dependencies and scripts
-└── README.md            # This file
+
+## 🛠️ Installation
+
+1. Installer les dépendances :
+```bash
+npm install
 ```
 
-## Getting Started
-1. Install dependencies: `npm install`
-2. Start the development server: `npm start`
-3. Open [http://localhost:3000](http://localhost:3000) in your browser
+2. Configurer les variables d'environnement :
+Créer un fichier `.env` à la racine :
+```env
+VITE_API_URL=http://localhost:3000/api
+```
 
-## Available Scripts
-- `npm start` - Runs the app in development mode
-- `npm test` - Launches the test runner
-- `npm run build` - Builds the app for production
-- `npm run eject` - Ejects from Create React App (irreversible)
+3. Lancer en mode développement :
+```bash
+npm run dev
+```
 
-## Features
-- User authentication and registration
-- Document request submission
-- Request status tracking
-- Payment integration
-- Multi-language support
+## ✨ Fonctionnalités Implémentées
 
-## Contributing
-See the main CONTRIBUTING.md file in the project root.
+- [x] Landing Page Premium
+- [x] Authentification complète (Login/Register)
+- [x] Gestion des états d'authentification et routes protégées
+- [x] Tableau de bord citoyen avec statistiques
+- [x] Liste des demandes avec filtres
+- [x] Formulaire dynamique multi-étapes pour nouvelle demande
+- [x] Chargement de fichiers justificatifs
+- [x] Suivi détaillé d'une demande avec historique
+- [x] Interface de profil et notifications
+- [x] Design System unifié (Burkina Faso Palette)
