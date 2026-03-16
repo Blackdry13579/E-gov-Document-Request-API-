@@ -111,6 +111,22 @@ const seedAll = async () => {
       }
     }
 
+    // 5. ADMIN PAR DÉFAUT
+    const adminExistant = await User.findOne({ isAdmin: true });
+    if (!adminExistant) {
+      await User.create({
+        nom: 'Admin',
+        prenom: 'Principal',
+        email: 'admin@egov.bf',
+        password: 'Admin@2026', // sera hashé par le hook pre-save
+        telephone: '70000000',
+        role: 'ADMIN',
+        isAdmin: true,
+        isAgent: false
+      });
+      logger.info('✅ Admin par défaut créé: admin@egov.bf / Admin@2026');
+    }
+
     logger.info('✅ Seeding & Migration terminé');
   } catch (error) {
     logger.error(`❌ Erreur Seeding : ${error.message}`);

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#005596", // Royal Blue for E-Gov
+                        "background-light": "#f8f9fc",
+                        "background-dark": "#0f172a",
+                        "accent-gold": "#ec5b13", // Primary from theme for accents
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>E-Gov Burkina - Gestion des Rôles</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="flex min-h-screen overflow-x-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0">
+<div class="p-6 flex flex-col gap-8">
+<!-- Brand -->
+<div class="flex items-center gap-3 px-2">
+<img alt="Coat of Arms" class="size-10 object-contain" data-alt="Armoiries du Burkina Faso" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbFUEDS19ZFV-CWsNi5xNoopnaGmQlCtFN-zIwt9V8Dnfeu0go_xh3E49aJhNfr_2Tel85Gs1Av1bmg7t1mLJRX5drp5jSdpTS-q8zyYYJ_KJeDNtdRK4AY_1T3YPfsvsplTBuvNxJ6OtsCTH2VQLyB7ckD_X8xKwYjoOVJYRHlxO75kVrrWdE1Sxv1eSHcz8kyX71_BeV9GKmfVtobJJc8MEqH3oXHYdcJ95Umg_NBMj34ou9_N8HlK0y0xCicVp7XOvJO3W164U"/>
+<div class="flex flex-col">
+<h1 class="text-primary dark:text-blue-400 text-lg font-bold leading-none">E-Gov BF</h1>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium">Administration Centrale</p>
+</div>
+</div>
+<!-- Nav Links -->
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-semibold">Tableau de bord</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-semibold">Utilisateurs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary dark:bg-primary/20 dark:text-blue-300" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="text-sm font-bold">Système &amp; Rôles</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">gavel</span>
+<span class="text-sm font-semibold">Services Publics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm font-semibold">Rapports</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-slate-100 dark:border-slate-800">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-semibold">Paramètres</span>
+</a>
+<div class="mt-4 flex items-center gap-3 px-4 py-2">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary overflow-hidden">
+<img alt="Profile" data-alt="Photo de profil de l'administrateur" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCsiBAfDtGjsLx7EpTVQComV5Zcie3lRR-tcUmsV0w3K4u5rQIXnxrAtOZG-ferpiAHB5O3KssdLp8OvgPJE-MN08FzCrXIarhPoN3dAAmRYn_YQ8MqWKoAt1Vs3Q-wydSpAiZNsu54H6GsR7UeDo46GzG5llav0uiVgCXUxY29n0GlduBZCkBnqEBntlCDaTknySlY7i5nLoyXsAFvUfKn6wE769xYl-st3n_P5fvyXWu4QsD9GOitzflWIZ0CMbBY--mQ2nsHx0"/>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold">Admin SNI</p>
+<p class="text-xs text-slate-500">Déconnexion</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- Header -->
+<header class="h-20 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 shrink-0">
+<div class="flex items-center gap-2">
+<span class="text-slate-400 text-sm">Accueil</span>
+<span class="text-slate-400 text-sm">/</span>
+<span class="text-slate-400 text-sm">Configuration</span>
+<span class="text-slate-400 text-sm">/</span>
+<span class="text-slate-900 dark:text-white text-sm font-bold">Ajouter un Nouveau Rôle</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined text-slate-500 p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full cursor-pointer">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-accent-gold rounded-full border-2 border-white dark:border-slate-900"></span>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-lg shadow-primary/20">
+                    Enregistrer le Rôle
+                </button>
+</div>
+</header>
+<!-- Content Area -->
+<div class="p-8 max-w-5xl mx-auto w-full">
+<div class="mb-8">
+<h2 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Ajouter un Nouveau Rôle</h2>
+<p class="text-slate-500 dark:text-slate-400 mt-2">Définissez les privilèges et les limites d'accès pour les agents de l'administration publique.</p>
+</div>
+<form class="space-y-8">
+<!-- Section: General Info -->
+<section class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50">
+<h3 class="font-bold text-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">info</span>
+                            Informations Générales
+                        </h3>
+</div>
+<div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300">Nom du Rôle</label>
+<input class="w-full rounded-xl border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary px-4 py-3" placeholder="ex: Agent Mairie, Superviseur DSI" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300">Département</label>
+<select class="w-full rounded-xl border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary px-4 py-3">
+<option>Administration Territoriale</option>
+<option>Finances Publiques</option>
+<option>Santé &amp; Social</option>
+<option>Sécurité</option>
+</select>
+</div>
+<div class="flex flex-col gap-2 md:col-span-2">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300">Description du Rôle</label>
+<textarea class="w-full rounded-xl border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary px-4 py-3" placeholder="Décrivez brièvement les responsabilités liées à ce rôle..." rows="3"></textarea>
+</div>
+</div>
+</section>
+<!-- Section: Permissions Checklist -->
+<section class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50">
+<h3 class="font-bold text-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">lock_open</span>
+                            Matrice des Permissions
+                        </h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50">
+<th class="px-8 py-4 text-xs font-black uppercase tracking-wider text-slate-500">Module Système</th>
+<th class="px-4 py-4 text-xs font-black uppercase tracking-wider text-slate-500 text-center">Lecture</th>
+<th class="px-4 py-4 text-xs font-black uppercase tracking-wider text-slate-500 text-center">Écriture</th>
+<th class="px-4 py-4 text-xs font-black uppercase tracking-wider text-slate-500 text-center">Validation</th>
+<th class="px-4 py-4 text-xs font-black uppercase tracking-wider text-slate-500 text-center">Suppression</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Row 1 -->
+<tr>
+<td class="px-8 py-5">
+<p class="font-bold text-slate-900 dark:text-slate-100">État Civil</p>
+<p class="text-xs text-slate-500">Actes de naissance, mariage, décès</p>
+</td>
+<td class="px-4 py-5 text-center">
+<input checked="" class="rounded text-primary focus:ring-primary size-5 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="rounded text-primary focus:ring-primary size-5 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="rounded text-primary focus:ring-primary size-5 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="rounded text-primary focus:ring-primary size-5 cursor-pointer" type="checkbox"/>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr>
+<td class="px-8 py-5">
+<p class="font-bold text-slate-900 dark:text-slate-100">Identité Nationale</p>
+<p class="text-xs text-slate-500">CNIB, Passeports, Cartes consulaires</p>
+</td>
+<td class="px-4 py-5 text-center">
+<input checked="" class="rounded text-primary focus:ring-primary size-5 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-center">
+<input checked="" class="rounded text-primary focus:ring-primary size-5 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="rounded text-primary focus:ring-primary size-5 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="rounded text-primary focus:ring-primary size-5 cursor-pointer" type="checkbox"/>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr>
+<td class="px-8 py-5">
+<p class="font-bold text-slate-900 dark:text-slate-100">Fiscalité &amp; Taxes</p>
+<p class="text-xs text-slate-500">Paiements en ligne, déclarations</p>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="rounded text-primary focus:ring-primary size-5 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="rounded text-primary focus:ring-primary size-5 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="rounded text-primary focus:ring-primary size-5 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="rounded text-primary focus:ring-primary size-5 cursor-pointer" type="checkbox"/>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr>
+<td class="px-8 py-5">
+<p class="font-bold text-slate-900 dark:text-slate-100">Gestion des Utilisateurs</p>
+<p class="text-xs text-slate-500">Création de comptes agents</p>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="rounded text-primary focus:ring-primary size-5 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="rounded text-primary focus:ring-primary size-5 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="rounded text-primary focus:ring-primary size-5 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-4 py-5 text-center">
+<input class="rounded text-primary focus:ring-primary size-5 cursor-pointer" type="checkbox"/>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Actions -->
+<div class="flex items-center justify-end gap-4 pb-12">
+<button class="px-8 py-3 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-800 transition-colors" type="button">
+                        Annuler
+                    </button>
+<button class="px-10 py-3 rounded-xl bg-primary text-white text-sm font-bold shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all" type="submit">
+                        Créer le Rôle
+                    </button>
+</div>
+</form>
+</div>
+</main>
+</div>
+</body></html>

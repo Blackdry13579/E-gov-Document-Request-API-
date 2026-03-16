@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Détails du Rôle - E-Gov Burkina Faso</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#003366", // Bleu Royal plus institutionnel
+                        "accent": "#ec5b13",
+                        "background-light": "#f8f9fa",
+                        "background-dark": "#1a1a1a",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .permission-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="flex min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="w-72 bg-primary dark:bg-slate-900 flex flex-col shrink-0 border-r border-slate-200 dark:border-slate-800">
+<div class="p-6 flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<div class="size-12 rounded-lg bg-white p-1 shadow-sm">
+<img alt="Armoiries du Burkina Faso" class="w-full h-full object-contain" data-alt="Armoiries nationales du Burkina Faso en haute résolution" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjuv-x-C-b-k30ZpMfvWHwP2_b8bMvrN3DCeIvZurFeJ1L9fcQtl9czocRDwqaEPlQNSaFQsuRLzpqHkc7vGuC2NS4I5E03T_kDdHrEBl9bhhqZQlzxzRocP2DEUU_znRFOAULIQZYydniS4j5JgzUtyRQiMki6b7Z_MaAO2BSorYbrQWTzhXu_GCd1tzvd854IHD-o4ZvykJIwX8Dc3l9SqSpRwitH_uIMYpFsGQMzoNknsdz9wImRug4IeSAgW7AMGc135DFEiU"/>
+</div>
+<div class="flex flex-col">
+<h1 class="text-white text-lg font-bold leading-tight">E-Gov BF</h1>
+<p class="text-white/70 text-xs font-medium uppercase tracking-wider">Administration Centrale</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-white/80 hover:bg-white/10 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Tableau de bord</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/80 hover:bg-white/10 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Utilisateurs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white/20 text-white rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="text-sm font-medium">Rôles et Permissions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/80 hover:bg-white/10 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="text-sm font-medium">Services Publics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-white/80 hover:bg-white/10 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Documents</span>
+</a>
+<div class="my-4 border-t border-white/10"></div>
+<a class="flex items-center gap-3 px-4 py-3 text-white/80 hover:bg-white/10 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Paramètres</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-6">
+<button class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-red-600/20 text-red-100 border border-red-500/30 rounded-xl hover:bg-red-600/30 transition-colors">
+<span class="material-symbols-outlined text-sm">logout</span>
+<span class="text-sm font-bold">Déconnexion</span>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- Header -->
+<header class="h-20 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8">
+<div class="flex items-center gap-4">
+<nav class="flex text-sm text-slate-500 dark:text-slate-400 gap-2">
+<a class="hover:text-primary transition-colors" href="#">Accueil</a>
+<span>/</span>
+<a class="hover:text-primary transition-colors" href="#">Rôles</a>
+<span>/</span>
+<span class="text-slate-900 dark:text-slate-100 font-semibold">Agent Mairie</span>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary text-sm" placeholder="Rechercher..." type="text"/>
+</div>
+<button class="relative p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-accent rounded-full border-2 border-white"></span>
+</button>
+<div class="flex items-center gap-3 pl-6 border-l border-slate-200 dark:border-slate-800">
+<div class="text-right">
+<p class="text-sm font-bold leading-none">Administrateur</p>
+<p class="text-xs text-slate-500 mt-1">S. Drabo</p>
+</div>
+<div class="size-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-8 space-y-8 max-w-6xl mx-auto w-full">
+<!-- Role Summary Card -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm flex justify-between items-start">
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="size-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">badge</span>
+</div>
+<div>
+<h2 class="text-3xl font-black text-slate-900 dark:text-slate-100">Agent Mairie</h2>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">
+                                Rôle Opérationnel
+                            </span>
+</div>
+</div>
+<p class="text-slate-600 dark:text-slate-400 max-w-2xl text-lg leading-relaxed">
+                        Ce rôle est dédié à la gestion opérationnelle des actes d'état civil et des services de proximité au niveau communal. Il permet l'accueil des citoyens, l'enregistrement des demandes et le suivi des dossiers municipaux.
+                    </p>
+</div>
+<div class="flex flex-col gap-2">
+<button class="flex items-center justify-center gap-2 px-6 py-2.5 bg-primary text-white rounded-xl font-bold text-sm hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-sm">edit</span>
+                        Modifier
+                    </button>
+<button class="flex items-center justify-center gap-2 px-6 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+                        Dupliquer
+                    </button>
+<button class="flex items-center justify-center gap-2 px-6 py-2.5 bg-transparent text-red-600 rounded-xl font-bold text-sm hover:bg-red-50 transition-all">
+<span class="material-symbols-outlined text-sm">delete</span>
+                        Supprimer
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Permissions Matrix -->
+<div class="lg:col-span-2 space-y-6">
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50">
+<h3 class="font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">gavel</span>
+                                Matrice des Permissions
+                            </h3>
+</div>
+<div class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Header Row -->
+<div class="permission-grid p-4 bg-slate-50/50 dark:bg-slate-800/20 text-[10px] font-bold text-slate-500 uppercase tracking-widest text-center">
+<div class="text-left pl-2 uppercase">Module / Ressource</div>
+<div>Lecture</div>
+<div>Écriture</div>
+<div>Validation</div>
+</div>
+<!-- Rows -->
+<div class="permission-grid p-4 items-center text-sm">
+<div class="font-medium text-slate-900 dark:text-slate-100 flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg">description</span>
+                                    Actes de Naissance
+                                </div>
+<div class="flex justify-center"><span class="material-symbols-outlined text-green-500">check_circle</span></div>
+<div class="flex justify-center"><span class="material-symbols-outlined text-green-500">check_circle</span></div>
+<div class="flex justify-center"><span class="material-symbols-outlined text-slate-300">do_not_disturb_on</span></div>
+</div>
+<div class="permission-grid p-4 items-center text-sm">
+<div class="font-medium text-slate-900 dark:text-slate-100 flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg">event</span>
+                                    Gestion des Mariages
+                                </div>
+<div class="flex justify-center"><span class="material-symbols-outlined text-green-500">check_circle</span></div>
+<div class="flex justify-center"><span class="material-symbols-outlined text-slate-300">do_not_disturb_on</span></div>
+<div class="flex justify-center"><span class="material-symbols-outlined text-slate-300">do_not_disturb_on</span></div>
+</div>
+<div class="permission-grid p-4 items-center text-sm">
+<div class="font-medium text-slate-900 dark:text-slate-100 flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg">payments</span>
+                                    Taxes Municipales
+                                </div>
+<div class="flex justify-center"><span class="material-symbols-outlined text-green-500">check_circle</span></div>
+<div class="flex justify-center"><span class="material-symbols-outlined text-green-500">check_circle</span></div>
+<div class="flex justify-center"><span class="material-symbols-outlined text-green-500">check_circle</span></div>
+</div>
+<div class="permission-grid p-4 items-center text-sm">
+<div class="font-medium text-slate-900 dark:text-slate-100 flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg">folder_shared</span>
+                                    Données Citoyens
+                                </div>
+<div class="flex justify-center"><span class="material-symbols-outlined text-green-500">check_circle</span></div>
+<div class="flex justify-center"><span class="material-symbols-outlined text-slate-300">do_not_disturb_on</span></div>
+<div class="flex justify-center"><span class="material-symbols-outlined text-slate-300">do_not_disturb_on</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Assigned Agents -->
+<div class="space-y-6">
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col h-full">
+<div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/50">
+<h3 class="font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">groups</span>
+                                Agents Assignés
+                            </h3>
+<span class="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded">12 Agents</span>
+</div>
+<div class="p-6 space-y-4 flex-1">
+<div class="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center font-bold text-slate-500">
+                                    OC
+                                </div>
+<div>
+<p class="text-sm font-bold">Ouedraogo Christophe</p>
+<p class="text-[11px] text-slate-500">Mairie Ouaga 2000</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center font-bold text-slate-500">
+                                    SK
+                                </div>
+<div>
+<p class="text-sm font-bold">Sawadogo Karidiatou</p>
+<p class="text-[11px] text-slate-500">Mairie Bogodogo</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center font-bold text-slate-500">
+                                    TI
+                                </div>
+<div>
+<p class="text-sm font-bold">Traoré Idrissa</p>
+<p class="text-[11px] text-slate-500">Mairie de Bobo</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center font-bold text-slate-500">
+                                    BK
+                                </div>
+<div>
+<p class="text-sm font-bold">Boni Koulsouma</p>
+<p class="text-[11px] text-slate-500">District Kadiogo</p>
+</div>
+</div>
+</div>
+<div class="p-4 bg-slate-50/50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-800">
+<button class="w-full text-center text-primary text-sm font-bold hover:underline">
+                                Voir tous les agents
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Meta -->
+<div class="flex justify-between items-center text-xs text-slate-400 border-t border-slate-200 dark:border-slate-800 pt-6">
+<p>Créé le : 14/03/2023 par Admin_Sys</p>
+<p>Dernière modification : 22/10/2023 - 10:45</p>
+</div>
+</div>
+</main>
+</div>
+</body></html>

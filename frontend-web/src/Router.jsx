@@ -13,6 +13,20 @@ import AgentListeDemandesPage from './pages/agent/AgentListeDemandesPage';
 import AgentDetailDemandePage from './pages/agent/AgentDetailDemandePage';
 import AgentArchivesPage from './pages/agent/AgentArchivesPage';
 import AgentProfilPage from './pages/agent/AgentProfilPage';
+import ProfilPage from './pages/ProfilPage';
+import NotificationsPage from './pages/NotificationsPage';
+
+import AdminDashboardPage from './pages/admin/AdminDashboardPage';
+import AdminDemandesPage from './pages/admin/AdminDemandesPage';
+import AdminRessourcesPage from './pages/admin/AdminRessourcesPage';
+import AdminSystemePage from './pages/admin/AdminSystemePage';
+import AdminStatistiquesPage from './pages/admin/AdminStatistiquesPage';
+import AdminLogsPage from './pages/admin/AdminLogsPage';
+import AdminProfilPage from './pages/admin/AdminProfilPage';
+import AdminDetailAgentPage from './pages/admin/AdminDetailAgentPage';
+import AdminDetailDocumentPage from './pages/admin/AdminDetailDocumentPage';
+import AdminDetailServicePage from './pages/admin/AdminDetailServicePage';
+import AdminDetailRolePage from './pages/admin/AdminDetailRolePage';
 
 /**
  * Protected Route Component
@@ -29,16 +43,18 @@ const ProtectedRoute = ({ children, roles = [] }) => {
 
   // Simplified role check for agents
   const userRole = user.role;
-  const isAgent = userRole.startsWith('AGENT_') || userRole === 'SUPERVISEUR';
+  const isAdmin = userRole === 'ADMIN' || user.isAdmin === true;
+  const isAgent = userRole.startsWith('AGENT_') || userRole === 'SUPERVISEUR' || user.isAgent === true;
   
   const hasAccess = roles.length === 0 || 
                     roles.includes(userRole) || 
+                    (roles.includes('ADMIN') && isAdmin) ||
                     (roles.includes('AGENT') && isAgent);
 
   if (!hasAccess) {
     // Redirect to their respective home dashboard if they try to access something they shouldn't
+    if (isAdmin) return <Navigate to="/admin/dashboard" replace />;
     if (isAgent) return <Navigate to="/agent/dashboard" replace />;
-    if (userRole === 'ADMIN') return <Navigate to="/admin/dashboard" replace />;
     return <Navigate to="/dashboard" replace />;
   }
 
@@ -125,6 +141,96 @@ const AppRouter = () => {
         element={
           <ProtectedRoute roles={['AGENT']}>
             <AgentProfilPage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Admin Routes */}
+      <Route
+        path="/admin/dashboard"
+        element={
+          <ProtectedRoute roles={['ADMIN']}>
+            <AdminDashboardPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/demandes"
+        element={
+          <ProtectedRoute roles={['ADMIN']}>
+            <AdminDemandesPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/ressources"
+        element={
+          <ProtectedRoute roles={['ADMIN']}>
+            <AdminRessourcesPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/systeme"
+        element={
+          <ProtectedRoute roles={['ADMIN']}>
+            <AdminSystemePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/statistiques"
+        element={
+          <ProtectedRoute roles={['ADMIN']}>
+            <AdminStatistiquesPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/logs"
+        element={
+          <ProtectedRoute roles={['ADMIN']}>
+            <AdminLogsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/profil"
+        element={
+          <ProtectedRoute roles={['ADMIN']}>
+            <AdminProfilPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/agents/:id"
+        element={
+          <ProtectedRoute roles={['ADMIN']}>
+            <AdminDetailAgentPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/documents/:id"
+        element={
+          <ProtectedRoute roles={['ADMIN']}>
+            <AdminDetailDocumentPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/services/:id"
+        element={
+          <ProtectedRoute roles={['ADMIN']}>
+            <AdminDetailServicePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/roles/:id"
+        element={
+          <ProtectedRoute roles={['ADMIN']}>
+            <AdminDetailRolePage />
           </ProtectedRoute>
         }
       />

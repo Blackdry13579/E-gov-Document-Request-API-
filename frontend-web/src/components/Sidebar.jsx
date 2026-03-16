@@ -22,9 +22,11 @@ const Sidebar = () => {
     ADMIN: [
       { path: '/admin/dashboard', icon: 'dashboard', label: 'Tableau de bord' },
       { path: '/admin/demandes', icon: 'description', label: 'Demandes' },
-      { path: '/admin/users', icon: 'group', label: 'Utilisateurs' },
-      { path: '/admin/documents', icon: 'article', label: 'Documents' },
-      { path: '/admin/logs', icon: 'list_alt', label: 'Logs' },
+      { path: '/admin/ressources', icon: 'inventory_2', label: 'Agents + Documents' },
+      { path: '/admin/systeme', icon: 'account_balance', label: 'Services + Rôles' },
+      { path: '/admin/statistiques', icon: 'analytics', label: 'Statistiques' },
+      { path: '/admin/logs', icon: 'history', label: 'Historique Global' },
+      { path: '/admin/profil', icon: 'person', label: 'Mon Profil' },
     ]
   };
 
