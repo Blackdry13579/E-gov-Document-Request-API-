@@ -68,3 +68,10 @@ Thumbs.db
 # ================================
 coverage/
 .nyc_output/
+# ================================
+# INTERFACES HTML (référence)
+# ================================
+admin/
+citoyen/
+agent/
+
