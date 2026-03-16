@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../../components/Sidebar';
 import adminService from '../../services/adminService';
-import { 
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
-  AreaChart, Area, PieChart, Pie, Cell 
-} from 'recharts';
-import { 
   Users, FileText, TrendingUp, Clock, 
   Download, RefreshCw, Filter, Calendar,
-  ArrowUpRight, ArrowDownRight, Activity
+  ArrowUpRight, ArrowDownRight, Activity, PieChart as PieChartIcon, 
+  YAxis, XAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart, BarChart, Bar, Cell, Pie, PieChart
 } from 'lucide-react';
+import { 
+  BarChart as RechartsBarChart, Bar as RechartsBar, XAxis as RechartsXAxis, YAxis as RechartsYAxis, 
+  CartesianGrid as RechartsCartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer as RechartsResponsiveContainer, 
+  AreaChart as RechartsAreaChart, Area as RechartsArea, PieChart as RechartsPieChart, Pie as RechartsPie, Cell as RechartsCell 
+} from 'recharts';
 
 const COLORS = ['#003366', '#ec5b13', '#10b981', '#f59e0b', '#6366f1'];
 

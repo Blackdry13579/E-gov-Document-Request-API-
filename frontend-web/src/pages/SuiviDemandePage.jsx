@@ -5,9 +5,10 @@ import Card from '../components/Card';
 import Badge from '../components/Badge';
 import Loader from '../components/Loader';
 import Button from '../components/Button';
-import { demandeService } from '../services/demande';
+import { demandeService } from '../services/demandeService';
 import { formatDate, STATUS_COLORS } from '../utils/constants';
 import { useNotif } from '../context/NotifContext';
+import { cn } from '../utils/cn';
 
 const SuiviDemandePage = () => {
   const { id } = useParams();
@@ -157,9 +158,6 @@ const SuiviDemandePage = () => {
   );
 };
 
-// Helper inside for better isolation in this mock
-function cn(...inputs) {
-  return inputs.filter(Boolean).join(' ');
-}
+
 
 export default SuiviDemandePage;

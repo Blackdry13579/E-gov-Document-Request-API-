@@ -4,7 +4,7 @@ import Sidebar from '../../components/Sidebar';
 import adminService from '../../services/adminService';
 import { 
   Building2, User, Mail, MapPin, 
-  Edit3, Download, FolderOpen, Badge, 
+  Edit3, Download, FolderOpen, Shield, 
   Plus, MoreVertical, FileText, Briefcase,
   ExternalLink, CheckCircle
 } from 'lucide-react';
@@ -74,7 +74,7 @@ const AdminDetailServicePage = () => {
                 <p className="text-lg text-slate-500 font-medium">{service.description || "Description non fournie."}</p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-                <HeroInfoBox label="Code Service" value={service.code} icon={<Badge className="text-primary" />} />
+                <HeroInfoBox label="Code Service" value={service.code} icon={<Shield className="text-primary" />} />
                 <HeroInfoBox label="Statut" value={service.actif ? "ACTIF" : "INACTIF"} icon={<CheckCircle className={service.actif ? "text-green-500" : "text-amber-500"} />} />
                 <HeroInfoBox label="Localisation" value="Ouagadougou, Zone des Ministères" icon={<MapPin className="text-primary" />} />
               </div>

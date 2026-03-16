@@ -5,10 +5,12 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, Legend
 } from 'recharts';
-import { 
   Activity, Users, FileText, CreditCard, 
-  TrendingUp, AlertTriangle, CheckCircle, Clock 
+  TrendingUp, AlertTriangle, CheckCircle, Clock, Legend, BarChart, Bar, 
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell
 } from 'lucide-react';
+import Card from '../../components/Card';
+import Alert from '../../components/ui/Alert';
 
 const AdminDashboardPage = () => {
   const [stats, setStats] = useState(null);

@@ -6,7 +6,7 @@ import Card from '../../components/Card';
 import Button from '../../components/Button';
 import Badge from '../../components/Badge';
 import Loader from '../../components/Loader';
-import Alert from '../../components/Alert';
+import Alert from '../../components/ui/Alert';
 import agentService from '../../services/agentService';
 
 const AgentDetailDemandePage = () => {

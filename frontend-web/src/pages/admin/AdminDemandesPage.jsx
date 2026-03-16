@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../../components/Sidebar';
 import adminService from '../../services/adminService';
 import { Search, Filter, Calendar, ChevronLeft, ChevronRight, Eye, Clock, CheckCircle, AlertCircle, Info } from 'lucide-react';
+import Card from '../../components/Card';
+import Button from '../../components/Button';
+import Badge from '../../components/Badge';
 
 const AdminDemandesPage = () => {
   const [demandes, setDemandes] = useState([]);

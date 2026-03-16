@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import adminService from '../../services/adminService';
 import { 
@@ -6,8 +7,10 @@ import {
   MoreVertical, Edit2, Shield, Trash2,
   CheckCircle, XCircle, UserPlus, FilePlus
 } from 'lucide-react';
+import Badge from '../../components/Badge';
 
 const AdminRessourcesPage = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('agents');
   const [agents, setAgents] = useState([]);
   const [documents, setDocuments] = useState([]);
@@ -91,7 +94,10 @@ const AdminRessourcesPage = () => {
               {activeTab === 'agents' ? <Users className="text-primary" /> : <FileText className="text-primary" />}
               {activeTab === 'agents' ? 'Répertoire des Agents' : 'Tous les Documents Officiels'}
             </h2>
-            <button className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-xl font-bold text-sm hover:bg-blue-800 transition-all shadow-md">
+            <button 
+              onClick={() => navigate(activeTab === 'agents' ? '/admin/agents/nouveau' : '/admin/documents/nouveau')}
+              className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-xl font-bold text-sm hover:bg-blue-800 transition-all shadow-md"
+            >
               {activeTab === 'agents' ? <UserPlus size={16} /> : <FilePlus size={16} />}
               {activeTab === 'agents' ? 'Nouvel Agent' : 'Nouveau Type de Document'}
             </button>

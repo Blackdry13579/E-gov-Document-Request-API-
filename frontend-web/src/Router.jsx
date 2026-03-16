@@ -27,6 +27,10 @@ import AdminDetailAgentPage from './pages/admin/AdminDetailAgentPage';
 import AdminDetailDocumentPage from './pages/admin/AdminDetailDocumentPage';
 import AdminDetailServicePage from './pages/admin/AdminDetailServicePage';
 import AdminDetailRolePage from './pages/admin/AdminDetailRolePage';
+import AdminAjouterAgentPage from './pages/admin/AdminAjouterAgentPage';
+import AdminAjouterDocumentPage from './pages/admin/AdminAjouterDocumentPage';
+import AdminAjouterServicePage from './pages/admin/AdminAjouterServicePage';
+import AdminAjouterRolePage from './pages/admin/AdminAjouterRolePage';
 
 /**
  * Protected Route Component
@@ -231,6 +235,38 @@ const AppRouter = () => {
         element={
           <ProtectedRoute roles={['ADMIN']}>
             <AdminDetailRolePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/agents/nouveau"
+        element={
+          <ProtectedRoute roles={['ADMIN']}>
+            <AdminAjouterAgentPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/documents/nouveau"
+        element={
+          <ProtectedRoute roles={['ADMIN']}>
+            <AdminAjouterDocumentPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/services/nouveau"
+        element={
+          <ProtectedRoute roles={['ADMIN']}>
+            <AdminAjouterServicePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/roles/nouveau"
+        element={
+          <ProtectedRoute roles={['ADMIN']}>
+            <AdminAjouterRolePage />
           </ProtectedRoute>
         }
       />

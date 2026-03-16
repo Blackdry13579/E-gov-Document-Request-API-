@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import adminService from '../../services/adminService';
 import { 
@@ -8,6 +9,7 @@ import {
 } from 'lucide-react';
 
 const AdminSystemePage = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('services');
   const [services, setServices] = useState([]);
   const [roles, setRoles] = useState([]);
@@ -88,7 +90,10 @@ const AdminSystemePage = () => {
               <h2 className="text-lg font-bold text-slate-800">
                 {activeTab === 'services' ? 'Catalogue des Services Publics' : 'Habilitations et Rôles'}
               </h2>
-              <button className="flex items-center gap-2 px-4 py-2 bg-primary text-white text-xs font-bold rounded-xl hover:bg-blue-800 transition-all shadow-md">
+              <button 
+                onClick={() => navigate(activeTab === 'services' ? '/admin/services/nouveau' : '/admin/roles/nouveau')}
+                className="flex items-center gap-2 px-4 py-2 bg-primary text-white text-xs font-bold rounded-xl hover:bg-blue-800 transition-all shadow-md"
+              >
                 <Plus size={16} /> {activeTab === 'services' ? 'Nouveau Service' : 'Nouveau Rôle'}
               </button>
             </div>

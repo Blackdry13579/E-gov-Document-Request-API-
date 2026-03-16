@@ -1,9 +1,9 @@
 import React from 'react';
 import { useLocation, Link, Navigate } from 'react-router-dom';
-import Layout from '../components/Layout';
-import Navbar from '../components/Navbar';
-import Card from '../components/Card';
-import Button from '../components/Button';
+import Layout from '../../components/Layout';
+import Navbar from '../../components/Navbar';
+import Card from '../../components/Card';
+import Button from '../../components/Button';
 
 const ConfirmationPage = () => {
   const location = useLocation();
