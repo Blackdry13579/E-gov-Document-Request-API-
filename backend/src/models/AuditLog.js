@@ -29,7 +29,7 @@ const auditLogSchema = new mongoose.Schema(
     auteurIp: String,
     cibleType: {
       type: String,
-      enum: ['Demande', 'User', 'DocumentType', 'Systeme']
+      enum: ['Demande', 'User', 'DocumentType', 'Service', 'Role', 'Systeme']
     },
     cibleId: mongoose.Schema.Types.ObjectId,
     cibleReference: String,

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>E-Gov Burkina - Tableau de Bord Administratif</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1e3a8a", // Royal Blue
+                        "accent": "#d4af37",  // Gold
+                        "background-light": "#f8fafc",
+                        "background-dark": "#0f172a",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .material-symbols-outlined { font-size: 24px; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0">
+<div class="p-6 flex items-center gap-3">
+<div class="h-12 w-12 bg-primary rounded-xl flex items-center justify-center text-white">
+<img class="h-10 w-10 object-contain" data-alt="Logo E-Gov Burkina Faso" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDduhicqbDHSiIu-eKRrkT5R4yuIqKuNpj0CEo7j7NFPJfrjPbil7HaQvKSEC58bOZVmYGY2ogHoeYtwd1N0Vu78R_I9TMr6sgJOjtM_bERM_xOBwr5zmApeONVYthZBRfCNLVmg9AANvPWxh_b3HuouqI49oyDdvklQ1Gjn2XtJE0rmJj8c6RyyXPjJAoNxx2nVHVmc3vGwueWUoqkPl1nQZbxzpQzjmNEXqryHobkBjhPBjAbQQC5F6gFF9M0Dr_OcY_A3Br_Z7I"/>
+</div>
+<div>
+<h1 class="font-bold text-primary dark:text-white text-lg leading-tight">E-Gov</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Burkina Faso</p>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-md shadow-primary/20 transition-all" href="#">
+<span class="material-symbols-outlined fill-1">dashboard</span>
+<span class="font-semibold text-sm">Tableau de bord</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-medium text-sm">Liste des demandes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-medium text-sm">Profil</span>
+</a>
+<div class="pt-8 pb-2 px-4">
+<p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Administration</p>
+</div>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium text-sm">Paramètres</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
+<div class="h-10 w-10 rounded-full bg-accent/20 flex items-center justify-center text-accent">
+<span class="material-symbols-outlined">account_circle</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-sm font-bold truncate">Jean-Paul Sawadogo</p>
+<p class="text-xs text-slate-500 truncate">Agent Administratif</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto bg-slate-50 dark:bg-background-dark">
+<!-- Header -->
+<header class="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 sticky top-0 z-10">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3 border-r pr-6 border-slate-200 dark:border-slate-700">
+<img class="h-10" data-alt="Armoiries officielles du Burkina Faso" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJXfRuZXr7MFGXNMvsqH8FSOPsmS9T-w5gkyyghT5y7BUatgakzXzQJiYpUAYQF3Gq2Mi_KK7BRmBATdlpFiC6MhXTJDx9OfcOIN0ch5_4zBLA4WNqyCHsSY2FkP24Wk9zd_hg8cU6qJszRQ19zWzXGHcceu851IKP0vy4K7S0h83IJmRwqyfJ6ssNoATCDRTFRoteIPBdTRwzClucsFnOKC5z5OC3L533NV9Kd21iKk7H4sJeZYz4Yq1gl54gkggcv_Yy-181zYU"/>
+<div class="hidden md:block">
+<p class="text-[10px] font-bold text-primary dark:text-accent uppercase leading-tight">Burkina Faso</p>
+<p class="text-[9px] text-slate-500 leading-tight">Unité - Progrès - Justice</p>
+</div>
+</div>
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 border-none focus:ring-2 focus:ring-primary/50 text-sm" placeholder="Rechercher une demande, un dossier..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 h-2 w-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+</header>
+<!-- Dashboard Body -->
+<div class="p-8 space-y-8">
+<!-- Welcome Banner -->
+<div class="relative h-60 rounded-3xl overflow-hidden shadow-2xl">
+<div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent z-10"></div>
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Monument de la Place de la Nation à Ouagadougou" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC47blHSEGj_KiR-JYLdEuIcvGrWKhxHa4p3eFrKC-UknlFsqyZtS8JGAGOTv_eyvDvkPTtjf9So4GVwieNacHCq27C0F6coJqdHKZwVoXy9PzCkwmM0N3xA_lM8bwunUQkOjL4NBE-fbD0WtG4IWHwFVZg-X7Z0-Rl2pAVDGy3cppzWzAVO6WvGxTfo0Y1-FuPeVvI4C2j3I_Tb16m-YEstsG4_eWatakxSFxOVu-NYnSKKLwjOgwtq-z7JsMDqbuKxI5e1l9-GUY');"></div>
+<div class="relative z-20 h-full flex flex-col justify-center px-12 text-white">
+<h2 class="text-3xl font-bold mb-2">Bienvenue, Agent Sawadogo</h2>
+<p class="text-white/80 max-w-lg">Votre interface de gestion administrative centralisée pour le traitement efficace des services publics de l'État.</p>
+<div class="mt-6 flex gap-4">
+<button class="bg-accent hover:bg-accent/90 text-primary font-bold px-6 py-2.5 rounded-xl transition-all shadow-lg text-sm">
+                                Nouvelle Procédure
+                            </button>
+<button class="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white font-bold px-6 py-2.5 rounded-xl transition-all text-sm">
+                                Rapports Mensuels
+                            </button>
+</div>
+</div>
+</div>
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-6 group hover:border-primary/30 transition-all">
+<div class="h-16 w-16 bg-orange-100 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center text-orange-600 dark:text-orange-400 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-3xl">pending_actions</span>
+</div>
+<div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Demandes en attente</p>
+<h3 class="text-2xl font-bold">124</h3>
+<p class="text-xs text-green-600 font-bold mt-1">+12% cette semaine</p>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-6 group hover:border-primary/30 transition-all">
+<div class="h-16 w-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-primary dark:text-blue-400 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-3xl">task_alt</span>
+</div>
+<div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Demandes traitées</p>
+<h3 class="text-2xl font-bold">1,450</h3>
+<p class="text-xs text-slate-400 font-medium mt-1">Mise à jour il y a 5 min</p>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-6 group hover:border-primary/30 transition-all">
+<div class="h-16 w-16 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center text-green-600 dark:text-green-400 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-3xl">verified</span>
+</div>
+<div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Taux de réussite</p>
+<h3 class="text-2xl font-bold">98%</h3>
+<p class="text-xs text-green-600 font-bold mt-1">+2.4% vs mois dernier</p>
+</div>
+</div>
+</div>
+<!-- Recent Activities & Tasks -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Activities List -->
+<div class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+<h2 class="text-lg font-bold">Activités récentes</h2>
+<button class="text-primary dark:text-blue-400 text-sm font-bold hover:underline">Voir tout</button>
+</div>
+<div class="divide-y divide-slate-50 dark:divide-slate-800">
+<div class="p-6 flex items-start gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-xl">description</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-1">
+<h4 class="text-sm font-bold">Nouveau dossier CNIB reçu</h4>
+<span class="text-xs text-slate-400">Il y a 10 min</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400">Demande n° 2024-BF-00982 soumise par Moussa Traoré (Ouagadougou).</p>
+<div class="mt-3 flex gap-2">
+<button class="px-3 py-1 bg-primary text-white text-xs font-bold rounded-lg">Consulter</button>
+<button class="px-3 py-1 border border-slate-200 dark:border-slate-700 text-xs font-bold rounded-lg hover:bg-slate-100">Ignorer</button>
+</div>
+</div>
+</div>
+<div class="p-6 flex items-start gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 shrink-0">
+<span class="material-symbols-outlined text-xl">check_circle</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-1">
+<h4 class="text-sm font-bold">Casier Judiciaire validé</h4>
+<span class="text-xs text-slate-400">Il y a 1h</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400">La vérification des antécédents pour le dossier n° 2024-BF-00871 est terminée.</p>
+</div>
+</div>
+<div class="p-6 flex items-start gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
+<span class="material-symbols-outlined text-xl">assignment</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-1">
+<h4 class="text-sm font-bold">Mise à jour du système</h4>
+<span class="text-xs text-slate-400">Il y a 3h</span>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400">Le portail E-Gov a été mis à jour avec les nouveaux formulaires fonciers.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Shortcuts or Quick Actions -->
+<div class="space-y-6">
+<div class="bg-primary p-6 rounded-3xl text-white shadow-xl shadow-primary/20">
+<h3 class="text-lg font-bold mb-4">Aide au Traitement</h3>
+<p class="text-sm text-white/70 mb-6 leading-relaxed">Besoin d'aide pour une procédure complexe ? Consultez le guide interactif de l'agent.</p>
+<a class="block w-full text-center py-3 bg-white text-primary rounded-xl font-bold text-sm hover:bg-slate-100 transition-colors" href="#">Ouvrir le manuel</a>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800">
+<h3 class="text-lg font-bold mb-4">Statut des services</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium">Portail Citoyen</span>
+<span class="flex items-center gap-1.5 text-green-500 text-xs font-bold">
+<span class="h-2 w-2 rounded-full bg-green-500"></span> Opérationnel
+                                    </span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium">Base de données CNIB</span>
+<span class="flex items-center gap-1.5 text-green-500 text-xs font-bold">
+<span class="h-2 w-2 rounded-full bg-green-500"></span> Opérationnel
+                                    </span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium">Passerelle de paiement</span>
+<span class="flex items-center gap-1.5 text-orange-500 text-xs font-bold">
+<span class="h-2 w-2 rounded-full bg-orange-500"></span> Ralentissement
+                                    </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="p-8 text-center text-slate-400 text-xs">
+<p>© 2024 Gouvernement du Burkina Faso - Ministère de la Transition Digitale, des Postes et des Communications Électroniques.</p>
+</footer>
+</main>
+</div>
+</body></html>

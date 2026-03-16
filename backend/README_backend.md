@@ -22,9 +22,11 @@ API REST sécurisée pour la gestion des demandes de documents administratifs en
    cp .env.example .env
    # Renseigner les variables dans .env
    ```
-4. Seeder les types de documents :
+4. Seeding & Migration (Automatique) :
+   Les services, rôles et documents sont automatiquement créés/migrés au premier démarrage.
+   Pour forcer un seed manuel (optionnel) :
    ```bash
-   node src/scripts/seed.js
+   # Optionnel : node src/config/seeds.js (si configuré pour export direct)
    ```
 5. Lancer en mode développement :
    ```bash
@@ -72,6 +74,9 @@ API REST sécurisée pour la gestion des demandes de documents administratifs en
 | GET | /stats | Dashboard global | Admin |
 | GET | /users | Gestion utilisateurs | Admin |
 | POST | /users | Création Agent/Admin | Admin |
+| GET | /services | Gérer les services | Admin |
+| GET | /roles | Gérer les rôles | Admin |
+| POST | /documents | Ajouter document | Admin |
 | GET | /logs | Audit Logs | Admin |
 
 ## Sécurité & Robustesse

@@ -10,7 +10,7 @@ const documentTypeSchema = new mongoose.Schema(
       required: [true, 'Le code est obligatoire'],
       unique: true,
       uppercase: true,
-      enum: ['NAISSANCE', 'MARIAGE', 'DECES', 'CASIER', 'NATIONALITE']
+      trim: true
     },
     nom: {
       type: String,
@@ -25,10 +25,10 @@ const documentTypeSchema = new mongoose.Schema(
       enum: ['ETAT_CIVIL', 'JUDICIAIRE'],
       required: [true, 'La catégorie est obligatoire']
     },
-    service: {
-      type: String,
-      enum: ['mairie', 'justice'],
-      required: [true, 'Le service est obligatoire']
+    serviceId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Service',
+      required: [true, 'Le service associé est obligatoire']
     },
     frais: {
       type: Number,

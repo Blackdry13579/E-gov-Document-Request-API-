@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#003366", // Bleu Royal Institutionnel
+                        "accent": "#ec5b13", // Accent color from original theme config
+                        "background-light": "#f8f9fa",
+                        "background-dark": "#0a1128",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<title>Profil Agent - Administration Centrale</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="flex min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="w-72 bg-primary dark:bg-slate-900 text-white flex flex-col sticky top-0 h-screen shadow-xl">
+<div class="p-6 flex flex-col gap-8 h-full">
+<!-- Brand/Logo Area -->
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center p-2">
+<img class="object-contain" data-alt="Armoiries officielles de l'administration centrale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ6E1g6o7R00RNhpvOhETizdt3La5asEZXYhuv9luTpY9zp-K8QFCD7DfeqJXcY-KvXj3-b8bE8RQ8gPHlmwIij71szKhbH9foQ-zfH95-a8sfvQtgxzlchIAvpHis3APVdCXWxR4w3MJrmyQ9p6X1YMu3ifGEvcZc612t3-k1sfQ8hlUeykAab7mQCLGhl-Pyk3ftKgm44B0Y8NnZj7GpIZ5UGvb-zngtSpUdKro3TmWHOHGnBwd06cQr4aJvmRdeonPZ1mhzptU"/>
+</div>
+<div>
+<h1 class="text-sm font-bold uppercase tracking-wider leading-tight">République<br/>Française</h1>
+</div>
+</div>
+<!-- Nav Links -->
+<nav class="flex flex-col gap-2 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors group" href="#">
+<span class="material-symbols-outlined text-white/70 group-hover:text-white">dashboard</span>
+<span class="font-medium text-sm">Tableau de bord</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors group" href="#">
+<span class="material-symbols-outlined text-white/70 group-hover:text-white">description</span>
+<span class="font-medium text-sm">Liste des demandes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-white text-primary" href="#">
+<span class="material-symbols-outlined fill-1">person</span>
+<span class="font-bold text-sm">Mon Profil</span>
+</a>
+</nav>
+<!-- Footer Sidebar -->
+<div class="pt-6 border-t border-white/10">
+<button class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-500/20 text-red-100 transition-colors w-full group">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-medium text-sm">Déconnexion</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- Header Section -->
+<header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-8 py-4 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="text-slate-400">Portail Agent</span>
+<span class="material-symbols-outlined text-sm text-slate-400">chevron_right</span>
+<span class="font-semibold text-primary dark:text-blue-400">Espace Profil</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-8 w-px bg-slate-200"></div>
+<div class="flex items-center gap-3">
+<span class="text-sm font-medium">Jean Dupont</span>
+<div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait professionnel de l'agent Jean Dupont" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5NFXlf68jTkxlWumZ5MWlS9TASoaTKrGl7JvOn30bNnUWRtg85elN9j0kUL6qRXhsv7YvDfAIQtKuMgB3IyswWRs2Ewpjd6GMWGyogRqdPoXo9ifS-Ruzd6-891912ng3o6w_nPjL5e83dVyor7JdbypSZ99GFPTbYTeUoRa91YlLp1Owsf3vzghe1N54yBoqDMe7iR1ymlceNcWtPQklE6Oe_FyXr3RSTYnUx-U17fOq6j_Sos0TP0MbvHPRk2PVfe11PewWVcc"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="p-8 space-y-8 overflow-y-auto">
+<!-- Profile Header Card -->
+<div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+<div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
+<div class="relative">
+<div class="w-32 h-32 rounded-xl overflow-hidden ring-4 ring-primary/5">
+<img class="w-full h-full object-cover" data-alt="Photo d'identité professionnelle de l'agent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEzLBpvj1rivU3XU9tZx3qRBWaBCS4qzPFfiXc0igQuvTBR92GV3QXsx-LReNq1eLPfzQIPyxp3AyR5yAPvGdt0v6w2tgZZ8RM8Nvn6_bvQDrbc5yQQ8iOfSytsYrYAaHNImyi8tydk2SoAEEwj43zi2FAZHmgMik9KBWgbgeg1mDkqP4P_PCv20QnD0qttJ9PR7TE1TcC8LRx1j7vJWIihQ_pL4wsPM5i88TRqI77PJU06gfYPcQyUty1CQ8QQ4ExuVna8O88IWM"/>
+</div>
+<button class="absolute -bottom-2 -right-2 bg-primary text-white p-2 rounded-lg shadow-lg">
+<span class="material-symbols-outlined text-sm">photo_camera</span>
+</button>
+</div>
+<div class="flex-1 text-center md:text-left">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h2 class="text-3xl font-bold text-slate-900 dark:text-white">Jean Dupont</h2>
+<p class="text-primary dark:text-blue-400 font-semibold mt-1">Agent Administratif Principal</p>
+<div class="flex flex-wrap justify-center md:justify-start gap-3 mt-3">
+<span class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Matricule: ADM-2023-089</span>
+<span class="bg-blue-50 dark:bg-blue-900/30 text-primary dark:text-blue-300 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">corporate_fare</span>
+                                            Ressources Humaines
+                                        </span>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-xl font-bold transition-all shadow-md">
+<span class="material-symbols-outlined text-lg">edit</span>
+                                        Modifier le profil
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Professional Info Section -->
+<div class="lg:col-span-2 space-y-6">
+<section class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-700/30">
+<h3 class="font-bold text-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">badge</span>
+                                    Informations Professionnelles
+                                </h3>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+<div class="space-y-1">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Date d'embauche</p>
+<p class="text-sm font-semibold text-slate-700 dark:text-slate-200">12 Mai 2018</p>
+</div>
+<div class="space-y-1">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Bureau</p>
+<p class="text-sm font-semibold text-slate-700 dark:text-slate-200">Aile B, Bureau 204</p>
+</div>
+<div class="space-y-1">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-widest">E-mail professionnel</p>
+<p class="text-sm font-semibold text-primary hover:underline cursor-pointer">j.dupont@institution.gouv.fr</p>
+</div>
+<div class="space-y-1">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Téléphone interne</p>
+<p class="text-sm font-semibold text-slate-700 dark:text-slate-200">Poste 4421</p>
+</div>
+<div class="space-y-1">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Supérieur hiérarchique</p>
+<div class="flex items-center gap-2 mt-1">
+<div class="w-6 h-6 rounded-full bg-slate-200"></div>
+<p class="text-sm font-semibold text-slate-700 dark:text-slate-200">Marie Valadon (Directrice RH)</p>
+</div>
+</div>
+<div class="space-y-1">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Statut</p>
+<span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                        En poste
+                                    </span>
+</div>
+</div>
+</section>
+<section class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+<h3 class="font-bold text-lg mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">history</span>
+                                Historique des Activités Récentes
+                            </h3>
+<div class="space-y-4">
+<div class="flex gap-4 pb-4 border-b border-slate-100 dark:border-slate-700 last:border-0 last:pb-0">
+<div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">task</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-slate-800 dark:text-slate-100">Dossier #7829 validé</p>
+<p class="text-xs text-slate-500">Aujourd'hui, 10:45</p>
+</div>
+</div>
+<div class="flex gap-4 pb-4 border-b border-slate-100 dark:border-slate-700 last:border-0 last:pb-0">
+<div class="w-10 h-10 rounded-lg bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center text-accent">
+<span class="material-symbols-outlined">update</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-slate-800 dark:text-slate-100">Mise à jour du profil professionnel</p>
+<p class="text-xs text-slate-500">Hier, 16:20</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Performance Stats Section -->
+<div class="space-y-6">
+<section class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+<h3 class="font-bold text-lg mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">analytics</span>
+                                Statistiques de Performance
+                            </h3>
+<div class="space-y-8">
+<div>
+<div class="flex justify-between items-end mb-2">
+<p class="text-sm font-bold text-slate-600 dark:text-slate-400">Dossiers traités</p>
+<p class="text-2xl font-black text-primary dark:text-blue-400">142</p>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[85%] rounded-full"></div>
+</div>
+<p class="text-[10px] text-slate-400 mt-2 uppercase font-bold tracking-tighter text-right">Objectif mensuel: 160</p>
+</div>
+<div class="pt-6 border-t border-slate-100 dark:border-slate-700">
+<div class="flex items-center gap-4">
+<div class="flex-1">
+<p class="text-sm font-bold text-slate-600 dark:text-slate-400">Taux de satisfaction</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-yellow-500 fill-1">star</span>
+<span class="text-xl font-black">4.8</span>
+<span class="text-slate-400 font-medium">/ 5</span>
+</div>
+</div>
+<div class="w-16 h-16 rounded-full border-4 border-green-500 border-t-transparent flex items-center justify-center rotate-45">
+<span class="text-xs font-black text-green-600 -rotate-45">96%</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-100 dark:border-slate-600">
+<p class="text-[10px] font-bold text-slate-400 uppercase">Temps moyen</p>
+<p class="text-lg font-bold">2.4j</p>
+</div>
+<div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-100 dark:border-slate-600">
+<p class="text-[10px] font-bold text-slate-400 uppercase">En attente</p>
+<p class="text-lg font-bold text-accent">12</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Actions / Badge -->
+<div class="bg-primary/5 dark:bg-primary/10 rounded-xl border border-primary/10 p-6 relative overflow-hidden group">
+<div class="relative z-10">
+<h4 class="font-bold text-primary dark:text-blue-400 mb-2">Évaluation Annuelle</h4>
+<p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">Votre prochaine évaluation est prévue pour le 15 Décembre 2024.</p>
+<button class="text-xs font-bold text-primary underline underline-offset-4 decoration-primary/30 hover:decoration-primary">Voir les objectifs</button>
+</div>
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-8xl text-primary/5 dark:text-primary/10 select-none pointer-events-none transition-transform group-hover:scale-110">military_tech</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

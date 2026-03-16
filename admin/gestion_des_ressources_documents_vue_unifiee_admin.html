@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gestion des Ressources - Burkina Faso</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a5275",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#131a1f",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col">
+<div class="p-6 flex flex-col gap-1">
+<h1 class="text-primary font-bold text-lg leading-tight uppercase tracking-wider">Administration</h1>
+<p class="text-slate-500 text-xs font-medium uppercase tracking-widest">Burkina Faso</p>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Tableau de bord</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Demandes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-sm font-medium">Citoyens</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 bg-primary text-white rounded-lg shadow-sm" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Système</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="text-sm font-medium">Audit</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">account_circle</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-sm font-bold truncate">Admin Profil</p>
+<p class="text-xs text-slate-500 truncate">admin@gov.bf</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-y-auto">
+<!-- Header Official -->
+<header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-8 py-4 flex items-center justify-between sticky top-0 z-10">
+<div class="flex items-center gap-4">
+<img alt="Armoiries" class="h-12 w-auto" data-alt="Armoiries nationales du Burkina Faso" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo5mEq__IN5H7afdiejVbmnvE6KlsFOqEFlGSJbfzvYx3s_kx5GJNNIYmiyIhftiuDWU8OJnjgx3TIn0FLg8WIcrGM169Dc603rf-CwL9jXrWLjQsbOn3W0GlUg_avaNn_YXnE0CoIoFZsVM1XVod21Wx-3Kbf7B7BITcqWDFFhbefbLdyKv21kg4oIqfrwcZzngjscvP8taPSSSUWtdBN2WwVyxXBmsYb9dHFNlfmwHx--78oI3DkBz6thJ-mDLmv1eslkh9pN08"/>
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-700 mx-2"></div>
+<h2 class="text-xl font-bold text-slate-800 dark:text-white">Gestion des Ressources</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+</button>
+<div class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">shield_person</span>
+                        Portail Administrateur
+                    </div>
+</div>
+</header>
+<div class="p-8 max-w-7xl mx-auto w-full space-y-8">
+<!-- Tab Navigation -->
+<div class="border-b border-slate-200 dark:border-slate-800">
+<nav class="flex gap-8">
+<a class="pb-4 text-sm font-bold text-slate-500 hover:text-primary transition-colors border-b-2 border-transparent" href="#">
+                            Gestion des Agents
+                        </a>
+<a class="pb-4 text-sm font-bold text-primary border-b-2 border-primary" href="#">
+                            Gestion des Documents
+                        </a>
+</nav>
+</div>
+<!-- Statistics Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="p-2 bg-blue-50 text-blue-600 rounded-lg material-symbols-outlined">folder_open</span>
+<span class="text-xs font-bold text-slate-400 uppercase">Total</span>
+</div>
+<h3 class="text-slate-500 text-sm font-medium">Total Documents</h3>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-3xl font-bold">27</span>
+<span class="text-emerald-500 text-xs font-bold">+0%</span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="p-2 bg-emerald-50 text-emerald-600 rounded-lg material-symbols-outlined">check_circle</span>
+<span class="text-xs font-bold text-slate-400 uppercase">Actifs</span>
+</div>
+<h3 class="text-slate-500 text-sm font-medium">Documents Actifs</h3>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-3xl font-bold">24</span>
+<span class="text-emerald-500 text-xs font-bold">+0%</span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="p-2 bg-amber-50 text-amber-600 rounded-lg material-symbols-outlined">fiber_new</span>
+<span class="text-xs font-bold text-slate-400 uppercase">30 Jours</span>
+</div>
+<h3 class="text-slate-500 text-sm font-medium">Nouveaux</h3>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-3xl font-bold">2</span>
+<span class="text-emerald-500 text-xs font-bold">+2</span>
+</div>
+</div>
+</div>
+<!-- Main Content Section: Catalogue -->
+<section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="p-6 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h2 class="text-lg font-bold text-slate-800 dark:text-white">Catalogue des Documents</h2>
+<p class="text-sm text-slate-500">Gérez la liste officielle des documents administratifs</p>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg text-sm font-bold flex items-center justify-center gap-2 transition-all">
+<span class="material-symbols-outlined text-lg">add</span>
+                            Nouveau Document
+                        </button>
+</div>
+<!-- Filters and Search -->
+<div class="p-4 bg-slate-50 dark:bg-slate-800/50 flex flex-wrap items-center gap-4">
+<div class="flex-1 min-w-[300px] relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="Rechercher un document..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold text-slate-500 uppercase">Catégorie:</span>
+<select class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm px-3 py-2 outline-none">
+<option>Toutes les catégories</option>
+<option>État Civil</option>
+<option>Identité</option>
+<option>Justice</option>
+<option>Transport</option>
+</select>
+</div>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 text-xs font-bold uppercase tracking-wider">
+<tr>
+<th class="px-6 py-4">Nom du Document</th>
+<th class="px-6 py-4">Service Responsable</th>
+<th class="px-6 py-4 text-right">Coût (FCFA)</th>
+<th class="px-6 py-4">Délai</th>
+<th class="px-6 py-4">Statut</th>
+<th class="px-6 py-4 text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4">
+<div class="font-semibold text-slate-800 dark:text-white">CNIB</div>
+<div class="text-xs text-slate-500">Carte Nationale d'Identité</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">ONI</td>
+<td class="px-6 py-4 text-sm text-right font-medium">2 500</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">72 Heures</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                            Actif
+                                        </span>
+</td>
+<td class="px-6 py-4 text-center">
+<button class="text-primary hover:bg-primary/10 p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4">
+<div class="font-semibold text-slate-800 dark:text-white">Passeport Ordinaire</div>
+<div class="text-xs text-slate-500">Document de voyage</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">DGPC</td>
+<td class="px-6 py-4 text-sm text-right font-medium">50 000</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">15 Jours</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                            Actif
+                                        </span>
+</td>
+<td class="px-6 py-4 text-center">
+<button class="text-primary hover:bg-primary/10 p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4">
+<div class="font-semibold text-slate-800 dark:text-white">Casier Judiciaire</div>
+<div class="text-xs text-slate-500">Extrait de casier</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">Ministère de la Justice</td>
+<td class="px-6 py-4 text-sm text-right font-medium">500</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">48 Heures</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                            Actif
+                                        </span>
+</td>
+<td class="px-6 py-4 text-center">
+<button class="text-primary hover:bg-primary/10 p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4">
+<div class="font-semibold text-slate-800 dark:text-white">Permis de Construire</div>
+<div class="text-xs text-slate-500">Secteur Urbain</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">Mairie / Urbanisme</td>
+<td class="px-6 py-4 text-sm text-right font-medium">Variable</td>
+<td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">30 Jours</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700">
+<span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                            Inactif
+                                        </span>
+</td>
+<td class="px-6 py-4 text-center">
+<button class="text-primary hover:bg-primary/10 p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<p class="text-sm text-slate-500">Affichage de 1 à 4 sur 27 documents</p>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-sm hover:bg-slate-50">Précédent</button>
+<button class="px-3 py-1 bg-primary text-white rounded text-sm font-bold">1</button>
+<button class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-sm hover:bg-slate-50">2</button>
+<button class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-sm hover:bg-slate-50">3</button>
+<button class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-sm hover:bg-slate-50">Suivant</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Institutional Footer -->
+<footer class="mt-auto bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-6 px-8 text-center">
+<div class="flex flex-col items-center gap-2">
+<p class="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-widest">Burkina Faso</p>
+<p class="text-xs text-slate-500 uppercase tracking-widest">Unité - Progrès - Justice</p>
+<div class="h-1 w-24 bg-primary rounded-full my-2"></div>
+<p class="text-xs text-slate-400">© 2024 - Direction Générale de la Modernisation de l'Administration</p>
+</div>
+</footer>
+</main>
+</div>
+</body></html>
