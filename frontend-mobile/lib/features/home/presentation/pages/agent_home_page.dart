@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../core/constants/app_colors.dart';
-import '../../../requests/presentation/pages/agent_requests_page.dart';
+
+import 'package:egov_mobile/core/constants/app_colors.dart';
+import 'package:egov_mobile/features/shared/presentation/widgets/agent_bottom_nav.dart';
+import 'package:egov_mobile/features/shared/presentation/widgets/egov_app_bar.dart';
+import 'package:egov_mobile/features/requests/presentation/pages/agent_requests_page.dart';
 
 class AgentDashboardPage extends StatefulWidget {
   const AgentDashboardPage({super.key});
@@ -14,490 +17,330 @@ class AgentDashboardPage extends StatefulWidget {
 }
 
 class _AgentDashboardPageState extends State<AgentDashboardPage> {
-  int _currentIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: EgovAppBar(
+        backgroundColor: AppColors.white,
+        automaticallyImplyLeading: false,
+        leading: Container(
+          margin: const EdgeInsets.only(left: 16, top: 4, bottom: 4),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: AssetImage('assets/images/building.png'), // Placeholder
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        actions: const [
+          Icon(Icons.notifications_rounded, color: AppColors.primaryDark, size: 24),
+          SizedBox(width: 16),
+        ],
+      ),
       body: SafeArea(
-        child: Column(
-          children: [
-            const _AgentHeader(),
-            Expanded(
-              child: SingleChildScrollView(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 24),
+              
+              // ── Header Section
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const _HeroBuildingSection(),
-                    const _WelcomeAgentSection(),
-                    const _StatsSection(),
-                    const _RecentActivitiesHeader(),
-                    const _RecentActivitiesList(),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          if (index == 1) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => const AgentRequestsPage()),
-            );
-          } else {
-            setState(() => _currentIndex = index);
-          }
-        },
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: AppColors.primary,
-        unselectedItemColor: AppColors.textLight.withValues(alpha: 0.6),
-        selectedLabelStyle: GoogleFonts.outfit(
-          fontSize: 10,
-          fontWeight: FontWeight.w700,
-        ),
-        unselectedLabelStyle: GoogleFonts.outfit(
-          fontSize: 10,
-          fontWeight: FontWeight.w600,
-        ),
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: 'Accueil',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list_alt_rounded),
-            label: 'Demandes',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people_alt_outlined),
-            label: 'Citoyens',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
-            label: 'Profil',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ─── TOP HEADER ─────────────────────────────────────────────────────────────
-class _AgentHeader extends StatelessWidget {
-  const _AgentHeader();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-        border: Border(
-           bottom: BorderSide(color: AppColors.divider, width: 0.5),
-        )
-      ),
-      child: Row(
-        children: [
-          // Agent Profile Circle
-          Container(
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: const DecorationImage(
-                image: AssetImage('assets/images/hero_bg.png'), // Placeholder
-                fit: BoxFit.cover,
-              ),
-              border: Border.all(color: AppColors.accent, width: 2),
-            ),
-          ),
-          const SizedBox(width: 12),
-          // Logo & Country
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'E-GOV',
-                style: GoogleFonts.outfit(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.primary,
-                ),
-              ),
-              Text(
-                'BURKINA FASO',
-                style: GoogleFonts.outfit(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.accent,
-                  letterSpacing: 0.8,
-                ),
-              ),
-            ],
-          ),
-          const Spacer(),
-          // Notificationbell
-          Stack(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.05),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.notifications_rounded,
-                  color: AppColors.primary,
-                  size: 22,
-                ),
-              ),
-              Positioned(
-                right: 8,
-                top: 8,
-                child: Container(
-                  width: 8,
-                  height: 8,
-                  decoration: const BoxDecoration(
-                    color: Colors.redAccent,
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(width: 10),
-          // Service Logo
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.accent, width: 1.5),
-              color: const Color(0xFF678E82), // Tealeish color from screenshot
-            ),
-            child: const Icon(Icons.account_balance_rounded, color: Colors.white, size: 20),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ─── HERO BUILDING ──────────────────────────────────────────────────────────
-class _HeroBuildingSection extends StatelessWidget {
-  const _HeroBuildingSection();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(16),
-      height: 180,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(22),
-        image: const DecorationImage(
-          image: AssetImage('assets/images/hero_bg.png'),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(22),
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.black.withValues(alpha: 0.1),
-              Colors.black.withValues(alpha: 0.6),
-            ],
-          ),
-        ),
-        padding: const EdgeInsets.all(18),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              'Bâtiment Administratif Burkina Faso',
-              style: GoogleFonts.outfit(
-                fontSize: 11,
-                color: Colors.white.withValues(alpha: 0.9),
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const Spacer(),
-             Text(
-              'PATRIMOINE NATIONAL',
-              style: GoogleFonts.outfit(
-                fontSize: 10,
-                color: Colors.white.withValues(alpha: 0.7),
-                fontWeight: FontWeight.w800,
-                letterSpacing: 0.5,
-              ),
-            ),
-             Text(
-              'Cité Administrative',
-              style: GoogleFonts.outfit(
-                fontSize: 22,
-                color: Colors.white,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ─── WELCOME AGENT ──────────────────────────────────────────────────────────
-class _WelcomeAgentSection extends StatelessWidget {
-  const _WelcomeAgentSection();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Bonjour, Agent Sawadogo',
-            style: GoogleFonts.outfit(
-              fontSize: 24,
-              fontWeight: FontWeight.w800,
-              color: AppColors.textDark,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              const Icon(Icons.account_balance_rounded, size: 16, color: AppColors.primary),
-              const SizedBox(width: 8),
-              Text(
-                'Ministère de la Justice',
-                style: GoogleFonts.outfit(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.textMedium,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 6),
-          Row(
-            children: [
-              const Icon(Icons.location_on_rounded, size: 16, color: AppColors.primary),
-              const SizedBox(width: 8),
-              Text(
-                'OUAGADOUGOU, DISTRICT CENTRE',
-                style: GoogleFonts.outfit(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.textLight,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ─── STATS SECTION ──────────────────────────────────────────────────────────
-class _StatsSection extends StatelessWidget {
-  const _StatsSection();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          // Large Pending Card
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppColors.divider, width: 0.5),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Row(
-              children: [
-                // Gold Side Line
-                Container(
-                  width: 4,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: AppColors.accent,
-                    borderRadius: BorderRadius.circular(999),
-                  ),
-                ),
-                const SizedBox(width: 14),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
                     Text(
-                      'Demandes en attente',
+                      'Tableau de Bord',
                       style: GoogleFonts.outfit(
-                        fontSize: 14,
-                        color: AppColors.textLight,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w900,
+                        color: AppColors.textDark,
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      textBaseline: TextBaseline.alphabetic,
-                      children: [
-                        Text(
-                          '24',
-                          style: GoogleFonts.outfit(
-                            fontSize: 32,
-                            fontWeight: FontWeight.w800,
-                            color: AppColors.primary,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          '↗+5% cette semaine',
-                          style: GoogleFonts.outfit(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.redAccent,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      'Bienvenue, Agent Municipal',
+                      style: GoogleFonts.outfit(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textLight,
+                      ),
                     ),
                   ],
                 ),
-                const Spacer(),
-                const Icon(Icons.hourglass_empty_rounded, color: AppColors.accent, size: 28),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-          // Row of small cards
-          Row(
-            children: [
-              Expanded(
-                child: _SmallStatCard(
-                  label: 'Dossiers validés',
-                  value: '142',
-                  icon: Icons.check_circle_rounded,
-                  iconColor: Colors.green.shade600,
+              ),
+              const SizedBox(height: 24),
+
+              // ── KPI Section
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: _KpiCard(
+                        icon: Icons.list_alt_rounded,
+                        title: 'Mes Demandes',
+                        value: '142',
+                        iconBg: Color(0xFFE0F2FE),
+                        iconColor: Color(0xFF0284C7),
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: _KpiCard(
+                        icon: Icons.pending_actions_rounded,
+                        title: 'À Valider',
+                        value: '18',
+                        iconBg: Color(0xFFFEF3C7),
+                        iconColor: Color(0xFFD97706),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: _SmallStatCard(
-                  label: 'Taux de succès',
-                  value: '92%',
-                  icon: Icons.speed_rounded,
-                  iconColor: AppColors.primary,
+              const SizedBox(height: 12),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: _KpiCard(
+                        icon: Icons.check_circle_outline_rounded,
+                        title: 'Validées',
+                        value: '124',
+                        iconBg: Color(0xFFDCFCE7),
+                        iconColor: Color(0xFF16A34A),
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(child: SizedBox.shrink()),
+                  ],
                 ),
               ),
+              const SizedBox(height: 32),
+
+              // ── Quick Actions
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Actions Rapides',
+                      style: GoogleFonts.outfit(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.textDark,
+                      ),
+                    ),
+                    Text(
+                      'Configuration',
+                      style: GoogleFonts.outfit(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                height: 100,
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    _buildActionItem(
+                      context, 
+                      Icons.qr_code_scanner_rounded, 
+                      'Scanner QR', 
+                      const Color(0xFFF3E8FF),
+                      () {},
+                    ),
+                    _buildActionItem(
+                      context, 
+                      Icons.assignment_rounded, 
+                      'Mes Tâches', 
+                      const Color(0xFFDBEAFE),
+                      () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const AgentRequestsPage())),
+                    ),
+                    _buildActionItem(
+                      context, 
+                      Icons.people_alt_outlined, 
+                      'Citoyens', 
+                      const Color(0xFFDCFCE7),
+                      () {},
+                    ),
+                    _buildActionItem(
+                      context, 
+                      Icons.settings_outlined, 
+                      'Paramètres', 
+                      const Color(0xFFF1F5F9),
+                      () {},
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 32),
+
+              // ── Recent Section
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Dernières Demandes',
+                      style: GoogleFonts.outfit(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.textDark,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const AgentRequestsPage())),
+                      child: Text(
+                        'Voir tout',
+                        style: GoogleFonts.outfit(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    _RecentRequestCard(
+                      title: 'Acte de Naissance',
+                      user: 'Jean-Baptiste O.',
+                      status: 'En cours',
+                      color: Color(0xFF0284C7),
+                    ),
+                    SizedBox(height: 12),
+                    _RecentRequestCard(
+                      title: 'Certificat de Résidence',
+                      user: 'Mariam SANKARA',
+                      status: 'À valider',
+                      color: Color(0xFFD97706),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 40),
             ],
           ),
-        ],
+        ),
+      ),
+      bottomNavigationBar: const AgentBottomNav(currentIndex: 0),
+    );
+  }
+
+  Widget _buildActionItem(BuildContext context, IconData icon, String label, Color bg, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 85,
+        margin: const EdgeInsets.only(right: 12),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: AppColors.divider.withValues(alpha: 0.5)),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: bg,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: AppColors.primaryDark, size: 20),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              label,
+              style: GoogleFonts.outfit(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textMedium,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class _SmallStatCard extends StatelessWidget {
-  final String label;
-  final String value;
+class _KpiCard extends StatelessWidget {
   final IconData icon;
+  final String title;
+  final String value;
+  final Color iconBg;
   final Color iconColor;
 
-  const _SmallStatCard({
-    required this.label,
-    required this.value,
+  const _KpiCard({
     required this.icon,
+    required this.title,
+    required this.value,
+    required this.iconBg,
     required this.iconColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.divider, width: 0.5),
+        border: Border.all(color: AppColors.divider.withValues(alpha: 0.5)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                label,
-                style: GoogleFonts.outfit(
-                  fontSize: 11,
-                  color: AppColors.textLight,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Icon(icon, color: iconColor, size: 18),
-            ],
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: iconBg,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: iconColor, size: 20),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 16),
           Text(
             value,
             style: GoogleFonts.outfit(
               fontSize: 22,
-              fontWeight: FontWeight.w800,
-              color: AppColors.primary,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ─── RECENT ACTIVITIES HEADER ───────────────────────────────────────────────
-class _RecentActivitiesHeader extends StatelessWidget {
-  const _RecentActivitiesHeader();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'Activités Récentes',
-            style: GoogleFonts.outfit(
-              fontSize: 18,
-              fontWeight: FontWeight.w800,
-              color: AppColors.primary,
+              fontWeight: FontWeight.w900,
+              color: AppColors.textDark,
             ),
           ),
           Text(
-            'Tout voir',
+            title,
             style: GoogleFonts.outfit(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: AppColors.primary,
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textLight,
             ),
           ),
         ],
@@ -506,130 +349,75 @@ class _RecentActivitiesHeader extends StatelessWidget {
   }
 }
 
-// ─── RECENT ACTIVITIES LIST ─────────────────────────────────────────────────
-class _RecentActivitiesList extends StatelessWidget {
-  const _RecentActivitiesList();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        children: const [
-          _ActivityItem(
-            title: 'Certificat de Nationalité',
-            user: 'Moussa Traoré',
-            time: 'Il y a 10 min',
-            status: 'URGENT',
-            statusColor: Colors.red,
-            icon: Icons.description_outlined,
-          ),
-          SizedBox(height: 12),
-          _ActivityItem(
-            title: 'Extrait de Casier Judiciaire',
-            user: 'Fatouma Diallo',
-            time: 'Il y a 1h',
-            status: 'NOUVEAU',
-            statusColor: AppColors.primary,
-            icon: Icons.gavel_rounded,
-          ),
-          SizedBox(height: 12),
-          _ActivityItem(
-            title: 'Demande de Visa (Pro)',
-            user: 'Oumar Ouédraogo',
-            time: 'Il y a 3h',
-            status: 'VALIDÉ',
-            statusColor: Colors.green,
-            icon: Icons.check_circle_outline_rounded,
-          ),
-          SizedBox(height: 20),
-        ],
-      ),
-    );
-  }
-}
-
-class _ActivityItem extends StatelessWidget {
+class _RecentRequestCard extends StatelessWidget {
   final String title;
   final String user;
-  final String time;
   final String status;
-  final Color statusColor;
-  final IconData icon;
+  final Color color;
 
-  const _ActivityItem({
+  const _RecentRequestCard({
     required this.title,
     required this.user,
-    required this.time,
     required this.status,
-    required this.statusColor,
-    required this.icon,
+    required this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColors.divider, width: 0.5),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.divider.withValues(alpha: 0.5)),
       ),
       child: Row(
         children: [
           Container(
-            width: 44,
-            height: 44,
+            width: 8,
+            height: 48,
             decoration: BoxDecoration(
-              color: AppColors.sectionBg,
-              shape: BoxShape.circle,
+              color: color,
+              borderRadius: BorderRadius.circular(4),
             ),
-            child: Icon(icon, color: AppColors.primary, size: 20),
           ),
-          const SizedBox(width: 14),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        title,
-                        style: GoogleFonts.outfit(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.textDark,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: statusColor.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        status,
-                        style: GoogleFonts.outfit(
-                          fontSize: 9,
-                          fontWeight: FontWeight.w800,
-                          color: statusColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 2),
                 Text(
-                  '$user • $time',
+                  title,
                   style: GoogleFonts.outfit(
-                    fontSize: 11,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.textDark,
+                  ),
+                ),
+                Text(
+                  user,
+                  style: GoogleFonts.outfit(
+                    fontSize: 12,
                     color: AppColors.textLight,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(999),
+            ),
+            child: Text(
+              status,
+              style: GoogleFonts.outfit(
+                fontSize: 10,
+                fontWeight: FontWeight.w800,
+                color: color,
+              ),
             ),
           ),
         ],

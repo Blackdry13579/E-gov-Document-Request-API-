@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../shared/presentation/widgets/egov_app_bar.dart';
 
 class AgentRequestDetailsPage extends StatelessWidget {
   const AgentRequestDetailsPage({super.key});
@@ -10,21 +11,11 @@ class AgentRequestDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
+      appBar: EgovAppBar(
         backgroundColor: AppColors.white,
-        elevation: 0,
-        centerTitle: false,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: AppColors.primaryDark),
           onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: Text(
-          'Détails de la demande',
-          style: GoogleFonts.outfit(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            color: AppColors.textDark,
-          ),
         ),
         actions: [
           IconButton(
@@ -34,14 +25,14 @@ class AgentRequestDetailsPage extends StatelessWidget {
           const SizedBox(width: 8),
         ],
       ),
-      body: SafeArea(
+      body: const SafeArea(
         child: Column(
           children: [
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     _HeaderSection(),
                     _SectionDivider(),
                     _CitizenInformationSection(),
@@ -57,7 +48,7 @@ class AgentRequestDetailsPage extends StatelessWidget {
               ),
             ),
             // Bottom Action Area
-            const _BottomActionArea(),
+            _BottomActionArea(),
           ],
         ),
       ),
@@ -188,10 +179,10 @@ class _CitizenInformationSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          _InfoRow(label: 'Nom Complet', value: 'Jean-Baptiste Ouédraogo'),
-          _InfoRow(label: 'CNIB', value: 'B12345678'),
-          _InfoRow(label: 'Téléphone', value: '+226 70 00 00 00'),
-          _InfoRow(label: 'Email', value: 'j.ouedraogo@mail.bf'),
+          const _InfoRow(label: 'Nom Complet', value: 'Jean-Baptiste Ouédraogo'),
+          const _InfoRow(label: 'CNIB', value: 'B12345678'),
+          const _InfoRow(label: 'Téléphone', value: '+226 70 00 00 00'),
+          const _InfoRow(label: 'Email', value: 'j.ouedraogo@mail.bf'),
         ],
       ),
     );
@@ -225,7 +216,7 @@ class _RequestDetailsSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          Row(
+          const Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
@@ -237,9 +228,9 @@ class _RequestDetailsSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          _DetailColumn(label: 'LIEU DE NAISSANCE', value: 'Ouagadougou, Secteur 15'),
+          const _DetailColumn(label: 'LIEU DE NAISSANCE', value: 'Ouagadougou, Secteur 15'),
           const SizedBox(height: 16),
-          _DetailColumn(label: 'DATE DE NAISSANCE', value: '12 Mars 1992'),
+          const _DetailColumn(label: 'DATE DE NAISSANCE', value: '12 Mars 1992'),
         ],
       ),
     );
@@ -354,7 +345,7 @@ class _DocumentCard extends StatelessWidget {
             onPressed: () {},
             style: OutlinedButton.styleFrom(
               foregroundColor: AppColors.primaryDark,
-              side: BorderSide(color: AppColors.divider),
+              side: const BorderSide(color: AppColors.divider),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(999),
               ),
@@ -507,7 +498,7 @@ class _BottomActionArea extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: BoxDecoration(
         color: AppColors.white,
-        border: Border(
+        border: const Border(
            top: BorderSide(color: AppColors.divider, width: 0.5),
         ),
         boxShadow: [

@@ -104,23 +104,23 @@ class _AdminCitizensPageState extends State<AdminCitizensPage> {
                       statusBg: Color(0xFFFEE2E2),
                     ),
                     const SizedBox(height: 22),
-                    Row(
+                    const Row(
                       children: [
                         Expanded(
                           child: _StatCard(
                             title: 'Inscrits',
                             value: '12,458',
-                            bg: const Color(0xFFFFF7ED),
-                            accent: const Color(0xFFF97316),
+                            bg: Color(0xFFFFF7ED),
+                            accent: Color(0xFFF97316),
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        SizedBox(width: 12),
                         Expanded(
                           child: _StatCard(
                             title: 'Nouveaux (24h)',
                             value: '+142',
-                            bg: const Color(0xFFEFF6FF),
-                            accent: const Color(0xFF2563EB),
+                            bg: Color(0xFFEFF6FF),
+                            accent: Color(0xFF2563EB),
                           ),
                         ),
                       ],

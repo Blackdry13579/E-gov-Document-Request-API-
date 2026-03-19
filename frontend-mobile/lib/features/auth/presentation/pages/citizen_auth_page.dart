@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
+import '../../../shared/presentation/widgets/egov_app_bar.dart';
+import '../../../home/presentation/pages/home_page_design.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../home/presentation/pages/home_page.dart';
+import '../../../../core/providers/auth_provider.dart';
 
 class CitizenAuthPage extends StatefulWidget {
   const CitizenAuthPage({super.key});
@@ -25,11 +28,20 @@ class _CitizenAuthPageState extends State<CitizenAuthPage>
   final _cnibCtrl = TextEditingController();
   final _dobCtrl = TextEditingController();
   final _phoneCtrl = TextEditingController();
+  final _emailCtrl = TextEditingController();
+  final _regPasswordCtrl = TextEditingController();
+
+  int _currentStep = 1; // Pour gérer les 3 étapes d'inscription
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this, initialIndex: 1);
+    _tabController = TabController(length: 2, vsync: this, initialIndex: 0);
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) {
+        setState(() {}); // Pour mettre à jour l'UI si besoin selon l'onglet
+      }
+    });
   }
 
   @override
@@ -41,6 +53,8 @@ class _CitizenAuthPageState extends State<CitizenAuthPage>
     _cnibCtrl.dispose();
     _dobCtrl.dispose();
     _phoneCtrl.dispose();
+    _emailCtrl.dispose();
+    _regPasswordCtrl.dispose();
     super.dispose();
   }
 
@@ -48,18 +62,19 @@ class _CitizenAuthPageState extends State<CitizenAuthPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: const EgovAppBar(
+        backgroundColor: AppColors.cardBg,
+        actions: [],
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            _TopBar(
-              onLanguageTap: () {},
-            ),
             Expanded(
-              child: CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(child: _HeroHeader()),
-                  SliverToBoxAdapter(
-                    child: Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _HeroHeader(),
+                    Container(
                       color: AppColors.cardBg,
                       child: Column(
                         children: [
@@ -82,47 +97,63 @@ class _CitizenAuthPageState extends State<CitizenAuthPage>
                               Tab(text: 'Créer un compte'),
                             ],
                           ),
-                          SizedBox(
-                            height: 640,
-                            child: TabBarView(
-                              controller: _tabController,
-                              children: [
-                                _LoginForm(
-                                  identifierCtrl: _identifierCtrl,
-                                  passwordCtrl: _passwordCtrl,
-                                  obscurePassword: _obscurePassword,
-                                  onToggleObscure: () => setState(
-                                    () => _obscurePassword = !_obscurePassword,
-                                  ),
-                                  onForgotPassword: () {},
-                                  onLogin: _goToHome,
-                                  onNeedHelp: () {},
-                                ),
-                                _RegisterStep1(
-                                  acceptedTerms: _acceptedTerms,
-                                  onAcceptedTermsChanged: (v) =>
-                                      setState(() => _acceptedTerms = v),
-                                  fullNameCtrl: _fullNameCtrl,
-                                  cnibCtrl: _cnibCtrl,
-                                  dobCtrl: _dobCtrl,
-                                  phoneCtrl: _phoneCtrl,
-                                  onPickDate: _pickDate,
-                                  onContinue: () {},
-                                ),
-                              ],
-                            ),
-                          ),
+                          // Utilisation d'un switch simple au lieu de TabBarView 
+                          // pour éviter les problèmes de hauteur fixe (scroll bug)
+                          if (_tabController.index == 0)
+                            _LoginForm(
+                              identifierCtrl: _identifierCtrl,
+                              passwordCtrl: _passwordCtrl,
+                              obscurePassword: _obscurePassword,
+                              onToggleObscure: () => setState(
+                                () => _obscurePassword = !_obscurePassword,
+                              ),
+                              onForgotPassword: () {},
+                              onLogin: _handleLogin,
+                              onNeedHelp: () {},
+                            )
+                          else
+                            _buildRegisterContent(),
                         ],
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildRegisterContent() {
+    switch (_currentStep) {
+      case 1:
+        return _RegisterStep1(
+          acceptedTerms: _acceptedTerms,
+          onAcceptedTermsChanged: (v) => setState(() => _acceptedTerms = v),
+          fullNameCtrl: _fullNameCtrl,
+          cnibCtrl: _cnibCtrl,
+          dobCtrl: _dobCtrl,
+          phoneCtrl: _phoneCtrl,
+          onPickDate: _pickDate,
+          onContinue: () => setState(() => _currentStep = 2),
+        );
+      case 2:
+        return _RegisterStep2(
+          emailCtrl: _emailCtrl,
+          passwordCtrl: _regPasswordCtrl,
+          onBack: () => setState(() => _currentStep = 1),
+          onContinue: () => setState(() => _currentStep = 3),
+        );
+      case 3:
+        return _RegisterStep3(
+          onBack: () => setState(() => _currentStep = 2),
+          onFinish: _handleRegister,
+        );
+      default:
+        return const SizedBox.shrink();
+    }
   }
 
   Future<void> _pickDate() async {
@@ -139,72 +170,22 @@ class _CitizenAuthPageState extends State<CitizenAuthPage>
         '${picked.month.toString().padLeft(2, '0')}/${picked.day.toString().padLeft(2, '0')}/${picked.year}';
   }
 
-  void _goToHome() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const HomePage()),
+  Future<void> _handleLogin() async {
+    // BYPASS TEMPORAIRE : Redirection directe sans validation
+    debugPrint("Bypass de connexion actif.");
+    Navigator.of(context).pushReplacementNamed(HomePageSimple.routeName);
+  }
+
+  Future<void> _handleRegister() async {
+    // BYPASS TEMPORAIRE : Inscription simulée
+    debugPrint("Bypass d'inscription actif.");
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Compte créé avec succès (Bypass) !')),
     );
+    Navigator.of(context).pushReplacementNamed(HomePageSimple.routeName);
   }
 }
 
-class _TopBar extends StatelessWidget {
-  final VoidCallback onLanguageTap;
-
-  const _TopBar({required this.onLanguageTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.cardBg,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      child: Row(
-        children: [
-          Container(
-            width: 34,
-            height: 34,
-            decoration: BoxDecoration(
-              color: AppColors.sectionBg,
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.divider),
-            ),
-            child: const Icon(
-              Icons.account_balance_outlined,
-              size: 18,
-              color: AppColors.primary,
-            ),
-          ),
-          const SizedBox(width: 10),
-          Text(
-            'E-Gov',
-            style: GoogleFonts.outfit(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: AppColors.primary,
-            ),
-          ),
-          const Spacer(),
-          InkWell(
-            onTap: onLanguageTap,
-            borderRadius: BorderRadius.circular(999),
-            child: Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                color: AppColors.sectionBg,
-                shape: BoxShape.circle,
-                border: Border.all(color: AppColors.divider),
-              ),
-              child: const Icon(
-                Icons.language_rounded,
-                size: 18,
-                color: AppColors.primary,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _HeroHeader extends StatelessWidget {
   @override
@@ -215,7 +196,7 @@ class _HeroHeader extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Image.asset(
-            'assets/images/hero_bg.png',
+            'assets/images/building.png',
             fit: BoxFit.cover,
           ),
           Container(
@@ -299,9 +280,9 @@ class _RegisterStep1 extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          _ProgressBar(value: 1 / 3),
+          const _ProgressBar(value: 1 / 3),
           const SizedBox(height: 18),
-          _FieldLabel('Nom complet'),
+          const _FieldLabel('Nom complet'),
           const SizedBox(height: 8),
           _Input(
             controller: fullNameCtrl,
@@ -310,7 +291,7 @@ class _RegisterStep1 extends StatelessWidget {
             keyboardType: TextInputType.name,
           ),
           const SizedBox(height: 16),
-          _FieldLabel('Numéro CNIB'),
+          const _FieldLabel('Numéro CNIB'),
           const SizedBox(height: 8),
           _Input(
             controller: cnibCtrl,
@@ -319,7 +300,7 @@ class _RegisterStep1 extends StatelessWidget {
             keyboardType: TextInputType.text,
           ),
           const SizedBox(height: 16),
-          _FieldLabel('Date de naissance'),
+          const _FieldLabel('Date de naissance'),
           const SizedBox(height: 8),
           _Input(
             controller: dobCtrl,
@@ -334,7 +315,7 @@ class _RegisterStep1 extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          _FieldLabel('Téléphone'),
+          const _FieldLabel('Téléphone'),
           const SizedBox(height: 8),
           _Input(
             controller: phoneCtrl,
@@ -406,7 +387,7 @@ class _LoginForm extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _FieldLabel('Email ou Identifiant Unique'),
+          const _FieldLabel('Email ou Identifiant Unique'),
           const SizedBox(height: 8),
           _InputNoPrefix(
             controller: identifierCtrl,
@@ -416,7 +397,7 @@ class _LoginForm extends StatelessWidget {
           const SizedBox(height: 18),
           Row(
             children: [
-              Expanded(child: _FieldLabel('Mot de passe')),
+              const Expanded(child: _FieldLabel('Mot de passe')),
               GestureDetector(
                 onTap: onForgotPassword,
                 child: Text(
@@ -440,6 +421,7 @@ class _LoginForm extends StatelessWidget {
           const SizedBox(height: 22),
           _PrimaryButton(
             label: 'Se connecter',
+            isLoading: context.watch<AuthProvider>().isLoading,
             onPressed: onLogin,
           ),
           const SizedBox(height: 44),
@@ -747,40 +729,214 @@ class _TermsRow extends StatelessWidget {
 class _PrimaryButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
+  final bool isLoading;
 
-  const _PrimaryButton({required this.label, required this.onPressed});
+  const _PrimaryButton({
+    required this.label,
+    this.onPressed,
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final enabled = onPressed != null;
     return SizedBox(
       width: double.infinity,
       height: 52,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: enabled ? AppColors.primary : AppColors.divider,
-          foregroundColor: enabled ? AppColors.white : AppColors.textLight,
-          elevation: enabled ? 10 : 0,
-          shadowColor: AppColors.primary.withValues(alpha: 0.35),
+          backgroundColor: AppColors.primary,
+          foregroundColor: Colors.white,
+          elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(14),
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              label,
-              style: GoogleFonts.outfit(
-                fontWeight: FontWeight.w700,
-                fontSize: 14,
+        child: isLoading
+            ? const SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 2,
+                ),
+              )
+            : Text(
+                label,
+                style: GoogleFonts.outfit(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
+      ),
+    );
+  }
+}
+
+class _RegisterStep2 extends StatelessWidget {
+  final TextEditingController emailCtrl;
+  final TextEditingController passwordCtrl;
+  final VoidCallback onBack;
+  final VoidCallback onContinue;
+
+  const _RegisterStep2({
+    required this.emailCtrl,
+    required this.passwordCtrl,
+    required this.onBack, 
+    required this.onContinue
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Étape 2 sur 3',
+            style: GoogleFonts.outfit(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+              color: AppColors.textDark,
             ),
-            const SizedBox(width: 10),
-            const Icon(Icons.arrow_forward_rounded, size: 18),
-          ],
-        ),
+          ),
+          const SizedBox(height: 12),
+          const _ProgressBar(value: 2 / 3),
+          const SizedBox(height: 24),
+          const _FieldLabel('Adresse E-mail'),
+          const SizedBox(height: 8),
+          _InputNoPrefix(
+            controller: emailCtrl,
+            hintText: 'votre@email.com',
+            keyboardType: TextInputType.emailAddress,
+          ),
+          const SizedBox(height: 16),
+          const _FieldLabel('Mot de passe'),
+          const SizedBox(height: 8),
+          _PasswordInput(
+            controller: passwordCtrl,
+            hintText: '••••••••',
+            obscureText: true,
+            onToggle: () {}, // À améliorer si besoin
+          ),
+          const SizedBox(height: 32),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: onBack,
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    side: const BorderSide(color: AppColors.divider),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                  child: Text(
+                    'Retour',
+                    style: GoogleFonts.outfit(
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textDark,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _PrimaryButton(
+                  label: 'Continuer',
+                  onPressed: onContinue,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RegisterStep3 extends StatelessWidget {
+  final VoidCallback onBack;
+  final VoidCallback onFinish;
+
+  const _RegisterStep3({required this.onBack, required this.onFinish});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Étape 3 sur 3',
+            style: GoogleFonts.outfit(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+              color: AppColors.textDark,
+            ),
+          ),
+          const SizedBox(height: 12),
+          const _ProgressBar(value: 3 / 3),
+          const SizedBox(height: 24),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
+            ),
+            child: Row(
+              children: [
+                const Icon(Icons.info_outline, color: AppColors.primary),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    'Veuillez vérifier vos informations avant de finaliser.',
+                    style: GoogleFonts.outfit(
+                      fontSize: 13,
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 32),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: onBack,
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    side: const BorderSide(color: AppColors.divider),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                  child: Text(
+                    'Retour',
+                    style: GoogleFonts.outfit(
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textDark,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _PrimaryButton(
+                  label: 'Terminer',
+                  onPressed: onFinish,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

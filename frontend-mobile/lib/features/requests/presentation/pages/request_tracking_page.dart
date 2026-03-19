@@ -42,10 +42,10 @@ class _RequestTrackingPageState extends State<RequestTrackingPage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    _StatusPill(
+                    const _StatusPill(
                       label: 'En cours de traitement',
-                      bg: const Color(0xFFFEF3C7),
-                      fg: const Color(0xFF92400E),
+                      bg: Color(0xFFFEF3C7),
+                      fg: Color(0xFF92400E),
                       icon: Icons.more_horiz_rounded,
                     ),
                     const SizedBox(height: 12),
@@ -75,10 +75,10 @@ class _RequestTrackingPageState extends State<RequestTrackingPage> {
                       ),
                     ),
                     const SizedBox(height: 14),
-                    _Card(
+                    const _Card(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           _CardTitle('Progression de la demande'),
                           SizedBox(height: 14),
                           _TimelineItem(
@@ -474,7 +474,7 @@ class _TimelineItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lineColor = AppColors.divider;
+    const lineColor = AppColors.divider;
     return Padding(
       padding: const EdgeInsets.only(bottom: 14),
       child: Row(
@@ -566,49 +566,6 @@ class _TimelineItem extends StatelessWidget {
   }
 }
 
-class _DashedPlaceholder extends StatelessWidget {
-  final String text;
-  const _DashedPlaceholder({required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(16, 18, 16, 18),
-      decoration: BoxDecoration(
-        color: AppColors.sectionBg.withValues(alpha: 0.35),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColors.divider, width: 2),
-      ),
-      child: Column(
-        children: [
-          Container(
-            width: 46,
-            height: 46,
-            decoration: BoxDecoration(
-              color: AppColors.sectionBg,
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.divider),
-            ),
-            child: const Icon(Icons.hourglass_bottom_rounded,
-                color: AppColors.textLight),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            text,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.outfit(
-              fontSize: 11.2,
-              height: 1.4,
-              fontWeight: FontWeight.w700,
-              color: AppColors.textLight,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _PrimaryFilledButton extends StatelessWidget {
   final String label;

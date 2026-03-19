@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/providers/auth_provider.dart';
 import '../../../shared/presentation/widgets/citizen_bottom_nav.dart';
+import '../../../shared/presentation/widgets/egov_app_bar.dart';
 import 'profile_edit_page.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -14,10 +17,14 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: const EgovAppBar(
+        backgroundColor: AppColors.cardBg,
+        automaticallyImplyLeading: false,
+        actions: [],
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            const _TopBar(),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(16, 10, 16, 18),
@@ -86,7 +93,13 @@ class ProfilePage extends StatelessWidget {
                     const SizedBox(height: 10),
                     const _SettingsList(),
                     const SizedBox(height: 22),
-                    _LogoutButton(onTap: () {}),
+                    _LogoutButton(onTap: () {
+                      context.read<AuthProvider>().logout();
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/',
+                        (route) => false,
+                      );
+                    }),
                   ],
                 ),
               ),
@@ -110,40 +123,6 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-class _TopBar extends StatelessWidget {
-  const _TopBar();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.cardBg,
-      padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-      child: Row(
-        children: [
-          Text(
-            'E-Gov',
-            style: GoogleFonts.outfit(
-              fontSize: 18,
-              fontWeight: FontWeight.w900,
-              color: AppColors.primary,
-            ),
-          ),
-          const Spacer(),
-          Container(
-            width: 38,
-            height: 38,
-            decoration: BoxDecoration(
-              color: AppColors.sectionBg,
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.divider),
-            ),
-            child: const Icon(Icons.menu_rounded, color: AppColors.textDark),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _AvatarHeader extends StatelessWidget {
   const _AvatarHeader();
@@ -196,8 +175,8 @@ class _InfoCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(18),
         border: Border.all(color: AppColors.divider),
       ),
-      child: Column(
-        children: const [
+      child: const Column(
+        children: [
           _InfoRow(
             icon: Icons.person_outline_rounded,
             label: 'Nom Complet',

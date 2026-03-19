@@ -1,0 +1,109 @@
+Analyzing lib...                                                
+
+  error - The named parameter 'title' is required, but there's no corresponding argument - lib\features\admin\presentation\pages\admin_dashboard_page.dart:16:15 - missing_required_argument
+  error - The named parameter 'backgroundColor' isn't defined - lib\features\admin\presentation\pages\admin_dashboard_page.dart:17:9 - undefined_named_parameter
+  error - The named parameter 'automaticallyImplyLeading' isn't defined - lib\features\admin\presentation\pages\admin_dashboard_page.dart:18:9 - undefined_named_parameter
+  error - The named parameter 'actions' isn't defined - lib\features\admin\presentation\pages\admin_dashboard_page.dart:19:9 - undefined_named_parameter
+  error - Target of URI doesn't exist: '../domain/models/agent_config.dart' - lib\features\agent\presentation\pages\agent_home_page.dart:3:8 - uri_does_not_exist
+  error - Undefined class 'AgentRole' - lib\features\agent\presentation\pages\agent_home_page.dart:7:9 - undefined_class
+  error - Undefined name 'AgentConfig' - lib\features\agent\presentation\pages\agent_home_page.dart:12:20 - undefined_identifier
+warning - The value of the local variable 'successGreen' isn't used - lib\features\agent\presentation\pages\agent_home_page.dart:13:11 - unused_local_variable
+  error - Target of URI doesn't exist: '../domain/models/agent_config.dart' - lib\features\agent\presentation\pages\agent_requests_page.dart:3:8 - uri_does_not_exist
+  error - Undefined class 'AgentRole' - lib\features\agent\presentation\pages\agent_requests_page.dart:7:9 - undefined_class
+  error - Undefined name 'AgentConfig' - lib\features\agent\presentation\pages\agent_requests_page.dart:12:20 - undefined_identifier
+warning - The value of the local variable 'textPrimary' isn't used - lib\features\agent\presentation\pages\agent_requests_page.dart:15:11 - unused_local_variable
+  error - Target of URI doesn't exist: '../domain/models/agent_config.dart' - lib\features\agent\presentation\pages\agent_shell.dart:5:8 - uri_does_not_exist
+  error - Undefined class 'AgentRole' - lib\features\agent\presentation\pages\agent_shell.dart:8:9 - undefined_class
+  error - Undefined name 'AgentRole' - lib\features\agent\presentation\pages\agent_shell.dart:9:44 - undefined_identifier
+  error - Undefined name 'AgentConfig' - lib\features\agent\presentation\pages\agent_shell.dart:34:20 - undefined_identifier
+   info - Use 'const' with the constructor to improve performance - lib\features\agent\presentation\pages\detail_demande_page.dart:106:105 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\agent\presentation\pages\detail_demande_page.dart:106:134 - prefer_const_constructors
+warning - The value of the local variable 'successGreen' isn't used - lib\features\agent\presentation\pages\profil_page.dart:11:11 - unused_local_variable
+warning - The value of the local variable 'infoBg' isn't used - lib\features\agent\presentation\pages\validation_succes_page.dart:27:11 - unused_local_variable
+  error - Target of URI doesn't exist: '../../../../core/providers/auth_provider.dart' - lib\features\auth\presentation\pages\agent_auth_page.dart:9:8 - uri_does_not_exist
+  error - The named parameter 'title' is required, but there's no corresponding argument - lib\features\auth\presentation\pages\agent_auth_page.dart:37:15 - missing_required_argument
+  error - The named parameter 'backgroundColor' isn't defined - lib\features\auth\presentation\pages\agent_auth_page.dart:38:9 - undefined_named_parameter
+  error - The named parameter 'leading' isn't defined - lib\features\auth\presentation\pages\agent_auth_page.dart:39:9 - undefined_named_parameter
+  error - The named parameter 'actions' isn't defined - lib\features\auth\presentation\pages\agent_auth_page.dart:56:9 - undefined_named_parameter
+  error - The name 'AuthProvider' isn't a type, so it can't be used as a type argument - lib\features\auth\presentation\pages\agent_auth_page.dart:270:38 - non_type_as_type_argument
+  error - Target of URI doesn't exist: '../../../../core/providers/auth_provider.dart' - lib\features\auth\presentation\pages\citizen_auth_page.dart:8:8 - uri_does_not_exist
+  error - The named parameter 'title' is required, but there's no corresponding argument - lib\features\auth\presentation\pages\citizen_auth_page.dart:65:21 - missing_required_argument
+  error - The named parameter 'backgroundColor' isn't defined - lib\features\auth\presentation\pages\citizen_auth_page.dart:66:9 - undefined_named_parameter
+  error - The named parameter 'actions' isn't defined - lib\features\auth\presentation\pages\citizen_auth_page.dart:67:9 - undefined_named_parameter
+  error - Undefined name 'HomePageSimple' - lib\features\auth\presentation\pages\citizen_auth_page.dart:176:48 - undefined_identifier
+  error - Undefined name 'HomePageSimple' - lib\features\auth\presentation\pages\citizen_auth_page.dart:185:48 - undefined_identifier
+  error - The name 'AuthProvider' isn't a type, so it can't be used as a type argument - lib\features\auth\presentation\pages\citizen_auth_page.dart:424:38 - non_type_as_type_argument
+  error - The named parameter 'title' is required, but there's no corresponding argument - lib\features\home\presentation\pages\agent_home_page.dart:24:15 - missing_required_argument
+  error - The named parameter 'backgroundColor' isn't defined - lib\features\home\presentation\pages\agent_home_page.dart:25:9 - undefined_named_parameter
+  error - The named parameter 'automaticallyImplyLeading' isn't defined - lib\features\home\presentation\pages\agent_home_page.dart:26:9 - undefined_named_parameter
+  error - The named parameter 'leading' isn't defined - lib\features\home\presentation\pages\agent_home_page.dart:27:9 - undefined_named_parameter
+  error - The named parameter 'actions' isn't defined - lib\features\home\presentation\pages\agent_home_page.dart:37:9 - undefined_named_parameter
+  error - The named parameter 'currentIndex' isn't defined - lib\features\home\presentation\pages\agent_home_page.dart:244:49 - undefined_named_parameter
+warning - Unused import: 'package:google_fonts/google_fonts.dart' - lib\features\home\presentation\pages\home_page_design.dart:2:8 - unused_import
+  error - The named parameter 'title' is required, but there's no corresponding argument - lib\features\landing\landing_page.dart:35:15 - missing_required_argument
+  error - The named parameter 'backgroundColor' isn't defined - lib\features\landing\landing_page.dart:36:9 - undefined_named_parameter
+  error - The named parameter 'actions' isn't defined - lib\features\landing\landing_page.dart:37:9 - undefined_named_parameter
+warning - The value of the local variable 'accentYellow' isn't used - lib\features\mairie\presentation\pages\demandes_mairie_page.dart:10:11 - unused_local_variable
+  error - The named parameter 'title' is required, but there's no corresponding argument - lib\features\notifications\presentation\pages\notifications_page.dart:24:15 - missing_required_argument
+  error - The named parameter 'backgroundColor' isn't defined - lib\features\notifications\presentation\pages\notifications_page.dart:25:9 - undefined_named_parameter
+  error - The named parameter 'leading' isn't defined - lib\features\notifications\presentation\pages\notifications_page.dart:26:9 - undefined_named_parameter
+  error - The named parameter 'actions' isn't defined - lib\features\notifications\presentation\pages\notifications_page.dart:30:9 - undefined_named_parameter
+  error - The named parameter 'title' is required, but there's no corresponding argument - lib\features\profile\presentation\pages\profile_edit_page.dart:25:15 - missing_required_argument
+  error - The named parameter 'backgroundColor' isn't defined - lib\features\profile\presentation\pages\profile_edit_page.dart:26:9 - undefined_named_parameter
+  error - The named parameter 'leading' isn't defined - lib\features\profile\presentation\pages\profile_edit_page.dart:27:9 - undefined_named_parameter
+  error - Target of URI doesn't exist: '../../../../core/providers/auth_provider.dart' - lib\features\profile\presentation\pages\profile_page.dart:6:8 - uri_does_not_exist
+  error - The named parameter 'title' is required, but there's no corresponding argument - lib\features\profile\presentation\pages\profile_page.dart:20:21 - missing_required_argument
+  error - The named parameter 'backgroundColor' isn't defined - lib\features\profile\presentation\pages\profile_page.dart:21:9 - undefined_named_parameter
+  error - The named parameter 'automaticallyImplyLeading' isn't defined - lib\features\profile\presentation\pages\profile_page.dart:22:9 - undefined_named_parameter
+  error - The named parameter 'actions' isn't defined - lib\features\profile\presentation\pages\profile_page.dart:23:9 - undefined_named_parameter
+  error - The name 'AuthProvider' isn't a type, so it can't be used as a type argument - lib\features\profile\presentation\pages\profile_page.dart:97:36 - non_type_as_type_argument
+  error - The named parameter 'title' is required, but there's no corresponding argument - lib\features\requests\presentation\pages\agent_request_details_page.dart:14:15 - missing_required_argument
+  error - The named parameter 'backgroundColor' isn't defined - lib\features\requests\presentation\pages\agent_request_details_page.dart:15:9 - undefined_named_parameter
+  error - The named parameter 'leading' isn't defined - lib\features\requests\presentation\pages\agent_request_details_page.dart:16:9 - undefined_named_parameter
+  error - The named parameter 'actions' isn't defined - lib\features\requests\presentation\pages\agent_request_details_page.dart:20:9 - undefined_named_parameter
+  error - The named parameter 'title' is required, but there's no corresponding argument - lib\features\requests\presentation\pages\agent_requests_page.dart:25:15 - missing_required_argument
+  error - The named parameter 'backgroundColor' isn't defined - lib\features\requests\presentation\pages\agent_requests_page.dart:26:9 - undefined_named_parameter
+  error - The named parameter 'automaticallyImplyLeading' isn't defined - lib\features\requests\presentation\pages\agent_requests_page.dart:27:9 - undefined_named_parameter
+  error - The named parameter 'leading' isn't defined - lib\features\requests\presentation\pages\agent_requests_page.dart:28:9 - undefined_named_parameter
+  error - The named parameter 'actions' isn't defined - lib\features\requests\presentation\pages\agent_requests_page.dart:38:9 - undefined_named_parameter
+  error - The named parameter 'currentIndex' isn't defined - lib\features\requests\presentation\pages\agent_requests_page.dart:207:49 - undefined_named_parameter
+  error - The named parameter 'title' is required, but there's no corresponding argument - lib\features\requests\presentation\pages\appointment_page.dart:16:15 - missing_required_argument
+  error - The named parameter 'backgroundColor' isn't defined - lib\features\requests\presentation\pages\appointment_page.dart:17:9 - undefined_named_parameter
+  error - The named parameter 'leading' isn't defined - lib\features\requests\presentation\pages\appointment_page.dart:18:9 - undefined_named_parameter
+  error - The named parameter 'title' is required, but there's no corresponding argument - lib\features\requests\presentation\pages\my_requests_page.dart:25:15 - missing_required_argument
+  error - The named parameter 'backgroundColor' isn't defined - lib\features\requests\presentation\pages\my_requests_page.dart:26:9 - undefined_named_parameter
+  error - The named parameter 'automaticallyImplyLeading' isn't defined - lib\features\requests\presentation\pages\my_requests_page.dart:27:9 - undefined_named_parameter
+  error - The named parameter 'leading' isn't defined - lib\features\requests\presentation\pages\my_requests_page.dart:28:9 - undefined_named_parameter
+  error - The named parameter 'actions' isn't defined - lib\features\requests\presentation\pages\my_requests_page.dart:37:9 - undefined_named_parameter
+warning - Unused import: 'package:google_fonts/google_fonts.dart' - lib\features\requests\presentation\pages\payment_confirmation_page.dart:2:8 - unused_import
+  error - The named parameter 'title' is required, but there's no corresponding argument - lib\features\requests\presentation\pages\qr_scan_page.dart:16:15 - missing_required_argument
+  error - The named parameter 'backgroundColor' isn't defined - lib\features\requests\presentation\pages\qr_scan_page.dart:17:9 - undefined_named_parameter
+  error - The named parameter 'titleColor' isn't defined - lib\features\requests\presentation\pages\qr_scan_page.dart:18:9 - undefined_named_parameter
+  error - The named parameter 'leading' isn't defined - lib\features\requests\presentation\pages\qr_scan_page.dart:19:9 - undefined_named_parameter
+warning - Unused import: 'package:google_fonts/google_fonts.dart' - lib\features\requests\presentation\pages\request_tracking_details_page.dart:2:8 - unused_import
+warning - Unused import: 'package:google_fonts/google_fonts.dart' - lib\features\requests\presentation\pages\request_tracking_page_new.dart:2:8 - unused_import
+  error - The named parameter 'title' is required, but there's no corresponding argument - lib\features\requests\presentation\pages\service_request_flow_page.dart:82:15 - missing_required_argument
+  error - The named parameter 'backgroundColor' isn't defined - lib\features\requests\presentation\pages\service_request_flow_page.dart:83:9 - undefined_named_parameter
+  error - The named parameter 'leading' isn't defined - lib\features\requests\presentation\pages\service_request_flow_page.dart:84:9 - undefined_named_parameter
+  error - The named parameter 'actions' isn't defined - lib\features\requests\presentation\pages\service_request_flow_page.dart:88:9 - undefined_named_parameter
+  error - The named parameter 'title' is required, but there's no corresponding argument - lib\features\services\presentation\pages\service_details_page.dart:24:15 - missing_required_argument
+  error - The named parameter 'backgroundColor' isn't defined - lib\features\services\presentation\pages\service_details_page.dart:25:9 - undefined_named_parameter
+  error - The named parameter 'leading' isn't defined - lib\features\services\presentation\pages\service_details_page.dart:26:9 - undefined_named_parameter
+  error - The named parameter 'actions' isn't defined - lib\features\services\presentation\pages\service_details_page.dart:30:9 - undefined_named_parameter
+warning - Unused import: 'package:google_fonts/google_fonts.dart' - lib\features\services\presentation\pages\services_page.dart:2:8 - unused_import
+  error - Target of URI doesn't exist: '../../agent/presentation/pages/agent_home_page.dart' - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:2:8 - uri_does_not_exist
+  error - Target of URI doesn't exist: '../../agent/presentation/pages/agent_requests_page.dart' - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:3:8 - uri_does_not_exist
+  error - Target of URI doesn't exist: '../../agent/domain/models/agent_config.dart' - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:4:8 - uri_does_not_exist
+  error - The name 'AgentHomePage' isn't a class - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:17:11 - creation_with_non_type
+  error - Undefined name 'AgentRole' - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:17:31 - undefined_identifier
+  error - The name 'AgentRequestsPage' isn't a class - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:18:11 - creation_with_non_type
+  error - Undefined name 'AgentRole' - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:18:35 - undefined_identifier
+  error - Target of URI doesn't exist: 'core/providers/auth_provider.dart' - lib\main.dart:5:8 - uri_does_not_exist
+  error - Target of URI doesn't exist: 'core/providers/demande_provider.dart' - lib\main.dart:6:8 - uri_does_not_exist
+  error - Target of URI doesn't exist: 'core/providers/document_provider.dart' - lib\main.dart:7:8 - uri_does_not_exist
+  error - Target of URI doesn't exist: 'core/providers/request_provider.dart' - lib\main.dart:8:8 - uri_does_not_exist
+  error - The method 'AuthProvider' isn't defined for the type 'EGovApp' - lib\main.dart:40:47 - undefined_method
+  error - The method 'DemandeProvider' isn't defined for the type 'EGovApp' - lib\main.dart:41:47 - undefined_method
+  error - The method 'DocumentProvider' isn't defined for the type 'EGovApp' - lib\main.dart:42:47 - undefined_method
+  error - The method 'RequestProvider' isn't defined for the type 'EGovApp' - lib\main.dart:43:47 - undefined_method
+

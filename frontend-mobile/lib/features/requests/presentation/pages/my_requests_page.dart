@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../shared/presentation/widgets/citizen_bottom_nav.dart';
+import '../../../shared/presentation/widgets/egov_app_bar.dart';
 import 'request_tracking_page.dart';
 
 class MyRequestsPage extends StatefulWidget {
@@ -21,10 +22,23 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: EgovAppBar(
+        backgroundColor: AppColors.cardBg,
+        automaticallyImplyLeading: false,
+        leading: Container(
+          margin: const EdgeInsets.only(left: 16, top: 4, bottom: 4),
+          decoration: BoxDecoration(
+            color: AppColors.sectionBg,
+            shape: BoxShape.circle,
+            border: Border.all(color: AppColors.divider),
+          ),
+          child: const Icon(Icons.person_outline_rounded, color: AppColors.primary),
+        ),
+        actions: const [],
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            _TopHeader(onMenuTap: () {}),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(16, 10, 16, 18),
@@ -121,53 +135,6 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
   void _openTracking(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => const RequestTrackingPage()),
-    );
-  }
-}
-
-class _TopHeader extends StatelessWidget {
-  final VoidCallback onMenuTap;
-  const _TopHeader({required this.onMenuTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.cardBg,
-      padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-      child: Row(
-        children: [
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              color: AppColors.sectionBg,
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.divider),
-            ),
-            child: const Icon(Icons.person_outline_rounded, color: AppColors.primary),
-          ),
-          const SizedBox(width: 10),
-          Text(
-            'E-Gov',
-            style: GoogleFonts.outfit(
-              fontSize: 16,
-              fontWeight: FontWeight.w900,
-              color: AppColors.primary,
-            ),
-          ),
-          const Spacer(),
-          InkWell(
-            onTap: onMenuTap,
-            borderRadius: BorderRadius.circular(999),
-            child: Container(
-              width: 42,
-              height: 42,
-              alignment: Alignment.center,
-              child: const Icon(Icons.menu_rounded, color: AppColors.textDark),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

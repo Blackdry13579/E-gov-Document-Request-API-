@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../core/constants/app_colors.dart';
-import '../../../home/presentation/pages/agent_home_page.dart';
+import 'package:egov_mobile/core/constants/app_colors.dart';
+import 'package:egov_mobile/features/shared/presentation/widgets/agent_bottom_nav.dart';
+import 'package:egov_mobile/features/shared/presentation/widgets/egov_app_bar.dart';
 import 'agent_request_details_page.dart';
 
 class AgentRequestsPage extends StatefulWidget {
@@ -13,7 +14,6 @@ class AgentRequestsPage extends StatefulWidget {
 }
 
 class _AgentRequestsPageState extends State<AgentRequestsPage> {
-  int _currentIndex = 1; // "Demandes" est l'index 1
   String _selectedFilter = 'Tous';
 
   final List<String> _filters = ['Tous', 'En attente', 'En cours', 'Validées'];
@@ -22,11 +22,27 @@ class _AgentRequestsPageState extends State<AgentRequestsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: EgovAppBar(
+        backgroundColor: AppColors.white,
+        automaticallyImplyLeading: false,
+        leading: Container(
+          margin: const EdgeInsets.only(left: 16, top: 4, bottom: 4),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: AssetImage('assets/images/hero_bg.png'), // Placeholder
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        actions: const [
+          Icon(Icons.notifications_rounded, color: AppColors.primaryDark, size: 24),
+          SizedBox(width: 16),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            // ── APP BAR (E-Administration)
-            const _AgentRequestsHeader(),
             
             Expanded(
               child: SingleChildScrollView(
@@ -60,7 +76,7 @@ class _AgentRequestsPageState extends State<AgentRequestsPage> {
                         ),
                         child: Row(
                           children: [
-                            Icon(Icons.search_rounded, color: AppColors.textLight, size: 20),
+                            const Icon(Icons.search_rounded, color: AppColors.textLight, size: 20),
                             const SizedBox(width: 10),
                             Expanded(
                               child: TextField(
@@ -124,10 +140,10 @@ class _AgentRequestsPageState extends State<AgentRequestsPage> {
                     const SizedBox(height: 24),
                     
                     // ── Request List
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
-                        children: const [
+                        children: [
                           _RequestCard(
                             icon: Icons.description_outlined,
                             title: 'Acte de Naissance',
@@ -188,129 +204,7 @@ class _AgentRequestsPageState extends State<AgentRequestsPage> {
         elevation: 4,
         child: const Icon(Icons.add_rounded, color: AppColors.white, size: 28),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          if (index == 0) {
-             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => const AgentDashboardPage()),
-            );
-          } else {
-             setState(() => _currentIndex = index);
-          }
-        },
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: AppColors.primary,
-        unselectedItemColor: AppColors.textLight.withValues(alpha: 0.6),
-        selectedLabelStyle: GoogleFonts.outfit(
-          fontSize: 10,
-          fontWeight: FontWeight.w700,
-        ),
-        unselectedLabelStyle: GoogleFonts.outfit(
-          fontSize: 10,
-          fontWeight: FontWeight.w600,
-        ),
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: 'Accueil',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list_alt_rounded),
-            label: 'Demandes',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people_alt_outlined),
-            label: 'Citoyens',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
-            label: 'Profil',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ─── TOP HEADER ─────────────────────────────────────────────────────────────
-class _AgentRequestsHeader extends StatelessWidget {
-  const _AgentRequestsHeader();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-        border: Border(
-           bottom: BorderSide(color: AppColors.divider, width: 0.5),
-        )
-      ),
-      child: Row(
-        children: [
-          // Soldier Profile Circle
-          Container(
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: const DecorationImage(
-                image: AssetImage('assets/images/hero_bg.png'), // Placeholder
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          // Logo & Country
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'BURKINA FASO',
-                style: GoogleFonts.outfit(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.primary,
-                  letterSpacing: 0.8,
-                ),
-              ),
-              Text(
-                'E-Administration',
-                style: GoogleFonts.outfit(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.textDark,
-                ),
-              ),
-            ],
-          ),
-          const Spacer(),
-          // Notification bell
-          Stack(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                alignment: Alignment.center,
-                child: const Icon(
-                  Icons.notifications_rounded,
-                  color: AppColors.primaryDark,
-                  size: 24,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(width: 4),
-          // Menu Icon
-          Container(
-            width: 40,
-            height: 40,
-            alignment: Alignment.center,
-            child: const Icon(Icons.menu_rounded, color: AppColors.primaryDark, size: 26),
-          ),
-        ],
-      ),
+      bottomNavigationBar: const AgentBottomNav(currentIndex: 1),
     );
   }
 }

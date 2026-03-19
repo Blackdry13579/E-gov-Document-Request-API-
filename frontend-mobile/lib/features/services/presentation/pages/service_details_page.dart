@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../core/constants/app_colors.dart';
-import '../../../requests/presentation/pages/service_request_flow_page.dart';
+import 'package:egov_mobile/core/constants/app_colors.dart';
+import 'package:egov_mobile/features/requests/presentation/pages/service_request_flow_page.dart';
+import 'package:egov_mobile/features/shared/presentation/widgets/egov_app_bar.dart';
 
 class ServiceDetailsPage extends StatefulWidget {
   const ServiceDetailsPage({super.key});
@@ -20,15 +21,23 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: EgovAppBar(
+        backgroundColor: AppColors.background,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.primary, size: 18),
+          onPressed: () => Navigator.of(context).maybePop(),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person_outline_rounded, color: AppColors.primary),
+            onPressed: () {},
+          ),
+          const SizedBox(width: 8),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            _TopBar(
-              title: 'Détails du Service',
-              subtitle: 'Portail » SINTA',
-              onBack: () => Navigator.of(context).maybePop(),
-              onProfile: () {},
-            ),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(18, 14, 18, 90),
@@ -99,8 +108,8 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage> {
                       ),
                     ),
                     const SizedBox(height: 14),
-                    _InfoTilesRow(
-                      tiles: const [
+                    const _InfoTilesRow(
+                      tiles: [
                         _InfoTileData(
                           icon: Icons.payments_outlined,
                           value: '500 FCFA',
@@ -119,7 +128,7 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage> {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    _H2('Description'),
+                    const _H2('Description'),
                     const SizedBox(height: 8),
                     Text(
                       "Ce service vous permet de demander et de recevoir une\ncopie certifiée conforme de votre acte de naissance de\nmanière totalement dématérialisée. Le document est\nsigné électroniquement et a la même valeur juridique\nque la version papier.",
@@ -131,7 +140,7 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    _H2('Documents Requis'),
+                    const _H2('Documents Requis'),
                     const SizedBox(height: 10),
                     const _DocChip(
                       text: 'Copie de la CNIB en cours de validité',
@@ -141,7 +150,7 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage> {
                       text: "Scan de l'ancien extrait (si disponible)",
                     ),
                     const SizedBox(height: 18),
-                    _H2('Étapes du processus'),
+                    const _H2('Étapes du processus'),
                     const SizedBox(height: 12),
                     const _StepItem(
                       number: 1,
@@ -169,7 +178,7 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage> {
                       isLast: true,
                     ),
                     const SizedBox(height: 18),
-                    _H2('FAQ'),
+                    const _H2('FAQ'),
                     const SizedBox(height: 10),
                     _FaqItem(
                       title: "Le document PDF est-il officiel ?",
@@ -245,86 +254,6 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage> {
   }
 }
 
-class _TopBar extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final VoidCallback onBack;
-  final VoidCallback onProfile;
-
-  const _TopBar({
-    required this.title,
-    required this.subtitle,
-    required this.onBack,
-    required this.onProfile,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.cardBg,
-      padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
-      child: Row(
-        children: [
-          InkWell(
-            onTap: onBack,
-            borderRadius: BorderRadius.circular(999),
-            child: const SizedBox(
-              width: 40,
-              height: 40,
-              child: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: AppColors.primary,
-                size: 18,
-              ),
-            ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: GoogleFonts.outfit(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w900,
-                    color: AppColors.textDark,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  subtitle,
-                  style: GoogleFonts.outfit(
-                    fontSize: 10.5,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.textLight,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          InkWell(
-            onTap: onProfile,
-            borderRadius: BorderRadius.circular(999),
-            child: Container(
-              width: 38,
-              height: 38,
-              decoration: BoxDecoration(
-                color: AppColors.sectionBg,
-                shape: BoxShape.circle,
-                border: Border.all(color: AppColors.divider),
-              ),
-              child: const Icon(
-                Icons.person_outline_rounded,
-                color: AppColors.primary,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _H2 extends StatelessWidget {
   final String text;

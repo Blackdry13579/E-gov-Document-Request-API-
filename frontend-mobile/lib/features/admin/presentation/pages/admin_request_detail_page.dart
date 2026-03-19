@@ -451,8 +451,8 @@ class _HistorySection extends StatelessWidget {
             borderRadius: BorderRadius.circular(18),
             border: Border.all(color: AppColors.divider),
           ),
-          child: Column(
-            children: const [
+          child: const Column(
+            children: [
               _HistoryItem(
                 done: true,
                 title: 'Dépôt du dossier',

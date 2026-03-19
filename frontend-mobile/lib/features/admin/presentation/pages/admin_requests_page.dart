@@ -60,7 +60,7 @@ class _AdminRequestsPageState extends State<AdminRequestsPage> {
                           onTap: () => setState(() => _filter = 0),
                         ),
                         const SizedBox(width: 8),
-                        _Dot(color: const Color(0xFFF59E0B)),
+                        const _Dot(color: Color(0xFFF59E0B)),
                         const SizedBox(width: 4),
                         _FilterChip(
                           label: 'En attente',
@@ -69,7 +69,7 @@ class _AdminRequestsPageState extends State<AdminRequestsPage> {
                           onTap: () => setState(() => _filter = 1),
                         ),
                         const SizedBox(width: 8),
-                        _Dot(color: const Color(0xFF16A34A)),
+                        const _Dot(color: Color(0xFF16A34A)),
                         const SizedBox(width: 4),
                         _FilterChip(
                           label: 'Approuvés',
@@ -299,7 +299,7 @@ class _SearchBar extends StatelessWidget {
             child: Container(
               width: 30,
               height: 30,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColors.sectionBg,
                 shape: BoxShape.circle,
               ),

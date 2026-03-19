@@ -1,0 +1,19 @@
+Analyzing lib...                                                
+
+   info - The private field _isLoading could be 'final' - lib\core\providers\auth_provider.dart:5:8 - prefer_final_fields
+warning - The value of the local variable 'successGreen' isn't used - lib\features\agent\presentation\pages\agent_home_page.dart:13:11 - unused_local_variable
+warning - The value of the local variable 'textPrimary' isn't used - lib\features\agent\presentation\pages\agent_requests_page.dart:15:11 - unused_local_variable
+   info - Use 'const' with the constructor to improve performance - lib\features\agent\presentation\pages\detail_demande_page.dart:106:105 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\agent\presentation\pages\detail_demande_page.dart:106:134 - prefer_const_constructors
+warning - The value of the local variable 'successGreen' isn't used - lib\features\agent\presentation\pages\profil_page.dart:11:11 - unused_local_variable
+warning - The value of the local variable 'infoBg' isn't used - lib\features\agent\presentation\pages\validation_succes_page.dart:27:11 - unused_local_variable
+warning - Unused import: 'package:egov_mobile/app_pages.dart' - lib\features\auth\presentation\pages\citizen_auth_page.dart:5:8 - unused_import
+  error - The named parameter 'currentIndex' isn't defined - lib\features\home\presentation\pages\agent_home_page.dart:244:49 - undefined_named_parameter
+warning - Unused import: 'package:google_fonts/google_fonts.dart' - lib\features\home\presentation\pages\home_page_design.dart:2:8 - unused_import
+warning - The value of the local variable 'accentYellow' isn't used - lib\features\mairie\presentation\pages\demandes_mairie_page.dart:10:11 - unused_local_variable
+  error - The named parameter 'currentIndex' isn't defined - lib\features\requests\presentation\pages\agent_requests_page.dart:207:49 - undefined_named_parameter
+warning - Unused import: 'package:google_fonts/google_fonts.dart' - lib\features\requests\presentation\pages\payment_confirmation_page.dart:2:8 - unused_import
+warning - Unused import: 'package:google_fonts/google_fonts.dart' - lib\features\requests\presentation\pages\request_tracking_details_page.dart:2:8 - unused_import
+warning - Unused import: 'package:google_fonts/google_fonts.dart' - lib\features\requests\presentation\pages\request_tracking_page_new.dart:2:8 - unused_import
+warning - Unused import: 'package:google_fonts/google_fonts.dart' - lib\features\services\presentation\pages\services_page.dart:2:8 - unused_import
+

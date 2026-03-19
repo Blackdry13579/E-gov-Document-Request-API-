@@ -1,8 +1,10 @@
 const Demande = require('../models/Demande');
+const DocumentType = require('../models/DocumentType');
 const User = require('../models/User');
 const AuditLog = require('../models/AuditLog');
 const AppError = require('../utils/AppError');
 const asyncHandler = require('../middleware/asyncHandler');
+const logger = require('../utils/logger');
 
 /**
  * Statistiques globales pour le dashboard admin
@@ -87,8 +89,8 @@ exports.createUser = asyncHandler(async (req, res, next) => {
     description: `Création du compte ${role} pour ${email}`
   });
 
-  // Simulation envoi email
-  console.log(`[EMAIL SIM] Credentials pour ${email}: Password = ${passwordTemp}`);
+  // TODO: intégrer un vrai service d'envoi d'email
+  logger.info(`[EMAIL] Credentials envoyés à : ${email}`);
 
   res.status(201).json({
     success: true,
@@ -200,7 +202,6 @@ exports.getAllDemandes = asyncHandler(async (req, res) => {
 
   // Si filtrage par service, on doit d'abord trouver les IDs des documents de ce service
   if (req.query.service) {
-    const DocumentType = require('../models/DocumentType');
     const serviceDocs = await DocumentType.find({ service: req.query.service }).select('_id');
     const docTypeIds = serviceDocs.map(d => d._id);
     filter.documentTypeId = { $in: docTypeIds };

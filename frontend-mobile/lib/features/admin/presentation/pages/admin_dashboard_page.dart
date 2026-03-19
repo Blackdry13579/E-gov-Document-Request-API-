@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../shared/presentation/widgets/egov_app_bar.dart';
 
 class AdminDashboardPage extends StatelessWidget {
   const AdminDashboardPage({super.key});
@@ -12,10 +13,37 @@ class AdminDashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: EgovAppBar(
+        backgroundColor: AppColors.cardBg,
+        automaticallyImplyLeading: false,
+        actions: [
+          Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: AppColors.sectionBg,
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.divider),
+            ),
+            child: const Icon(Icons.notifications_none_rounded, color: AppColors.textDark, size: 20),
+          ),
+          const SizedBox(width: 8),
+          Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: AppColors.sectionBg,
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.divider),
+            ),
+            child: const Icon(Icons.person_outline_rounded, color: AppColors.textDark, size: 20),
+          ),
+          const SizedBox(width: 16),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            const _AdminTopBar(),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(16, 14, 16, 18),
@@ -40,46 +68,46 @@ class AdminDashboardPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 18),
-                    Row(
+                    const Row(
                       children: [
                         Expanded(
                           child: _KpiCard(
                             icon: Icons.description_outlined,
-                            iconBg: const Color(0xFFE0F2FE),
+                            iconBg: Color(0xFFE0F2FE),
                             title: 'Demandes totales',
                             value: '12 450',
                             trendLabel: '+12%',
-                            trendColor: const Color(0xFF16A34A),
+                            trendColor: Color(0xFF16A34A),
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        SizedBox(width: 12),
                         Expanded(
                           child: _KpiCard(
                             icon: Icons.people_alt_outlined,
-                            iconBg: const Color(0xFFFEF3C7),
+                            iconBg: Color(0xFFFEF3C7),
                             title: 'Citoyens inscrits',
                             value: '85 200',
                             trendLabel: '+5%',
-                            trendColor: const Color(0xFF16A34A),
+                            trendColor: Color(0xFF16A34A),
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 12),
-                    Row(
+                    const Row(
                       children: [
                         Expanded(
                           child: _KpiCard(
                             icon: Icons.badge_outlined,
-                            iconBg: const Color(0xFFEFF6FF),
+                            iconBg: Color(0xFFEFF6FF),
                             title: 'Agents actifs',
                             value: '420',
                             trendLabel: '−2%',
-                            trendColor: const Color(0xFFB91C1C),
+                            trendColor: Color(0xFFB91C1C),
                           ),
                         ),
-                        const SizedBox(width: 12),
-                        const Expanded(child: SizedBox.shrink()),
+                        SizedBox(width: 12),
+                        Expanded(child: SizedBox.shrink()),
                       ],
                     ),
                     const SizedBox(height: 22),
@@ -212,86 +240,6 @@ class AdminDashboardPage extends StatelessWidget {
   }
 }
 
-class _AdminTopBar extends StatelessWidget {
-  const _AdminTopBar();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.cardBg,
-      padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-      child: Row(
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 34,
-                height: 34,
-                decoration: BoxDecoration(
-                  color: AppColors.sectionBg,
-                  shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.divider),
-                ),
-                child: const Icon(
-                  Icons.account_balance_rounded,
-                  color: AppColors.primary,
-                  size: 18,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'E-Gov Burkina',
-                    style: GoogleFonts.outfit(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w800,
-                      color: AppColors.primary,
-                    ),
-                  ),
-                  Text(
-                    'PORTAIL ADMINISTRATIF',
-                    style: GoogleFonts.outfit(
-                      fontSize: 9,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 0.7,
-                      color: AppColors.textLight,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const Spacer(),
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              color: AppColors.sectionBg,
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.divider),
-            ),
-            child: const Icon(Icons.notifications_none_rounded,
-                color: AppColors.textDark, size: 20),
-          ),
-          const SizedBox(width: 8),
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              color: AppColors.sectionBg,
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.divider),
-            ),
-            child: const Icon(Icons.person_outline_rounded,
-                color: AppColors.textDark, size: 20),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _KpiCard extends StatelessWidget {
   final IconData icon;
@@ -443,7 +391,7 @@ class _ActivityRow extends StatelessWidget {
           Container(
             width: 32,
             height: 32,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.sectionBg,
               shape: BoxShape.circle,
             ),

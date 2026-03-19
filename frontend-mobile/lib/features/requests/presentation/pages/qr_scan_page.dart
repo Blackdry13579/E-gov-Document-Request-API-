@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../shared/presentation/widgets/egov_app_bar.dart';
 
 class QrScanPage extends StatelessWidget {
   const QrScanPage({super.key});
@@ -12,22 +13,13 @@ class QrScanPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
+      appBar: EgovAppBar(
         backgroundColor: Colors.black,
-        elevation: 0,
+        titleColor: Colors.white,
         leading: IconButton(
           icon: const Icon(Icons.close_rounded, color: Colors.white),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: Text(
-          'Scanner le QR code',
-          style: GoogleFonts.outfit(
-            fontSize: 16,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-          ),
-        ),
-        centerTitle: true,
       ),
       body: Stack(
         children: [
@@ -86,7 +78,7 @@ class QrScanPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.lock_outline_rounded, size: 16, color: AppColors.accent),
+                      const Icon(Icons.lock_outline_rounded, size: 16, color: AppColors.accent),
                       const SizedBox(width: 6),
                       Text(
                         'Traitement sécurisé côté serveur',

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../shared/presentation/widgets/egov_app_bar.dart';
+import 'payment_confirmation_page.dart';
 
 class ServiceRequestFlowPage extends StatefulWidget {
   const ServiceRequestFlowPage({super.key});
@@ -77,15 +79,25 @@ class _ServiceRequestFlowPageState extends State<ServiceRequestFlowPage> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: EgovAppBar(
+        backgroundColor: AppColors.cardBg,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.primary, size: 18),
+          onPressed: () => Navigator.of(context).maybePop(),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.more_vert_rounded, color: AppColors.textLight),
+            onPressed: () {},
+          ),
+          const SizedBox(width: 8),
+        ],
+      ),
       body: SafeArea(
         child: Stack(
           children: [
             Column(
               children: [
-                _FlowTopBar(
-                  onBack: () => Navigator.of(context).maybePop(),
-                  onMenu: () {},
-                ),
                 const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -179,7 +191,17 @@ class _ServiceRequestFlowPageState extends State<ServiceRequestFlowPage> {
             child: _PrimaryButton(
               label: 'Confirmer le\npaiement',
               icon: Icons.check_circle_outline_rounded,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const PaymentConfirmationPage(
+                      reference: 'CDB-2026-482917',
+                      date: '24 Mai 2024 - 14:32',
+                      serviceType: 'Renouvellement de titre sécurisé',
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -214,93 +236,6 @@ class _ServiceRequestFlowPageState extends State<ServiceRequestFlowPage> {
   }
 }
 
-class _FlowTopBar extends StatelessWidget {
-  final VoidCallback onBack;
-  final VoidCallback onMenu;
-
-  const _FlowTopBar({
-    required this.onBack,
-    required this.onMenu,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.cardBg,
-      padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
-      child: Row(
-        children: [
-          InkWell(
-            onTap: onBack,
-            borderRadius: BorderRadius.circular(999),
-            child: const SizedBox(
-              width: 40,
-              height: 40,
-              child: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                size: 18,
-                color: AppColors.primary,
-              ),
-            ),
-          ),
-          const SizedBox(width: 6),
-          Container(
-            width: 34,
-            height: 34,
-            decoration: BoxDecoration(
-              color: AppColors.sectionBg,
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.divider),
-            ),
-            child: const Icon(
-              Icons.account_balance_outlined,
-              size: 18,
-              color: AppColors.primary,
-            ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'SERVICES PUBLICS',
-                  style: GoogleFonts.outfit(
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 0.7,
-                    color: AppColors.primary,
-                  ),
-                ),
-                Text(
-                  'BURKINA FASO',
-                  style: GoogleFonts.outfit(
-                    fontSize: 9,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 0.8,
-                    color: AppColors.textLight,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          InkWell(
-            onTap: onMenu,
-            borderRadius: BorderRadius.circular(999),
-            child: const SizedBox(
-              width: 40,
-              height: 40,
-              child: Icon(
-                Icons.more_vert_rounded,
-                color: AppColors.textLight,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _StepHeader extends StatelessWidget {
   final int step;
@@ -688,9 +623,9 @@ class _RecapCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          _RecapRow(label: 'Document', value: "Extrait d'Acte de Naissance"),
+          const _RecapRow(label: 'Document', value: "Extrait d'Acte de Naissance"),
           const SizedBox(height: 8),
-          _RecapRow(label: 'Référence', value: 'CDB-2026-004521'),
+          const _RecapRow(label: 'Référence', value: 'CDB-2026-004521'),
           const SizedBox(height: 12),
           Divider(color: AppColors.divider.withValues(alpha: 0.9)),
           const SizedBox(height: 10),

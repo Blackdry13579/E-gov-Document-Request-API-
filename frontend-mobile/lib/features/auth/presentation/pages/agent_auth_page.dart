@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
+import 'package:egov_mobile/features/shared/presentation/widgets/egov_app_bar.dart';
+import 'package:egov_mobile/features/agent/presentation/pages/agent_shell.dart';
+import 'package:egov_mobile/features/agent/domain/models/agent_config.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../home/presentation/pages/agent_home_page.dart';
+import '../../../../core/providers/auth_provider.dart';
 
 class AgentAuthPage extends StatefulWidget {
   const AgentAuthPage({super.key});
@@ -30,140 +34,51 @@ class _AgentAuthPageState extends State<AgentAuthPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: EgovAppBar(
+        backgroundColor: AppColors.cardBg,
+        leading: InkWell(
+          onTap: () => Navigator.of(context).maybePop(),
+          borderRadius: BorderRadius.circular(999),
+          child: Container(
+            margin: const EdgeInsets.only(left: 16, top: 4, bottom: 4),
+            decoration: BoxDecoration(
+              color: AppColors.sectionBg,
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.divider),
+            ),
+            child: const Icon(
+              Icons.arrow_back_rounded,
+              size: 18,
+              color: AppColors.primary,
+            ),
+          ),
+        ),
+        actions: const [],
+      ),
       body: SafeArea(
         child: Column(
           children: [
-_AgentTopBar(onBack: () => Navigator.of(context).maybePop()),
             Expanded(
-              child: CustomScrollView(
-                slivers: [
-SliverToBoxAdapter(child: _AgentHeroHeader()),
-                  SliverToBoxAdapter(
-                    child: Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const _AgentHeroHeader(),
+                    Container(
                       color: AppColors.cardBg,
-                      padding: const EdgeInsets.fromLTRB(18, 26, 18, 28),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // ── Title
-                          Text(
-                            'Authentification',
-                            style: GoogleFonts.outfit(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.textDark,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            'Accédez à votre compte professionnel',
-                            style: GoogleFonts.outfit(
-                              fontSize: 13,
-                              color: AppColors.textLight,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const SizedBox(height: 28),
-
-                          // ── Matricule
-const _AgentFieldLabel('Identifiant / Matricule'),
-                          const SizedBox(height: 8),
-                          _AgentInputField(
-                            controller: _matriculeCtrl,
-                            hintText: 'Ex: 1234567A',
-                            prefixIcon: Icons.person_outline_rounded,
-                            keyboardType: TextInputType.text,
-                          ),
-                          const SizedBox(height: 20),
-
-                          // ── Password label + forgot
-                          Row(
-                            children: [
-                              Expanded(
-                              child: _AgentFieldLabel('Mot de passe'),
-                              ),
-                              GestureDetector(
-                                onTap: () {},
-                                child: Text(
-                                  'Mot de passe oublié ?',
-                                  style: GoogleFonts.outfit(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColors.primary,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-
-                          // ── Password field
-                          _AgentPasswordInput(
-                            controller: _passwordCtrl,
-                            obscureText: _obscurePassword,
-                            onToggle: () => setState(
-                              () => _obscurePassword = !_obscurePassword,
-                            ),
-                          ),
-                          const SizedBox(height: 28),
-
-                          // ── Login button
-                          _AgentLoginButton(
-                            onTap: () {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (_) => const AgentDashboardPage(),
-                                ),
-                              );
-                            },
-                          ),
-
-                          const SizedBox(height: 28),
-
-                          // ── Security indicator
-const _AgentSecurityBar(),
-
-                          const SizedBox(height: 24),
-
-                          // ── Footer
-                          Center(
-                            child: Text(
-                              'UN SERVICE DU GOUVERNEMENT DU BURKINA FASO',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.outfit(
-                                fontSize: 9,
-                                letterSpacing: 0.5,
-                                color:
-                                    AppColors.divider.withValues(alpha: 0.95),
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-children: [
-                              _FooterTextLink("Conditions d'utilisation"),
-                              Container(
-                                width: 4,
-                                height: 4,
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                ),
-                                decoration: BoxDecoration(
-                                  color:
-                                      AppColors.textLight.withValues(alpha: 0.5),
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                              _FooterTextLink('Confidentialité'),
-                            ],
-                          ),
-                        ],
+                      child: _AgentLoginForm(
+                        matriculeCtrl: _matriculeCtrl,
+                        passwordCtrl: _passwordCtrl,
+                        obscurePassword: _obscurePassword,
+                        onToggleObscure: () => setState(
+                          () => _obscurePassword = !_obscurePassword,
+                        ),
+                        onForgotPassword: () {},
+                        onLogin: _handleLogin,
+                        onNeedHelp: () {},
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
@@ -171,138 +86,67 @@ children: [
       ),
     );
   }
-}
 
-// ─── TOP BAR ─────────────────────────────────────────────────────────────────
-class _AgentTopBar extends StatelessWidget {
-  final VoidCallback onBack;
-  const _AgentTopBar({required this.onBack});
+  Future<void> _handleLogin() async {
+    // DÉSACTIVATION TEMPORAIRE DE L'AUTHENTIFICATION (MODE TEST)
+    debugPrint("Connexion Agent (BYPASS)...");
+    
+    // Simple logic to detect role based on matricule for testing
+    AgentRole role = AgentRole.justice;
+    if (_matriculeCtrl.text.toLowerCase().contains('mairie')) {
+      role = AgentRole.mairie;
+    }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.cardBg,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      child: Row(
-        children: [
-          // Back button
-          InkWell(
-            onTap: onBack,
-            borderRadius: BorderRadius.circular(999),
-            child: Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                color: AppColors.sectionBg,
-                shape: BoxShape.circle,
-                border: Border.all(color: AppColors.divider),
-              ),
-              child: const Icon(
-                Icons.arrow_back_rounded,
-                size: 18,
-                color: AppColors.primary,
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          // Logo + title
-          Text(
-            'E-GOV',
-            style: GoogleFonts.outfit(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: AppColors.primary,
-            ),
-          ),
-          const SizedBox(width: 4),
-          Text(
-            'Burkina Faso',
-            style: GoogleFonts.outfit(
-              fontSize: 11,
-              color: AppColors.textLight,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const Spacer(),
-          // Help button
-          InkWell(
-            onTap: () {},
-            borderRadius: BorderRadius.circular(999),
-            child: Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                color: AppColors.sectionBg,
-                shape: BoxShape.circle,
-                border: Border.all(color: AppColors.divider),
-              ),
-              child: const Icon(
-                Icons.help_outline_rounded,
-                size: 18,
-                color: AppColors.textLight,
-              ),
-            ),
-          ),
-        ],
-      ),
+    Navigator.of(context).pushReplacementNamed(
+      AgentShell.routeName,
+      arguments: {'role': role},
     );
   }
 }
 
-// ─── HERO HEADER (sans image profil) ─────────────────────────────────────────
 class _AgentHeroHeader extends StatelessWidget {
+  const _AgentHeroHeader();
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
+      height: 210,
       child: Stack(
         fit: StackFit.expand,
         children: [
           Image.asset(
-            'assets/images/hero_bg.png',
+            'assets/images/building.png',
             fit: BoxFit.cover,
           ),
-          // Gradient overlay
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.black.withValues(alpha: 0.25),
-                  Colors.black.withValues(alpha: 0.65),
+                  Colors.black.withValues(alpha: 0.15),
+                  Colors.black.withValues(alpha: 0.55),
                 ],
               ),
             ),
           ),
-          // Content (NO profile image)
           Padding(
-            padding: const EdgeInsets.fromLTRB(18, 18, 18, 20),
+            padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                // Badge "ESPACE SÉCURISÉ"
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: AppColors.white.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(999),
-                    border: Border.all(
-                      color: AppColors.white.withValues(alpha: 0.28),
-                    ),
+                    border: Border.all(color: AppColors.white.withValues(alpha: 0.28)),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.lock_outline_rounded,
-                        color: AppColors.white.withValues(alpha: 0.9),
-                        size: 11,
-                      ),
+                      Icon(Icons.lock_outline_rounded, color: AppColors.white.withValues(alpha: 0.9), size: 11),
                       const SizedBox(width: 5),
                       Text(
                         'ESPACE SÉCURISÉ',
@@ -320,17 +164,16 @@ class _AgentHeroHeader extends StatelessWidget {
                 Text(
                   'Espace Agent',
                   style: GoogleFonts.outfit(
-                    fontSize: 26,
+                    fontSize: 30,
                     fontWeight: FontWeight.w700,
                     color: AppColors.white,
-                    height: 1.15,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  "Portail sécurisé des agents de l'État",
+                  'Portail sécurisé des agents de l\'État.',
                   style: GoogleFonts.outfit(
-                    fontSize: 12.5,
+                    fontSize: 13,
                     fontWeight: FontWeight.w500,
                     color: AppColors.white.withValues(alpha: 0.85),
                   ),
@@ -344,47 +187,167 @@ class _AgentHeroHeader extends StatelessWidget {
   }
 }
 
-// ─── FIELD LABEL ─────────────────────────────────────────────────────────────
-class _AgentFieldLabel extends StatelessWidget {
-  final String text;
-  const _AgentFieldLabel(this.text);
+class _AgentLoginForm extends StatelessWidget {
+  final TextEditingController matriculeCtrl;
+  final TextEditingController passwordCtrl;
+  final bool obscurePassword;
+  final VoidCallback onToggleObscure;
+  final VoidCallback onForgotPassword;
+  final VoidCallback onLogin;
+  final VoidCallback onNeedHelp;
+
+  const _AgentLoginForm({
+    required this.matriculeCtrl,
+    required this.passwordCtrl,
+    required this.obscurePassword,
+    required this.onToggleObscure,
+    required this.onForgotPassword,
+    required this.onLogin,
+    required this.onNeedHelp,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(
-          text.contains('Identifiant')
-              ? Icons.person_outline_rounded
-              : Icons.lock_outline_rounded,
-          size: 15,
-          color: AppColors.primary,
-        ),
-        const SizedBox(width: 6),
-        Text(
-          text,
-          style: GoogleFonts.outfit(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: AppColors.textDark,
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(18, 26, 18, 28),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // ── Title
+          Text(
+            'Authentification',
+            style: GoogleFonts.outfit(
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+              color: AppColors.textDark,
+            ),
           ),
-        ),
-      ],
+          const SizedBox(height: 4),
+          Text(
+            'Accédez à votre compte professionnel',
+            style: GoogleFonts.outfit(
+              fontSize: 13,
+              color: AppColors.textLight,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(height: 28),
+
+          const _FieldLabel('Identifiant / Matricule'),
+          const SizedBox(height: 8),
+          _InputNoPrefix(
+            controller: matriculeCtrl,
+            hintText: 'Ex: 1234567A',
+            keyboardType: TextInputType.text,
+          ),
+          const SizedBox(height: 18),
+          Row(
+            children: [
+              const Expanded(child: _FieldLabel('Mot de passe')),
+              GestureDetector(
+                onTap: onForgotPassword,
+                child: Text(
+                  'Mot de passe oublié ?',
+                  style: GoogleFonts.outfit(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.primary,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          _PasswordInput(
+            controller: passwordCtrl,
+            hintText: '••••••••',
+            obscureText: obscurePassword,
+            onToggle: onToggleObscure,
+          ),
+          const SizedBox(height: 22),
+          _PrimaryButton(
+            label: 'Se connecter',
+            isLoading: context.watch<AuthProvider>().isLoading,
+            onPressed: onLogin,
+          ),
+          const SizedBox(height: 44),
+          Center(
+            child: GestureDetector(
+              onTap: onNeedHelp,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 18,
+                    height: 18,
+                    decoration: BoxDecoration(
+                      color: AppColors.sectionBg,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: AppColors.divider),
+                    ),
+                    child: const Icon(
+                      Icons.question_mark_rounded,
+                      size: 12,
+                      color: AppColors.textLight,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Besoin d\'aide ? Contacter le support',
+                    style: GoogleFonts.outfit(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textLight,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 14),
+          Center(
+            child: Text(
+              'RÉPUBLIQUE DU BURKINA FASO - PORTAIL OFFICIEL',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.outfit(
+                fontSize: 9,
+                letterSpacing: 0.3,
+                color: AppColors.divider.withValues(alpha: 0.9),
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
-// ─── INPUT FIELD ─────────────────────────────────────────────────────────────
-class _AgentInputField extends StatelessWidget {
+class _FieldLabel extends StatelessWidget {
+  final String text;
+  const _FieldLabel(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: GoogleFonts.outfit(
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+        color: AppColors.textDark,
+      ),
+    );
+  }
+}
+
+class _InputNoPrefix extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
-  final IconData prefixIcon;
   final TextInputType? keyboardType;
 
-  const _AgentInputField({
+  const _InputNoPrefix({
     required this.controller,
     required this.hintText,
-    required this.prefixIcon,
     this.keyboardType,
   });
 
@@ -407,30 +370,29 @@ class _AgentInputField extends StatelessWidget {
         ),
         filled: true,
         fillColor: AppColors.background,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide:
-              BorderSide(color: AppColors.divider.withValues(alpha: 0.9)),
+          borderSide: BorderSide(color: AppColors.divider.withValues(alpha: 0.9)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.4),
         ),
       ),
     );
   }
 }
 
-// ─── PASSWORD INPUT ───────────────────────────────────────────────────────────
-class _AgentPasswordInput extends StatelessWidget {
+class _PasswordInput extends StatelessWidget {
   final TextEditingController controller;
+  final String hintText;
   final bool obscureText;
   final VoidCallback onToggle;
 
-  const _AgentPasswordInput({
+  const _PasswordInput({
     required this.controller,
+    required this.hintText,
     required this.obscureText,
     required this.onToggle,
   });
@@ -446,7 +408,7 @@ class _AgentPasswordInput extends StatelessWidget {
         fontWeight: FontWeight.w500,
       ),
       decoration: InputDecoration(
-        hintText: '••••••••',
+        hintText: hintText,
         hintStyle: GoogleFonts.outfit(
           fontSize: 13,
           color: AppColors.textLight,
@@ -454,139 +416,72 @@ class _AgentPasswordInput extends StatelessWidget {
         ),
         filled: true,
         fillColor: AppColors.background,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
         suffixIcon: IconButton(
           onPressed: onToggle,
           icon: Icon(
-            obscureText
-                ? Icons.visibility_outlined
-                : Icons.visibility_off_outlined,
+            obscureText ? Icons.visibility_outlined : Icons.visibility_off_outlined,
             size: 20,
             color: AppColors.textLight,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide:
-              BorderSide(color: AppColors.divider.withValues(alpha: 0.9)),
+          borderSide: BorderSide(color: AppColors.divider.withValues(alpha: 0.9)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.4),
         ),
       ),
     );
   }
 }
 
-// ─── LOGIN BUTTON ─────────────────────────────────────────────────────────────
-class _AgentLoginButton extends StatelessWidget {
-  final VoidCallback onTap;
-  const _AgentLoginButton({required this.onTap});
+class _PrimaryButton extends StatelessWidget {
+  final String label;
+  final VoidCallback? onPressed;
+  final bool isLoading;
+
+  const _PrimaryButton({
+    required this.label,
+    this.onPressed,
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 54,
+      height: 52,
       child: ElevatedButton(
-        onPressed: onTap,
+        onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
           foregroundColor: AppColors.white,
-          elevation: 8,
-          shadowColor: AppColors.primary.withValues(alpha: 0.35),
+          elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Se connecter',
-              style: GoogleFonts.outfit(
-                fontWeight: FontWeight.w700,
-                fontSize: 15,
-              ),
-            ),
-            const SizedBox(width: 10),
-            const Icon(Icons.login_rounded, size: 20),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ─── SECURITY BAR ─────────────────────────────────────────────────────────────
-class _AgentSecurityBar extends StatelessWidget {
-  const _AgentSecurityBar();
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: ClipRRect(
             borderRadius: BorderRadius.circular(999),
-            child: SizedBox(
-              height: 5,
-              child: LinearProgressIndicator(
-                value: 1,
-                backgroundColor: AppColors.divider,
-                valueColor: AlwaysStoppedAnimation(Colors.red.shade400),
-              ),
-            ),
           ),
+          disabledBackgroundColor: AppColors.primary.withValues(alpha: 0.5),
         ),
-        const SizedBox(width: 6),
-        Expanded(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(999),
-            child: SizedBox(
-              height: 5,
-              child: LinearProgressIndicator(
-                value: 1,
-                backgroundColor: AppColors.divider,
-                valueColor: AlwaysStoppedAnimation(Colors.orange.shade400),
+        child: isLoading
+            ? const SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  color: AppColors.white,
+                  strokeWidth: 2.5,
+                ),
+              )
+            : Text(
+                label,
+                style: GoogleFonts.outfit(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 0.3,
+                ),
               ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 6),
-        Expanded(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(999),
-            child: SizedBox(
-              height: 5,
-              child: LinearProgressIndicator(
-                value: 1,
-                backgroundColor: AppColors.divider,
-                valueColor: AlwaysStoppedAnimation(Colors.green.shade500),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-// ─── FOOTER TEXT LINK ─────────────────────────────────────────────────────────
-class _FooterTextLink extends StatelessWidget {
-  final String text;
-  const _FooterTextLink(this.text);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: GoogleFonts.outfit(
-        fontSize: 11,
-        color: AppColors.textLight,
-        fontWeight: FontWeight.w500,
       ),
     );
   }

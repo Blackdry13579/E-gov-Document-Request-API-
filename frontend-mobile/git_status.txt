@@ -1,0 +1,56 @@
+On branch frontend-mobile
+Your branch is up to date with 'origin/frontend-mobile'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ../backend/.env.example
+	modified:   ../backend/package-lock.json
+	modified:   ../backend/src/controllers/adminController.js
+	modified:   ../backend/src/controllers/authController.js
+	deleted:    ../backend/src/controllers/paiementController.js
+	modified:   analyze_results.txt
+	deleted:    assets/images/hero_bg.png
+	modified:   lib/core/constants/app_colors.dart
+	modified:   lib/core/constants/app_theme.dart
+	modified:   lib/features/admin/presentation/pages/admin_agents_page.dart
+	modified:   lib/features/admin/presentation/pages/admin_citizen_detail_page.dart
+	modified:   lib/features/admin/presentation/pages/admin_citizens_page.dart
+	modified:   lib/features/admin/presentation/pages/admin_dashboard_page.dart
+	modified:   lib/features/admin/presentation/pages/admin_documents_page.dart
+	modified:   lib/features/admin/presentation/pages/admin_request_detail_page.dart
+	modified:   lib/features/admin/presentation/pages/admin_requests_page.dart
+	modified:   lib/features/admin/presentation/pages/admin_stats_page.dart
+	modified:   lib/features/auth/presentation/pages/agent_auth_page.dart
+	modified:   lib/features/auth/presentation/pages/citizen_auth_page.dart
+	modified:   lib/features/home/presentation/pages/agent_home_page.dart
+	deleted:    lib/features/home/presentation/pages/home_page.dart
+	modified:   lib/features/landing/landing_page.dart
+	modified:   lib/features/notifications/presentation/pages/notifications_page.dart
+	modified:   lib/features/profile/presentation/pages/profile_edit_page.dart
+	modified:   lib/features/profile/presentation/pages/profile_page.dart
+	modified:   lib/features/requests/presentation/pages/agent_request_details_page.dart
+	modified:   lib/features/requests/presentation/pages/agent_requests_page.dart
+	modified:   lib/features/requests/presentation/pages/appointment_page.dart
+	modified:   lib/features/requests/presentation/pages/my_requests_page.dart
+	modified:   lib/features/requests/presentation/pages/qr_scan_page.dart
+	modified:   lib/features/requests/presentation/pages/request_tracking_page.dart
+	modified:   lib/features/requests/presentation/pages/service_request_flow_page.dart
+	modified:   lib/features/services/presentation/pages/service_details_page.dart
+	modified:   lib/features/shared/presentation/widgets/citizen_bottom_nav.dart
+	modified:   lib/features/splash/presentation/pages/splash_page.dart
+	modified:   lib/main.dart
+	modified:   macos/Flutter/GeneratedPluginRegistrant.swift
+	modified:   pubspec.lock
+	modified:   pubspec.yaml
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	../PLAN.md
+	../TODO.md
+	../citizen_auth_page_old.dart
+	git_status.txt
+	nul
+	../pubspec_temp/
+
+no changes added to commit (use "git add" and/or "git commit -a")

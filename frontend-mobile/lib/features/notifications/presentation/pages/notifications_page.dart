@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../shared/presentation/widgets/citizen_bottom_nav.dart';
+import '../../../shared/presentation/widgets/egov_app_bar.dart';
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({super.key});
@@ -20,10 +21,31 @@ class _NotificationsPageState extends State<NotificationsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: EgovAppBar(
+        backgroundColor: AppColors.cardBg,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.primary, size: 18),
+          onPressed: () => Navigator.of(context).maybePop(),
+        ),
+        actions: [
+          const Icon(Icons.search_rounded, color: AppColors.textDark),
+          const SizedBox(width: 12),
+          Container(
+            margin: const EdgeInsets.only(right: 16),
+            width: 34,
+            height: 34,
+            decoration: BoxDecoration(
+              color: AppColors.sectionBg,
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.divider),
+            ),
+            child: const Icon(Icons.person, color: AppColors.primary, size: 18),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            _TopBar(onBack: () => Navigator.of(context).maybePop()),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(16, 10, 16, 18),
@@ -61,7 +83,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                       ],
                     ),
                     const SizedBox(height: 18),
-                    _SectionLabel('AUJOURD\'HUI'),
+                    const _SectionLabel('AUJOURD\'HUI'),
                     const SizedBox(height: 10),
                     const _NotificationTile(
                       iconBg: Color(0xFFDCFCE7),
@@ -89,7 +111,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                       badgeBg: Color(0xFFFFEDD5),
                     ),
                     const SizedBox(height: 22),
-                    _SectionLabel('HIER'),
+                    const _SectionLabel('HIER'),
                     const SizedBox(height: 10),
                     const _NotificationTile(
                       iconBg: Color(0xFFE5E7EB),
@@ -125,83 +147,6 @@ class _NotificationsPageState extends State<NotificationsPage> {
   }
 }
 
-class _TopBar extends StatelessWidget {
-  final VoidCallback onBack;
-  const _TopBar({required this.onBack});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.cardBg,
-      padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
-      child: Row(
-        children: [
-          InkWell(
-            onTap: onBack,
-            borderRadius: BorderRadius.circular(999),
-            child: const SizedBox(
-              width: 40,
-              height: 40,
-              child: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                size: 18,
-                color: AppColors.primary,
-              ),
-            ),
-          ),
-          const SizedBox(width: 8),
-          Container(
-            width: 34,
-            height: 34,
-            decoration: BoxDecoration(
-              color: AppColors.sectionBg,
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.divider),
-            ),
-            child: const Icon(Icons.account_balance_rounded,
-                color: AppColors.primary, size: 18),
-          ),
-          const SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'BURKINA FASO',
-                style: GoogleFonts.outfit(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 0.7,
-                  color: AppColors.primary,
-                ),
-              ),
-              Text(
-                'Portail Citoyen',
-                style: GoogleFonts.outfit(
-                  fontSize: 9,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.textLight,
-                ),
-              ),
-            ],
-          ),
-          const Spacer(),
-          const Icon(Icons.search_rounded, color: AppColors.textDark),
-          const SizedBox(width: 12),
-          Container(
-            width: 34,
-            height: 34,
-            decoration: BoxDecoration(
-              color: AppColors.sectionBg,
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.divider),
-            ),
-            child: const Icon(Icons.person, color: AppColors.primary, size: 18),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _FilterChip extends StatelessWidget {
   final String label;

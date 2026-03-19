@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../shared/presentation/widgets/egov_app_bar.dart';
 
 class ProfileEditPage extends StatelessWidget {
   const ProfileEditPage({super.key});
@@ -21,10 +22,16 @@ class ProfileEditPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: EgovAppBar(
+        backgroundColor: AppColors.cardBg,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.primary, size: 18),
+          onPressed: () => Navigator.of(context).maybePop(),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            _TopBar(onBack: () => Navigator.of(context).maybePop()),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(16, 14, 16, 18),
@@ -49,11 +56,11 @@ class ProfileEditPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 22),
-                    _FieldLabel('Nom complet'),
+                    const _FieldLabel('Nom complet'),
                     const SizedBox(height: 6),
                     _Input(controller: nameCtrl),
                     const SizedBox(height: 14),
-                    _FieldLabel('Numéro CNIB'),
+                    const _FieldLabel('Numéro CNIB'),
                     const SizedBox(height: 6),
                     Stack(
                       children: [
@@ -81,7 +88,7 @@ class ProfileEditPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 14),
-                    _FieldLabel('Téléphone'),
+                    const _FieldLabel('Téléphone'),
                     const SizedBox(height: 6),
                     Row(
                       children: [
@@ -109,11 +116,11 @@ class ProfileEditPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 14),
-                    _FieldLabel('E-mail'),
+                    const _FieldLabel('E-mail'),
                     const SizedBox(height: 6),
                     _Input(controller: emailCtrl),
                     const SizedBox(height: 14),
-                    _FieldLabel('Adresse'),
+                    const _FieldLabel('Adresse'),
                     const SizedBox(height: 6),
                     _Input(
                       controller: addressCtrl,
@@ -170,55 +177,6 @@ class ProfileEditPage extends StatelessWidget {
   }
 }
 
-class _TopBar extends StatelessWidget {
-  final VoidCallback onBack;
-  const _TopBar({required this.onBack});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.cardBg,
-      padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-      child: Row(
-        children: [
-          InkWell(
-            onTap: onBack,
-            borderRadius: BorderRadius.circular(999),
-            child: const SizedBox(
-              width: 40,
-              height: 40,
-              child: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                size: 18,
-                color: AppColors.primary,
-              ),
-            ),
-          ),
-          const SizedBox(width: 8),
-          Text(
-            'E-Gov',
-            style: GoogleFonts.outfit(
-              fontSize: 18,
-              fontWeight: FontWeight.w900,
-              color: AppColors.primary,
-            ),
-          ),
-          const Spacer(),
-          Container(
-            width: 38,
-            height: 38,
-            decoration: BoxDecoration(
-              color: AppColors.sectionBg,
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.divider),
-            ),
-            child: const Icon(Icons.menu_rounded, color: AppColors.textDark),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _FieldLabel extends StatelessWidget {
   final String text;

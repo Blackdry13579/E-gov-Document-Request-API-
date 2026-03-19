@@ -47,8 +47,8 @@ class _AdminDocumentsPageState extends State<AdminDocumentsPage> {
                     const SizedBox(height: 16),
                     const _SearchField(),
                     const SizedBox(height: 14),
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                         Expanded(
                           child: _StatPill(
                             label: 'TOTAL',

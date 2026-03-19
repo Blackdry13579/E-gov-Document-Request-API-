@@ -281,8 +281,8 @@ class _InfoCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(18),
         border: Border.all(color: AppColors.divider),
       ),
-      child: Column(
-        children: const [
+      child: const Column(
+        children: [
           _InfoRow(
             icon: Icons.badge_outlined,
             label: 'CNIB',

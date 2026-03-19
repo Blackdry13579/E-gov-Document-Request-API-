@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../core/constants/app_colors.dart';
-import '../../../landing/landing_page.dart';
+import 'package:egov_mobile/core/constants/app_colors.dart';
+import 'package:egov_mobile/features/landing/landing_page.dart' hide AppColors;
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -21,14 +21,11 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   Future<void> _bootstrap() async {
-    await Future.delayed(const Duration(milliseconds: 1500));
-
+    await Future.delayed(const Duration(milliseconds: 500)); // Réduit pour test rapide
     if (!mounted) return;
 
-    // TODO: remplacer par une vraie vérification de token/session.
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const LandingPage()),
-    );
+    // BYPASS AUTH POUR TEST
+    Navigator.of(context).pushReplacementNamed(LandingPage.routeName);
   }
 
   @override
@@ -64,7 +61,7 @@ class _SplashPageState extends State<SplashPage> {
             ),
             const SizedBox(height: 6),
             Text(
-              'Chargement de vos services…',
+              'Chargement de vos servicesâ€¦',
               style: GoogleFonts.outfit(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
