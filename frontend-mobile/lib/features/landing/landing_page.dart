@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-
-
 import '../auth/presentation/pages/citizen_auth_page.dart';
-import '../shared/presentation/widgets/egov_app_bar.dart';
+import '../auth/presentation/pages/agent_auth_page.dart';
+
+
 
 // ============================================================================
 // COULEURS — NE PAS MODIFIER SANS AUTORISATION
@@ -32,42 +31,80 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: EgovAppBar(
-        backgroundColor: AppColors.white,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: TextButton.icon(
-              onPressed: () => Navigator.pushNamed(context, '/agent-auth'),
-              icon: const Icon(Icons.shield_rounded, size: 16, color: AppColors.primaryBlue),
-              label: Text(
-                'Agent',
-                style: GoogleFonts.outfit(
-                  color: AppColors.primaryBlue,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 13,
-                ),
-              ),
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(999),
-                  side: BorderSide(color: AppColors.primaryBlue.withValues(alpha: 0.2)),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(width: 16),
-        ],
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            _buildAppBar(context),
             _buildHeroSection(),
             _buildCategoriesSection(),
-            _buildWhySection(),
+            _buildWhySection(),        // ← CORRIGÉ : blocs verticaux centrés
             _buildCtaSection(context),
             _buildFooter(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ==========================================================================
+  // APP BAR
+  // ==========================================================================
+  Widget _buildAppBar(BuildContext context) {
+    return Container(
+      color: AppColors.white,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+      child: SafeArea(
+        bottom: false,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Image.asset(
+                  'assets/images/embleme.png',
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.contain,
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  'E-Gov',
+                  style: GoogleFonts.poppins(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.primaryBlue,
+                  ),
+                ),
+              ],
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(AgentAuthPage.routeName);
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                decoration: BoxDecoration(
+                  color: AppColors.primaryBlue,
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.badge_outlined, color: Colors.white, size: 14),
+                    const SizedBox(width: 6),
+                    Text(
+                      'ESPACE AGENT',
+                      style: GoogleFonts.poppins(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -119,23 +156,19 @@ class LandingPage extends StatelessWidget {
                     _buildBadge(),
                     const SizedBox(height: 20),
                     // Titre
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Simplifiez vos démarches\nadministratives',
-                        style: GoogleFonts.poppins(
-                          fontSize: 26,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.white,
-                          height: 1.2,
-                        ),
+                    Text(
+                      'Simplifiez vos\ndémarches administratives',
+                      style: GoogleFonts.poppins(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.white,
+                        height: 1.2,
                       ),
                     ),
                     const SizedBox(height: 12),
                     // Sous-titre
                     Text(
-                      'Accédez aux services de l\'État burkinabè en quelques clics.',
+                      'Accédez aux services de l\'État burkinabè en\nquelques clics, où que vous soyez.',
                       style: GoogleFonts.poppins(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
@@ -210,17 +243,14 @@ class LandingPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: Text(
-                  'Catégories de services',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.primaryBlue,
-                  ),
+              Text(
+                'Catégories de services',
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.primaryBlue,
                 ),
               ),
-              const SizedBox(width: 8),
               Text(
                 'Voir tout',
                 style: GoogleFonts.poppins(
@@ -239,7 +269,7 @@ class LandingPage extends StatelessWidget {
               crossAxisCount: 2,
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
-              childAspectRatio: 1.15,
+              childAspectRatio: 1.3,
             ),
             itemCount: categories.length,
             itemBuilder: (context, index) => _buildCategoryCard(categories[index]),
@@ -276,17 +306,14 @@ class LandingPage extends StatelessWidget {
             child: Icon(data.icon, color: data.color, size: 24),
           ),
           const SizedBox(height: 12),
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Text(
-              data.title,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: AppColors.primaryBlue,
-                height: 1.3,
-              ),
+          Text(
+            data.title,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: AppColors.primaryBlue,
+              height: 1.3,
             ),
           ),
         ],
@@ -391,65 +418,66 @@ class LandingPage extends StatelessWidget {
   // ==========================================================================
   Widget _buildCtaSection(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(20, 0, 20, 24),
-      padding: const EdgeInsets.all(32),
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        image: DecorationImage(
-          image: const AssetImage('assets/images/building.png'),
+        color: AppColors.primaryBlue,
+        borderRadius: BorderRadius.circular(20),
+        // Image de fond optionnelle
+        image: const DecorationImage(
+          image: AssetImage('assets/images/cta_bg.png'),
           fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            AppColors.primaryBlue.withValues(alpha: 0.85),
-            BlendMode.srcOver,
-          ),
+          opacity: 0.15,
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primaryBlue.withValues(alpha: 0.25),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
+            color: AppColors.primaryBlue.withValues(alpha: 0.3),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             'Pour tous les Burkinabè',
             style: GoogleFonts.poppins(
-              fontSize: 22,
-              fontWeight: FontWeight.w800,
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
               color: AppColors.white,
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 10),
           Text(
-            'Une administration de proximité, accessible à tous les citoyens, résidents ou membres de la diaspora.',
+            'Une administration de proximité, accessible à tous les citoyens, résidents ou de la diaspora.',
             style: GoogleFonts.poppins(
-              fontSize: 14,
-              color: AppColors.white.withValues(alpha: 0.9),
+              fontSize: 13,
+              color: AppColors.white.withValues(alpha: 0.85),
               height: 1.5,
             ),
           ),
-          const SizedBox(height: 32),
-          // Bouton "Créer mon compte"
+          const SizedBox(height: 24),
+          // Bouton "Créer mon compte" — outline blanc arrondi
           OutlinedButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(CitizenAuthPage.routeName);
+              Navigator.of(context).pushNamed(
+                CitizenAuthPage.routeName,
+                arguments: {'initialIndex': 1},
+              );
             },
             style: OutlinedButton.styleFrom(
               foregroundColor: AppColors.white,
-              side: const BorderSide(color: AppColors.white, width: 2),
+              side: const BorderSide(color: AppColors.white, width: 1.5),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(999),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             ),
             child: Text(
               'Créer mon compte',
               style: GoogleFonts.poppins(
-                fontSize: 15,
+                fontSize: 14,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -465,7 +493,7 @@ class LandingPage extends StatelessWidget {
   Widget _buildFooter() {
     return Container(
       color: AppColors.darkBlue,
-      padding: const EdgeInsets.fromLTRB(20, 16, 20, 28),
+      padding: const EdgeInsets.fromLTRB(20, 32, 20, 28),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -551,6 +579,8 @@ class LandingPage extends StatelessWidget {
                 ),
               ),
               _buildSocialIcon(Icons.facebook_rounded),
+              const SizedBox(width: 12),
+              _buildSocialIcon(Icons.language_rounded),
               const SizedBox(width: 12),
               _buildSocialIcon(Icons.email_outlined),
             ],

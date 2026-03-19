@@ -19,6 +19,16 @@ class DetailDemandePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final demande = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>? ?? {};
+    
+    final title = demande['documentTypeId']?['nom'] ?? 'Détails de la demande';
+    final reference = demande['reference'] ?? 'Réf inconnue';
+    final citoyenNom = demande['citoyenId'] != null 
+        ? '${demande['citoyenId']['prenom']} ${demande['citoyenId']['nom']}'
+        : 'Citoyen Inconnu';
+    final lieu = demande['donnees']?['lieuNaissance'] ?? 'Non précisé';
+    final cnib = demande['donnees']?['numeroCnib'] ?? 'Non précisé';
+
     return Scaffold(
       backgroundColor: backgroundLight,
       appBar: AppBar(
@@ -56,8 +66,8 @@ class DetailDemandePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Extrait d'acte de naissance", style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.w700, color: primaryBlue)),
-                        Text("Réf: CDB-2026-001234", style: GoogleFonts.inter(fontSize: 13, color: textSecondary)),
+                        Text(title, style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.w700, color: primaryBlue)),
+                        Text("Réf: $reference", style: GoogleFonts.inter(fontSize: 13, color: textSecondary)),
                       ],
                     ),
                   ),
@@ -65,7 +75,7 @@ class DetailDemandePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            _buildInfoRecap(context),
+            _buildInfoRecap(context, citoyenNom, cnib, lieu),
           ],
         ),
       ),
@@ -76,7 +86,7 @@ class DetailDemandePage extends StatelessWidget {
           children: [
             Expanded(
               child: ElevatedButton(
-                onPressed: () => _showValidationDialog(context),
+                onPressed: () => _showValidationDialog(context, citoyenNom, title, reference),
                 style: ElevatedButton.styleFrom(backgroundColor: successGreen, foregroundColor: Colors.white),
                 child: const Text("Valider"),
               ),
@@ -87,16 +97,16 @@ class DetailDemandePage extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoRecap(BuildContext context) {
+  Widget _buildInfoRecap(BuildContext context, String citoyen, String cnib, String lieu) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
       child: Column(
         children: [
-          _buildRow("Citoyen", "Jean-Baptiste Ouédraogo"),
-          _buildRow("CNIB", "B12345678"),
-          _buildRow("Lieu", "Ouagadougou"),
+          _buildRow("Citoyen", citoyen),
+          _buildRow("CNIB", cnib),
+          _buildRow("Lieu", lieu),
         ],
       ),
     );
@@ -106,21 +116,21 @@ class DetailDemandePage extends StatelessWidget {
     return Padding(padding: const EdgeInsets.symmetric(vertical: 8), child: Row(children: [Text(label), const Spacer(), Text(value, style: const TextStyle(fontWeight: FontWeight.bold))]));
   }
 
-  void _showValidationDialog(BuildContext context) {
+  void _showValidationDialog(BuildContext context, String citoyen, String type, String ref) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text("Confirmer la validation ?"),
-        content: const Text("Voulez-vous valider la demande de Moussa Traoré ?"),
+        content: Text("Voulez-vous valider la demande de $citoyen ?"),
         actions: [
           TextButton(onPressed: () => Navigator.pop(context), child: const Text("Annuler")),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, ValidationSuccesPage.routeName, arguments: {
-                'reference': 'BF-2024-8892-X',
-                'citoyen': 'Moussa Traoré',
-                'typeDemande': "Extrait d'acte de naissance",
+                'reference': ref,
+                'citoyen': citoyen,
+                'typeDemande': type,
               });
             },
             child: const Text("Confirmer"),

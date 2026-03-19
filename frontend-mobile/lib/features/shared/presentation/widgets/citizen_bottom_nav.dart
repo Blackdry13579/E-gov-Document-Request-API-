@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../home/presentation/pages/home_page_design.dart';
-import '../../../services/presentation/pages/services_page.dart';
+import '../../../catalogue/presentation/pages/catalogue_page.dart';
 import '../../../notifications/presentation/pages/notifications_page.dart';
 import '../../../profile/presentation/pages/profile_page.dart';
 
@@ -21,7 +21,7 @@ class CitizenBottomNav extends StatelessWidget {
         page = const HomePageSimple();
         break;
       case 1:
-        page = const ServicesPage();
+        page = const CataloguePage();
         break;
       case 2:
         page = const NotificationsPage();

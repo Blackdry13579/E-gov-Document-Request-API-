@@ -24,6 +24,7 @@ import 'features/services/presentation/pages/service_details_page.dart';
 import 'features/requests/presentation/pages/service_request_flow_page.dart';
 import 'features/notifications/presentation/pages/notifications_page.dart';
 import 'features/profile/presentation/pages/profile_page.dart';
+import 'features/catalogue/presentation/pages/catalogue_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,6 +72,7 @@ class EGovApp extends StatelessWidget {
           ServiceRequestFlowPage.routeName: (_) => const ServiceRequestFlowPage(),
           NotificationsPage.routeName: (_) => const NotificationsPage(),
           ProfilePage.routeName: (_) => const ProfilePage(),
+          CataloguePage.routeName: (_) => const CataloguePage(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == PaymentConfirmationPage.routeName) {

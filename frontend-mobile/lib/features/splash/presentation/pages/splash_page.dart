@@ -31,23 +31,31 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 72,
-              height: 72,
+              width: 80,
+              height: 80,
               decoration: BoxDecoration(
-                color: AppColors.sectionBg,
+                color: AppColors.white,
                 shape: BoxShape.circle,
-                border: Border.all(color: AppColors.divider),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.1),
+                    blurRadius: 20,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
               ),
-              child: const Icon(
-                Icons.account_balance_rounded,
-                color: AppColors.primary,
-                size: 32,
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Image.asset(
+                  'assets/images/embleme.png',
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
             const SizedBox(height: 18),
@@ -61,7 +69,7 @@ class _SplashPageState extends State<SplashPage> {
             ),
             const SizedBox(height: 6),
             Text(
-              'Chargement de vos servicesâ€¦',
+              'Chargement de vos services...',
               style: GoogleFonts.outfit(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,

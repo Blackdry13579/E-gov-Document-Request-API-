@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import '../../../../core/providers/demande_provider.dart';
 import '../../domain/models/agent_config.dart';
 import 'detail_demande_page.dart';
 
-class AgentRequestsPage extends StatelessWidget {
+class AgentRequestsPage extends StatefulWidget {
   final AgentRole role;
   const AgentRequestsPage({super.key, required this.role});
 
   @override
+  State<AgentRequestsPage> createState() => _AgentRequestsPageState();
+}
+
+class _AgentRequestsPageState extends State<AgentRequestsPage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<DemandeProvider>().fetchDemandes();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final config = AgentConfig.getByRole(role);
+    final config = AgentConfig.getByRole(widget.role);
     const successGreen = Color(0xFF27AE60);
     const warningOrange = Color(0xFFF39C12);
+    const errorRed = Color(0xFFE74C3C);
     const textSecondary = Color(0xFF8E8E93);
     const backgroundLight = Color(0xFFF4F6F9);
 
@@ -66,33 +82,82 @@ class AgentRequestsPage extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(20),
-        children: [
-          _buildRequestCard(
-            context,
-            title: "Extrait de Naissance",
-            name: "Ibrahim Sanou",
-            date: "15/03/2026",
-            status: "EN ATTENTE",
-            statusColor: warningOrange,
-          ),
-          const SizedBox(height: 12),
-          _buildRequestCard(
-            context,
-            title: "Certificat de Nationalité",
-            name: "Awa Koulibaly",
-            date: "14/03/2026",
-            status: "VALIDÉ",
-            statusColor: successGreen,
-          ),
-        ],
+      body: Consumer<DemandeProvider>(
+        builder: (context, provider, child) {
+          if (provider.isLoading && provider.demandes.isEmpty) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (provider.demandes.isEmpty) {
+            return Center(
+              child: Text(
+                'Aucune demande à afficher',
+                style: GoogleFonts.inter(color: textSecondary),
+              ),
+            );
+          }
+
+          return RefreshIndicator(
+            onRefresh: () => provider.fetchDemandes(),
+            child: ListView.builder(
+              padding: const EdgeInsets.all(20),
+              itemCount: provider.demandes.length,
+              itemBuilder: (context, index) {
+                final demande = provider.demandes[index];
+                final title = demande['documentTypeId']?['nom'] ?? 'Demande';
+                final citoyen = demande['citoyenId'] != null 
+                    ? '${demande['citoyenId']['prenom']} ${demande['citoyenId']['nom']}'
+                    : 'Citoyen Inconnu';
+                final dateStr = demande['dateSoumission'] ?? '';
+                final displayDate = dateStr.isNotEmpty 
+                    ? dateStr.substring(0, 10) 
+                    : 'Date inconnue';
+                
+                final statut = demande['statut'] ?? 'INCONNU';
+                Color statusColor = textSecondary;
+                
+                switch (statut) {
+                  case 'VALIDEE':
+                  case 'TERMINEE':
+                    statusColor = successGreen;
+                    break;
+                  case 'EN_ATTENTE':
+                  case 'NOUVEAU':
+                    statusColor = warningOrange;
+                    break;
+                  case 'EN_COURS':
+                  case 'URGENT':
+                    statusColor = config.primaryColor;
+                    break;
+                  case 'REJETEE':
+                  case 'DOCUMENTS_MANQUANTS':
+                    statusColor = errorRed;
+                    break;
+                }
+
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: _buildRequestCard(
+                    context,
+                    demande: demande,
+                    title: title,
+                    name: citoyen,
+                    date: displayDate,
+                    status: statut,
+                    statusColor: statusColor,
+                  ),
+                );
+              },
+            ),
+          );
+        },
       ),
     );
   }
 
   Widget _buildRequestCard(
     BuildContext context, {
+    required Map<String, dynamic> demande,
     required String title,
     required String name,
     required String date,
@@ -100,7 +165,7 @@ class AgentRequestsPage extends StatelessWidget {
     required Color statusColor,
   }) {
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, DetailDemandePage.routeName),
+      onTap: () => Navigator.pushNamed(context, DetailDemandePage.routeName, arguments: demande),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -116,7 +181,13 @@ class AgentRequestsPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(title, style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700, color: const Color(0xFF1C1C1E))),
+                Expanded(
+                  child: Text(
+                    title, 
+                    style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w700, color: const Color(0xFF1C1C1E)),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(color: statusColor.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(6)),

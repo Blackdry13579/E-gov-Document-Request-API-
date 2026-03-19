@@ -22,13 +22,24 @@ class EgovAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(
-        title,
-        style: GoogleFonts.inter(
-          fontWeight: FontWeight.bold,
-          fontSize: 18,
-          color: titleColor ?? const Color(0xFF1A1A2E),
-        ),
+      title: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(
+            'assets/images/embleme.png',
+            height: 28,
+            fit: BoxFit.contain,
+          ),
+          const SizedBox(width: 10),
+          Text(
+            title,
+            style: GoogleFonts.inter(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              color: titleColor ?? const Color(0xFF1A1A2E),
+            ),
+          ),
+        ],
       ),
       backgroundColor: backgroundColor ?? Colors.white,
       leading: leading,

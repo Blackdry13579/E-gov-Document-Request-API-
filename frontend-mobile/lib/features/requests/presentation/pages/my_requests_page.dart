@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/providers/demande_provider.dart';
 import '../../../shared/presentation/widgets/citizen_bottom_nav.dart';
 import '../../../shared/presentation/widgets/egov_app_bar.dart';
 import 'request_tracking_page.dart';
@@ -17,6 +19,23 @@ class MyRequestsPage extends StatefulWidget {
 
 class _MyRequestsPageState extends State<MyRequestsPage> {
   int _filter = 0; // 0=tout,1=en attente,2=validé,3=rejeté
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<DemandeProvider>().fetchDemandes();
+    });
+  }
+
+  bool _matchesFilter(dynamic demande) {
+    if (_filter == 0) return true;
+    final statut = demande['statut'] ?? '';
+    if (_filter == 1) return statut == 'EN_ATTENTE' || statut == 'NOUVEAU';
+    if (_filter == 2) return statut == 'VALIDEE' || statut == 'TERMINEE';
+    if (_filter == 3) return statut == 'REJETEE' || statut == 'DOCUMENTS_MANQUANTS';
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,82 +59,77 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
         child: Column(
           children: [
             Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(16, 10, 16, 18),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Mes Demandes',
-                      style: GoogleFonts.outfit(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w900,
-                        color: AppColors.textDark,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
+              child: Consumer<DemandeProvider>(
+                builder: (context, provider, child) {
+                  final filteredDemandes = provider.demandes.where(_matchesFilter).toList();
+
+                  return RefreshIndicator(
+                    onRefresh: () => provider.fetchDemandes(),
+                    child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      padding: const EdgeInsets.fromLTRB(16, 10, 16, 18),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _FilterChip(
-                            label: 'Tout',
-                            selected: _filter == 0,
-                            onTap: () => setState(() => _filter = 0),
+                          Text(
+                            'Mes Demandes',
+                            style: GoogleFonts.outfit(
+                              fontSize: 26,
+                              fontWeight: FontWeight.w900,
+                              color: AppColors.textDark,
+                            ),
                           ),
-                          const SizedBox(width: 10),
-                          _FilterChip(
-                            label: 'En attente',
-                            selected: _filter == 1,
-                            onTap: () => setState(() => _filter = 1),
+                          const SizedBox(height: 12),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                _FilterChip(
+                                  label: 'Tout',
+                                  selected: _filter == 0,
+                                  onTap: () => setState(() => _filter = 0),
+                                ),
+                                const SizedBox(width: 10),
+                                _FilterChip(
+                                  label: 'En attente',
+                                  selected: _filter == 1,
+                                  onTap: () => setState(() => _filter = 1),
+                                ),
+                                const SizedBox(width: 10),
+                                _FilterChip(
+                                  label: 'Validé',
+                                  selected: _filter == 2,
+                                  onTap: () => setState(() => _filter = 2),
+                                ),
+                                const SizedBox(width: 10),
+                                _FilterChip(
+                                  label: 'Rejeté',
+                                  selected: _filter == 3,
+                                  onTap: () => setState(() => _filter = 3),
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(width: 10),
-                          _FilterChip(
-                            label: 'Validé',
-                            selected: _filter == 2,
-                            onTap: () => setState(() => _filter = 2),
-                          ),
-                          const SizedBox(width: 10),
-                          _FilterChip(
-                            label: 'Rejeté',
-                            selected: _filter == 3,
-                            onTap: () => setState(() => _filter = 3),
-                          ),
+                          const SizedBox(height: 14),
+                          if (provider.isLoading && provider.demandes.isEmpty)
+                            const Center(child: Padding(padding: EdgeInsets.all(40), child: CircularProgressIndicator())),
+                          
+                          if (!provider.isLoading && filteredDemandes.isEmpty)
+                            Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(40),
+                                child: Text('Aucune demande trouvée', style: GoogleFonts.outfit(color: AppColors.textLight)),
+                              ),
+                            ),
+
+                          for (var demande in filteredDemandes) ...[
+                            _buildRequestTileFromDemande(context, demande),
+                          ],
                         ],
                       ),
                     ),
-                    const SizedBox(height: 14),
-                    _RequestTile(
-                      status: 'VALIDÉ',
-                      statusColor: const Color(0xFF22C55E),
-                      icon: Icons.description_outlined,
-                      title: "Extrait d'acte de naissance",
-                      ref: 'CDB-2026-001234',
-                      date: '12/05/2026',
-                      onDetails: () => _openTracking(context),
-                    ),
-                    const SizedBox(height: 14),
-                    _RequestTile(
-                      status: 'EN ATTENTE',
-                      statusColor: const Color(0xFFF59E0B),
-                      icon: Icons.badge_outlined,
-                      title: 'Certificat de Nationalité',
-                      ref: 'CDB-2026-005678',
-                      date: '18/05/2026',
-                      onDetails: () => _openTracking(context),
-                    ),
-                    const SizedBox(height: 14),
-                    _RequestTile(
-                      status: 'REJETÉ',
-                      statusColor: const Color(0xFFEF4444),
-                      icon: Icons.gavel_rounded,
-                      title: 'Casier Judiciaire',
-                      ref: 'CDB-2026-009901',
-                      date: '05/05/2026',
-                      onDetails: () => _openTracking(context),
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
             ),
           ],
@@ -129,6 +143,39 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
         child: const Icon(Icons.add_rounded, size: 28),
       ),
       bottomNavigationBar: const CitizenBottomNav(currentIndex: 1),
+    );
+  }
+
+  Widget _buildRequestTileFromDemande(BuildContext context, dynamic demande) {
+    final title = demande['documentTypeId']?['nom'] ?? 'Demande';
+    final ref = demande['reference'] ?? 'Ref inconnue';
+    final date = demande['dateSoumission']?.toString().substring(0, 10) ?? 'Non datée';
+    final statut = demande['statut'] ?? 'INCONNU';
+
+    Color statusColor = AppColors.textLight;
+    IconData icon = Icons.description_outlined;
+
+    if (statut == 'VALIDEE' || statut == 'TERMINEE') {
+      statusColor = const Color(0xFF22C55E);
+    } else if (statut == 'EN_ATTENTE' || statut == 'NOUVEAU' || statut == 'EN_COURS') {
+      statusColor = const Color(0xFFF59E0B);
+      icon = Icons.badge_outlined;
+    } else if (statut == 'REJETEE' || statut == 'DOCUMENTS_MANQUANTS') {
+      statusColor = const Color(0xFFEF4444);
+      icon = Icons.gavel_rounded;
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 14),
+      child: _RequestTile(
+        status: statut,
+        statusColor: statusColor,
+        icon: icon,
+        title: title,
+        ref: ref,
+        date: date,
+        onDetails: () => _openTracking(context),
+      ),
     );
   }
 

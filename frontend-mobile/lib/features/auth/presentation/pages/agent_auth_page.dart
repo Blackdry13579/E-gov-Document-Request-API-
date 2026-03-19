@@ -124,10 +124,19 @@ class _AgentHeroHeader extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.black.withValues(alpha: 0.15),
-                  Colors.black.withValues(alpha: 0.55),
+                  Colors.black.withValues(alpha: 0.2),
+                  Colors.black.withValues(alpha: 0.6),
                 ],
               ),
+            ),
+          ),
+          Positioned(
+            top: 24,
+            left: 18,
+            child: Image.asset(
+              'assets/images/embleme.png',
+              height: 48,
+              fit: BoxFit.contain,
             ),
           ),
           Padding(
