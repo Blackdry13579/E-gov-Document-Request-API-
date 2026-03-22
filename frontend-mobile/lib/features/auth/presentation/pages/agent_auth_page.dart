@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../../../../core/providers/auth_provider.dart';
 
 import 'package:egov_mobile/features/shared/presentation/widgets/egov_app_bar.dart';
-import 'package:egov_mobile/features/agent/presentation/pages/agent_shell.dart';
+import 'package:egov_mobile/scaffolds/agent_main_scaffold.dart';
 import 'package:egov_mobile/features/agent/domain/models/agent_config.dart';
+import 'package:egov_mobile/features/admin/presentation/pages/admin_login_page.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/providers/auth_provider.dart';
 
 class AgentAuthPage extends StatefulWidget {
   const AgentAuthPage({super.key});
@@ -98,7 +99,7 @@ class _AgentAuthPageState extends State<AgentAuthPage> {
     }
 
     Navigator.of(context).pushReplacementNamed(
-      AgentShell.routeName,
+      AgentMainScaffold.routeName,
       arguments: {'role': role},
     );
   }
@@ -124,8 +125,8 @@ class _AgentHeroHeader extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.black.withValues(alpha: 0.2),
-                  Colors.black.withValues(alpha: 0.6),
+                  Colors.black.withOpacity(0.2),
+                  Colors.black.withOpacity(0.6),
                 ],
               ),
             ),
@@ -148,21 +149,21 @@ class _AgentHeroHeader extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: AppColors.white.withValues(alpha: 0.18),
+                    color: AppColors.white.withOpacity(0.18),
                     borderRadius: BorderRadius.circular(999),
-                    border: Border.all(color: AppColors.white.withValues(alpha: 0.28)),
+                    border: Border.all(color: AppColors.white.withOpacity(0.28)),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.lock_outline_rounded, color: AppColors.white.withValues(alpha: 0.9), size: 11),
+                      Icon(Icons.lock_outline_rounded, color: AppColors.white.withOpacity(0.9), size: 11),
                       const SizedBox(width: 5),
                       Text(
                         'ESPACE SÉCURISÉ',
                         style: GoogleFonts.outfit(
                           fontSize: 10,
                           fontWeight: FontWeight.w700,
-                          color: AppColors.white.withValues(alpha: 0.92),
+                          color: AppColors.white.withOpacity(0.92),
                           letterSpacing: 0.6,
                         ),
                       ),
@@ -184,7 +185,7 @@ class _AgentHeroHeader extends StatelessWidget {
                   style: GoogleFonts.outfit(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.white.withValues(alpha: 0.85),
+                    color: AppColors.white.withOpacity(0.85),
                   ),
                 ),
               ],
@@ -315,14 +316,23 @@ class _AgentLoginForm extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           Center(
-            child: Text(
-              'RÉPUBLIQUE DU BURKINA FASO - PORTAIL OFFICIEL',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.outfit(
-                fontSize: 9,
-                letterSpacing: 0.3,
-                color: AppColors.divider.withValues(alpha: 0.9),
-                fontWeight: FontWeight.w700,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AdminLoginPage(),
+                  ),
+                );
+              },
+              child: Text(
+                'RÉPUBLIQUE DU BURKINA FASO - PORTAIL OFFICIEL',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.outfit(
+                  fontSize: 9,
+                  letterSpacing: 0.3,
+                  color: AppColors.divider.withOpacity(0.9),
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ),
@@ -382,7 +392,7 @@ class _InputNoPrefix extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide(color: AppColors.divider.withValues(alpha: 0.9)),
+          borderSide: BorderSide(color: AppColors.divider.withOpacity(0.9)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
@@ -436,7 +446,7 @@ class _PasswordInput extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide(color: AppColors.divider.withValues(alpha: 0.9)),
+          borderSide: BorderSide(color: AppColors.divider.withOpacity(0.9)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
@@ -472,7 +482,7 @@ class _PrimaryButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(999),
           ),
-          disabledBackgroundColor: AppColors.primary.withValues(alpha: 0.5),
+          disabledBackgroundColor: AppColors.primary.withOpacity(0.5),
         ),
         child: isLoading
             ? const SizedBox(

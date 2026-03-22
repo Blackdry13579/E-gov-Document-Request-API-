@@ -1,168 +1,150 @@
+import 'package:egov_mobile/features/shared/presentation/widgets/egov_main_app_bar.dart';
+import 'package:egov_mobile/features/shared/presentation/widgets/admin_bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:provider/provider.dart';
+import '../../../../core/providers/stats_provider.dart';
 import '../../../../core/constants/app_colors.dart';
+import 'admin_home_page.dart';
+import 'admin_demandes_page.dart';
+import 'admin_users_page.dart';
+import 'admin_documents_page.dart';
 
-class AdminStatsPage extends StatelessWidget {
+class AdminStatsPage extends StatefulWidget {
   const AdminStatsPage({super.key});
+
+  @override
+  State<AdminStatsPage> createState() => _AdminStatsPageState();
+}
+
+class _AdminStatsPageState extends State<AdminStatsPage> {
+  final TextEditingController _searchCtrl = TextEditingController();
+  String _searchQuery = '';
+
+  @override
+  void dispose() {
+    _searchCtrl.dispose();
+    super.dispose();
+  }
 
   static const routeName = '/admin-stats';
 
   @override
   Widget build(BuildContext context) {
+    final stats = context.watch<StatsProvider>();
+    final filteredActivities = stats.activites.where((a) {
+      if (_searchQuery.isEmpty) return true;
+      return a['title'].toString().toLowerCase().contains(_searchQuery.toLowerCase()) ||
+             a['subtitle'].toString().toLowerCase().contains(_searchQuery.toLowerCase());
+    }).toList();
+
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: const EgovMainAppBar(title: 'STATISTIQUES NATIONALES'),
       body: SafeArea(
         child: Column(
           children: [
-            const _TopBar(),
+            // Suppression de _TopBar car remplacé par appBar
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(16, 14, 16, 18),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const _AvatarHeader(),
                     const SizedBox(height: 10),
+                    Center(
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: AppColors.primary.withOpacity(0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(Icons.analytics_rounded, size: 40, color: AppColors.primary),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+
                     Center(
                       child: Column(
                         children: [
                           Text(
-                            'Statistiques Administratives',
-                            style: GoogleFonts.outfit(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w900,
-                              color: AppColors.textDark,
-                            ),
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
                             'Tableau de Bord National',
                             style: GoogleFonts.outfit(
                               fontSize: 12,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w700,
                               color: AppColors.textLight,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 18),
-                    const Row(
-                      children: [
-                        Expanded(
-                          child: _KpiCard(
-                            label: 'Total Demandes',
-                            value: '12 450',
-                            trend: '+12%',
-                            accent: Color(0xFFF97316),
-                          ),
-                        ),
-                        SizedBox(width: 12),
-                        Expanded(
-                          child: _KpiCard(
-                            label: 'Taux de Traitement',
-                            value: '94%',
-                            trend: '+3,2%',
-                            accent: Color(0xFF16A34A),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 22),
+
+                    const SizedBox(height: 16),
+                    // Counters
                     Row(
                       children: [
-                        Text(
-                          'Volume des Demandes',
-                          style: GoogleFonts.outfit(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w800,
-                            color: AppColors.textDark,
-                          ),
+                        _StatCard(
+                          label: 'DEMANDES',
+                          value: stats.totalDemandes.toString(),
+                          icon: Icons.description_rounded,
                         ),
-                        const Spacer(),
-                        Text(
-                          '7 derniers jours',
-                          style: GoogleFonts.outfit(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.textLight,
-                          ),
+                        const SizedBox(width: 12),
+                        _StatCard(
+                          label: 'SUCCÈS',
+                          value: '${stats.tauxTraitement}%',
+                          icon: Icons.auto_awesome_rounded,
+                          isSuccess: true,
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 22),
+                    // Search Bar for activities
                     Container(
-                      height: 120,
+                      height: 50,
                       decoration: BoxDecoration(
-                        color: AppColors.cardBg,
-                        borderRadius: BorderRadius.circular(18),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: AppColors.divider),
                       ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Graphique volumétrie (placeholder)',
-                        style: GoogleFonts.outfit(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.textLight,
-                        ),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.search_rounded, color: AppColors.textLight, size: 20),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: TextField(
+                              controller: _searchCtrl,
+                              onChanged: (v) => setState(() => _searchQuery = v),
+                              decoration: const InputDecoration(
+                                hintText: 'Rechercher une activité...',
+                                border: InputBorder.none,
+                                hintStyle: TextStyle(fontSize: 14, color: AppColors.textLight),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(height: 22),
-                    Text(
-                      'Temps Moyen de Délivrance',
-                      style: GoogleFonts.outfit(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.textDark,
-                      ),
-                    ),
+                    // -- Chart & Delivery --
+                    _buildSectionTitle('Délivrance par Service'),
                     const SizedBox(height: 12),
-                    const _DeliveryTimeRow(
-                      label: 'Passeports Biométriques',
-                      days: '4,2 jours',
-                      value: 0.8,
-                    ),
-                    const SizedBox(height: 8),
-                    const _DeliveryTimeRow(
-                      label: "Extraits d'Actes de Naissance",
-                      days: '1,5 jours',
-                      value: 0.4,
-                    ),
-                    const SizedBox(height: 8),
-                    const _DeliveryTimeRow(
-                      label: "Cartes d'Identité (CNIB)",
-                      days: '3,8 jours',
-                      value: 0.7,
-                    ),
-                    const SizedBox(height: 22),
-                    Text(
-                      'Journal des Activités',
-                      style: GoogleFonts.outfit(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.textDark,
+                    ...stats.deliveryTimes.entries.map((e) => Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: _DeliveryTimeRow(
+                        label: e.key,
+                        days: '${e.value} jours',
+                        value: e.value / 5.0, // Ratio arbitraire
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    const _ActivityRow(
-                      icon: Icons.error_outline_rounded,
-                      iconBg: Color(0xFFFEF3C7),
-                      iconColor: Color(0xFFB45309),
-                      title: 'Pic de demandes détecté',
-                      subtitle:
-                          'Antenne de Ouagadougou · Il y a 15 min',
-                    ),
-                    const SizedBox(height: 8),
-                    const _ActivityRow(
-                      icon: Icons.check_circle_outline_rounded,
-                      iconBg: Color(0xFFECFDF3),
-                      iconColor: Color(0xFF16A34A),
-                      title: 'Synchronisation système terminée',
-                      subtitle:
-                          'Réseau État Civil · Il y a 2h',
-                    ),
+                    )),
+                    const SizedBox(height: 22),
+                    _buildSectionTitle('Journal d\'Activités'),
+                    const SizedBox(height: 12),
+                    ...filteredActivities.map((a) => _ActivityItem(
+                      title: a['title'],
+                      subtitle: a['subtitle'],
+                      isError: a['isError'],
+                    )),
                   ],
                 ),
               ),
@@ -170,41 +152,17 @@ class AdminStatsPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 2,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color(0xFFF97316),
-        unselectedItemColor: AppColors.textLight.withValues(alpha: 0.7),
-        selectedLabelStyle: GoogleFonts.outfit(
-          fontSize: 10,
-          fontWeight: FontWeight.w700,
-        ),
-        unselectedLabelStyle: GoogleFonts.outfit(
-          fontSize: 10,
-          fontWeight: FontWeight.w600,
-        ),
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: 'Accueil',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.description_outlined),
-            label: 'Demandes',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_rounded),
-            label: 'Stats',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.description_outlined),
-            label: 'Documents',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline_rounded),
-            label: 'Profil',
-          ),
-        ],
+      bottomNavigationBar: const AdminBottomNav(currentIndex: 0),
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Text(
+      title,
+      style: GoogleFonts.outfit(
+        fontSize: 14,
+        fontWeight: FontWeight.w800,
+        color: AppColors.textDark,
       ),
     );
   }
@@ -212,39 +170,24 @@ class AdminStatsPage extends StatelessWidget {
 
 class _TopBar extends StatelessWidget {
   const _TopBar();
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.cardBg,
-      padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+      color: Colors.white,
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
       child: Row(
         children: [
+          Image.asset('assets/images/embleme.png', height: 32, errorBuilder: (_, __, ___) => const Icon(Icons.account_balance, color: AppColors.primary)),
+          const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'ADMIN BURKINA FASO',
-                style: GoogleFonts.outfit(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 0.7,
-                  color: const Color(0xFFF97316),
-                ),
-              ),
-              Text(
-                'Services Nationaux de Statistiques',
-                style: GoogleFonts.outfit(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.textLight,
-                ),
-              ),
+              Text('BURKINA FASO', style: GoogleFonts.outfit(fontSize: 12, fontWeight: FontWeight.w900, color: const Color(0xFFF97316))),
+              Text('Services de Statistiques', style: GoogleFonts.outfit(fontSize: 10, fontWeight: FontWeight.w700, color: AppColors.textLight)),
             ],
           ),
           const Spacer(),
-          const Icon(Icons.notifications_none_rounded,
-              color: AppColors.textDark, size: 22),
+          const Icon(Icons.notifications_none_rounded, color: AppColors.textDark, size: 22),
         ],
       ),
     );
@@ -327,97 +270,94 @@ class _KpiCard extends StatelessWidget {
   }
 }
 
-class _DeliveryTimeRow extends StatelessWidget {
+class _StatCard extends StatelessWidget {
   final String label;
-  final String days;
-  final double value;
+  final String value;
+  final IconData icon;
+  final bool isSuccess;
 
-  const _DeliveryTimeRow({
+  const _StatCard({
     required this.label,
-    required this.days,
     required this.value,
+    required this.icon,
+    this.isSuccess = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: AppColors.divider),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: Text(
-                label,
-                style: GoogleFonts.outfit(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.textDark,
-                ),
+            Icon(icon, color: isSuccess ? AppColors.success : AppColors.primary, size: 20),
+            const SizedBox(height: 12),
+            Text(
+              value,
+              style: GoogleFonts.outfit(
+                fontSize: 22,
+                fontWeight: FontWeight.w900,
+                color: AppColors.textDark,
               ),
             ),
             Text(
-              days,
+              label,
               style: GoogleFonts.outfit(
-                fontSize: 11.5,
-                fontWeight: FontWeight.w700,
+                fontSize: 10,
+                fontWeight: FontWeight.w800,
                 color: AppColors.textLight,
+                letterSpacing: 0.5,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 6),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(999),
-          child: LinearProgressIndicator(
-            value: value,
-            minHeight: 6,
-            backgroundColor: AppColors.sectionBg,
-            valueColor: const AlwaysStoppedAnimation(
-              Color(0xFFF97316),
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
 
-class _ActivityRow extends StatelessWidget {
-  final IconData icon;
-  final Color iconBg;
-  final Color iconColor;
+class _ActivityItem extends StatelessWidget {
   final String title;
   final String subtitle;
+  final bool isError;
 
-  const _ActivityRow({
-    required this.icon,
-    required this.iconBg,
-    required this.iconColor,
+  const _ActivityItem({
     required this.title,
     required this.subtitle,
+    this.isError = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppColors.cardBg,
-        borderRadius: BorderRadius.circular(14),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.divider),
       ),
       child: Row(
         children: [
           Container(
-            width: 32,
-            height: 32,
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: iconBg,
-              borderRadius: BorderRadius.circular(10),
+              color: isError ? AppColors.error.withOpacity(0.1) : AppColors.primary.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(icon, color: iconColor, size: 18),
+            child: Icon(
+              isError ? Icons.warning_amber_rounded : Icons.info_outline_rounded,
+              color: isError ? AppColors.error : AppColors.primary,
+              size: 18,
+            ),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -425,12 +365,11 @@ class _ActivityRow extends StatelessWidget {
                 Text(
                   title,
                   style: GoogleFonts.outfit(
-                    fontSize: 12.5,
+                    fontSize: 13,
                     fontWeight: FontWeight.w800,
                     color: AppColors.textDark,
                   ),
                 ),
-                const SizedBox(height: 2),
                 Text(
                   subtitle,
                   style: GoogleFonts.outfit(
@@ -448,3 +387,36 @@ class _ActivityRow extends StatelessWidget {
   }
 }
 
+class _DeliveryTimeRow extends StatelessWidget {
+  final String label;
+  final String days;
+  final double value;
+
+  const _DeliveryTimeRow({
+    required this.label,
+    required this.days,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(label, style: GoogleFonts.outfit(fontSize: 12, fontWeight: FontWeight.w700, color: AppColors.textDark)),
+            Text(days, style: GoogleFonts.outfit(fontSize: 12, fontWeight: FontWeight.w900, color: AppColors.primary)),
+          ],
+        ),
+        const SizedBox(height: 6),
+        LinearProgressIndicator(
+          value: value,
+          backgroundColor: AppColors.divider,
+          valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+          minHeight: 4,
+        ),
+      ],
+    );
+  }
+}

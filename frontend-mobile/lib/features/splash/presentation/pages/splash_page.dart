@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:egov_mobile/core/constants/app_colors.dart';
-import 'package:egov_mobile/features/landing/landing_page.dart' hide AppColors;
+import 'package:egov_mobile/features/landing/landing_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -44,7 +44,7 @@ class _SplashPageState extends State<SplashPage> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.1),
+                    color: Colors.black.withOpacity(0.1),
                     blurRadius: 20,
                     offset: const Offset(0, 10),
                   ),

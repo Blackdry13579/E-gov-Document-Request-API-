@@ -1,9 +1,14 @@
+import 'package:egov_mobile/features/shared/presentation/widgets/egov_main_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/providers/document_provider.dart';
+import '../../../../core/providers/auth_provider.dart';
 import '../../../shared/presentation/widgets/egov_app_bar.dart';
 import '../../../shared/presentation/widgets/citizen_bottom_nav.dart';
+import '../../../../scaffolds/citizen_main_scaffold.dart';
 import '../../domain/models/document_model.dart';
 import 'detail_document_page.dart';
 
@@ -29,56 +34,21 @@ class _CataloguePageState extends State<CataloguePage> {
     'Santé',
   ];
 
-  final List<DocumentModel> _documents = const [
-    DocumentModel(
-      id: '1',
-      title: 'CNIB (Renouvellement)',
-      description: 'Carte Nationale d\'Identité Burkinabè',
-      price: '2 500 FCFA',
-      delivery: 'En ligne',
-      deliveryIcon: Icons.devices_outlined,
-      status: 'DISPONIBLE',
-      icon: Icons.badge_outlined,
-      category: 'Identité',
-    ),
-    DocumentModel(
-      id: '2',
-      title: 'Extrait d\'Acte de Naissance',
-      description: 'Copie intégrale ou extrait simple',
-      price: '500 FCFA',
-      delivery: 'Mobile',
-      deliveryIcon: Icons.smartphone_outlined,
-      status: 'INSTANTANÉ',
-      icon: Icons.history_edu_outlined,
-      category: 'État Civil',
-    ),
-    DocumentModel(
-      id: '3',
-      title: 'Casier Judiciaire',
-      description: 'Bulletin N°3 pour usage administratif',
-      price: '1 000 FCFA',
-      delivery: 'Email / Retrait',
-      deliveryIcon: Icons.mail_outlined,
-      status: '48H DÉLAI',
-      icon: Icons.gavel_outlined,
-      category: 'Justice',
-    ),
-    DocumentModel(
-      id: '4',
-      title: 'Permis de Conduire',
-      description: 'Duplicata ou renouvellement biométrique',
-      price: '15 000 FCFA',
-      delivery: 'Retrait Guichet',
-      deliveryIcon: Icons.location_on_outlined,
-      status: 'NOUVEAU',
-      icon: Icons.directions_car_outlined,
-      category: 'Transport',
-    ),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final docProvider = context.read<DocumentProvider>();
+      if (docProvider.documents.isEmpty) {
+        final token = context.read<AuthProvider>().token ?? '';
+        docProvider.loadDocuments(token);
+      }
+    });
+  }
 
-  List<DocumentModel> get _filteredDocuments {
+  List<DocumentModel> _getFilteredDocuments(List<DocumentModel> source) {
     final query = _searchController.text.toLowerCase();
-    return _documents.where((doc) {
+    return source.where((doc) {
       final matchesFilter =
           _selectedFilter == 'Tout' || doc.category == _selectedFilter;
       final matchesSearch = query.isEmpty ||
@@ -88,6 +58,8 @@ class _CataloguePageState extends State<CataloguePage> {
     }).toList();
   }
 
+
+
   @override
   void dispose() {
     _searchController.dispose();
@@ -96,21 +68,64 @@ class _CataloguePageState extends State<CataloguePage> {
 
   @override
   Widget build(BuildContext context) {
+    final docProvider = context.watch<DocumentProvider>();
+    final activeDocs = docProvider.activeDocuments;
+    final docs = _getFilteredDocuments(activeDocs);
+
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const EgovAppBar(
-        title: 'PORTAIL OFFICIEL',
-        automaticallyImplyLeading: false,
+      appBar: EgovMainAppBar(
+        title: 'CATALOGUE DES SERVICES',
+        onProfileTap: () => CitizenMainScaffold.of(context)?.switchTab(3),
       ),
-      body: Column(
+      body: docProvider.isLoading
+          ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
+          : Column(
+              children: [
+                _buildSearchBar(),
+                _buildFilterChips(),
+                _buildSectionTitle(),
+                Expanded(
+                  child: docs.isEmpty && !docProvider.isLoading
+                    ? _buildEmptyState()
+                    : _buildDocumentList(docs)
+                ),
+              ],
+            ),
+    );
+  }
+
+  Widget _buildEmptyState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildSearchBar(),
-          _buildFilterChips(),
-          _buildSectionTitle(),
-          Expanded(child: _buildDocumentList()),
+          const Icon(
+            Icons.description_outlined,
+            color: Color(0xFFcbd5e1),
+            size: 64,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'Aucun service disponible',
+            style: GoogleFonts.publicSans(
+              color: const Color(0xFF94a3b8),
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Les services sont temporairement\nindisponibles.',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.publicSans(
+              color: const Color(0xFFcbd5e1),
+              fontSize: 13,
+              height: 1.5,
+            ),
+          ),
         ],
       ),
-      bottomNavigationBar: const CitizenBottomNav(currentIndex: 1),
     );
   }
 
@@ -227,16 +242,14 @@ class _CataloguePageState extends State<CataloguePage> {
   // ──────────────────────────────────────────────────────────────────
   // DOCUMENT LIST
   // ──────────────────────────────────────────────────────────────────
-  Widget _buildDocumentList() {
-    final docs = _filteredDocuments;
-
+  Widget _buildDocumentList(List<DocumentModel> docs) {
     if (docs.isEmpty) {
       return Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(Icons.search_off_rounded,
-                size: 48, color: AppColors.primary.withValues(alpha: 0.3)),
+                size: 48, color: AppColors.primary.withOpacity(0.3)),
             const SizedBox(height: 12),
             Text(
               'Aucun document trouvé',
@@ -272,7 +285,7 @@ class _CataloguePageState extends State<CataloguePage> {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
+            color: Colors.black.withOpacity(0.04),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -291,7 +304,7 @@ class _CataloguePageState extends State<CataloguePage> {
                   width: 52,
                   height: 52,
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.08),
+                    color: AppColors.primary.withOpacity(0.08),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(
@@ -313,6 +326,8 @@ class _CataloguePageState extends State<CataloguePage> {
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 4),
 
@@ -323,6 +338,8 @@ class _CataloguePageState extends State<CataloguePage> {
                 color: const Color(0xFF64748b),
                 fontSize: 12,
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 12),
 
@@ -332,24 +349,32 @@ class _CataloguePageState extends State<CataloguePage> {
                 const Icon(Icons.payments_outlined,
                     color: AppColors.primary, size: 16),
                 const SizedBox(width: 4),
-                Text(
-                  doc.price,
-                  style: GoogleFonts.publicSans(
-                    color: const Color(0xFF1e293b),
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
+                Flexible(
+                  child: Text(
+                    doc.price,
+                    style: GoogleFonts.publicSans(
+                      color: const Color(0xFF1e293b),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 const SizedBox(width: 16),
                 Icon(doc.deliveryIcon,
                     color: AppColors.primary, size: 16),
                 const SizedBox(width: 4),
-                Text(
-                  doc.delivery,
-                  style: GoogleFonts.publicSans(
-                    color: const Color(0xFF1e293b),
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
+                Flexible(
+                  child: Text(
+                    doc.delivery,
+                    style: GoogleFonts.publicSans(
+                      color: const Color(0xFF1e293b),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],

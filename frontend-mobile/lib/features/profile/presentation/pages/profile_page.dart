@@ -1,11 +1,11 @@
+import 'package:egov_mobile/features/shared/presentation/widgets/egov_main_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/providers/auth_provider.dart';
-import '../../../shared/presentation/widgets/citizen_bottom_nav.dart';
-import '../../../shared/presentation/widgets/egov_app_bar.dart';
+import '../../../auth/domain/models/user_model.dart';
 import 'profile_edit_page.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -15,19 +15,19 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = context.watch<AuthProvider>();
+    final user = authProvider.user;
+    final userName = user?.nom ?? 'Citoyen';
+
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: const EgovAppBar(
-        backgroundColor: AppColors.cardBg,
-        automaticallyImplyLeading: false,
-        actions: [],
-      ),
+      appBar: const EgovMainAppBar(title: 'MON COMPTE CITOYEN'),
       body: SafeArea(
         child: Column(
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(16, 10, 16, 18),
+                padding: const EdgeInsets.fromLTRB(16, 20, 16, 30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -35,9 +35,9 @@ class ProfilePage extends StatelessWidget {
                     const _AvatarHeader(),
                     const SizedBox(height: 6),
                     Text(
-                      'Jean-Baptiste Ouedraogo',
+                      userName,
                       style: GoogleFonts.outfit(
-                        fontSize: 20,
+                        fontSize: 22,
                         fontWeight: FontWeight.w900,
                         color: AppColors.textDark,
                       ),
@@ -71,12 +71,12 @@ class ProfilePage extends StatelessWidget {
                           fontSize: 11,
                           fontWeight: FontWeight.w900,
                           letterSpacing: 0.7,
-                          color: AppColors.textLight.withValues(alpha: 0.9),
+                          color: AppColors.textLight.withOpacity(0.9),
                         ),
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const _InfoCard(),
+                    _InfoCard(user: user?.toUserModel()),
                     const SizedBox(height: 22),
                     Align(
                       alignment: Alignment.centerLeft,
@@ -86,7 +86,7 @@ class ProfilePage extends StatelessWidget {
                           fontSize: 11,
                           fontWeight: FontWeight.w900,
                           letterSpacing: 0.7,
-                          color: AppColors.textLight.withValues(alpha: 0.9),
+                          color: AppColors.textLight.withOpacity(0.9),
                         ),
                       ),
                     ),
@@ -96,7 +96,7 @@ class ProfilePage extends StatelessWidget {
                     _LogoutButton(onTap: () {
                       context.read<AuthProvider>().logout();
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/',
+                        '/landing',
                         (route) => false,
                       );
                     }),
@@ -118,7 +118,6 @@ class ProfilePage extends StatelessWidget {
         shape: const CircleBorder(),
         child: const Icon(Icons.edit_rounded),
       ),
-      bottomNavigationBar: const CitizenBottomNav(currentIndex: 3),
     );
   }
 }
@@ -162,8 +161,10 @@ class _AvatarHeader extends StatelessWidget {
   }
 }
 
+
 class _InfoCard extends StatelessWidget {
-  const _InfoCard();
+  final UserModel? user;
+  const _InfoCard({this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -175,36 +176,36 @@ class _InfoCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(18),
         border: Border.all(color: AppColors.divider),
       ),
-      child: const Column(
+      child: Column(
         children: [
           _InfoRow(
             icon: Icons.person_outline_rounded,
             label: 'Nom Complet',
-            value: 'Jean-Baptiste Ouedraogo',
+            value: user?.nom ?? 'Citoyen',
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           _InfoRow(
             icon: Icons.badge_outlined,
             label: 'Numéro CNIB',
-            value: 'B12345678',
+            value: user?.id.substring(0, 8).toUpperCase() ?? 'B00000000',
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           _InfoRow(
             icon: Icons.phone_outlined,
             label: 'Téléphone',
-            value: '+226 25 30 00 00',
+            value: user?.telephone ?? '+226 -- -- -- --',
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           _InfoRow(
             icon: Icons.mail_outline_rounded,
             label: 'E-mail',
-            value: 'jb.ouedraogo@service.bf',
+            value: user?.email ?? 'non renseigné',
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           _InfoRow(
             icon: Icons.location_on_outlined,
             label: 'Adresse',
-            value: 'Ouagadougou, Secteur 15, Patte d\'Oie',
+            value: user?.adresse ?? 'non renseignée',
           ),
         ],
       ),

@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/providers/user_management_provider.dart';
+import 'package:provider/provider.dart';
 import '../../../../core/constants/app_colors.dart';
+import 'citizen_model.dart';
 
 class AdminCitizenDetailPage extends StatelessWidget {
-  const AdminCitizenDetailPage({super.key});
+  final CitizenData citizen;
+  const AdminCitizenDetailPage({super.key, required this.citizen});
 
   static const routeName = '/admin-citizen-detail';
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = context.watch<UserManagementProvider>();
+    // On recherche le citoyen actuel dans le provider de manière sécurisée
+    final citizenData = userProvider.citizens.cast<CitizenData?>().firstWhere(
+      (c) => c?.id == citizen.id,
+      orElse: () => citizen,
+    ) ?? citizen;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -21,11 +32,11 @@ class AdminCitizenDetailPage extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 14, 16, 90),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const _AvatarHeader(),
+                   children: [
+                    _AvatarHeader(citizen: citizenData),
                     const SizedBox(height: 8),
                     Text(
-                      'Abdoulaye Traoré',
+                      citizenData.name,
                       style: GoogleFonts.outfit(
                         fontSize: 20,
                         fontWeight: FontWeight.w900,
@@ -39,21 +50,21 @@ class AdminCitizenDetailPage extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFDCFCE7),
+                        color: citizenData.statusBg,
                         borderRadius: BorderRadius.circular(999),
                       ),
                       child: Text(
-                        'Compte Vérifié',
+                        citizenData.statusLabel,
                         style: GoogleFonts.outfit(
                           fontSize: 10,
                           fontWeight: FontWeight.w900,
-                          color: const Color(0xFF166534),
+                          color: citizenData.statusColor,
                         ),
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Ouagadougou, Burkina Faso',
+                      '${citizenData.city}, Burkina Faso',
                       style: GoogleFonts.outfit(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -62,11 +73,11 @@ class AdminCitizenDetailPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      'ID SYSTÈME: BUR-7742910',
+                      'ID SYSTÈME: ${citizenData.id}',
                       style: GoogleFonts.outfit(
                         fontSize: 10,
                         fontWeight: FontWeight.w800,
-                        color: AppColors.textLight.withValues(alpha: 0.9),
+                        color: AppColors.textLight.withOpacity(0.9),
                       ),
                     ),
                     const SizedBox(height: 22),
@@ -78,12 +89,12 @@ class AdminCitizenDetailPage extends StatelessWidget {
                           fontSize: 11,
                           fontWeight: FontWeight.w900,
                           letterSpacing: 0.7,
-                          color: AppColors.textLight.withValues(alpha: 0.9),
+                          color: AppColors.textLight.withOpacity(0.9),
                         ),
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const _InfoCard(),
+                    _InfoCard(citizen: citizenData),
                     const SizedBox(height: 22),
                     Align(
                       alignment: Alignment.centerLeft,
@@ -96,7 +107,7 @@ class AdminCitizenDetailPage extends StatelessWidget {
                               fontWeight: FontWeight.w900,
                               letterSpacing: 0.7,
                               color: AppColors.textLight
-                                  .withValues(alpha: 0.9),
+                                  .withOpacity(0.9),
                             ),
                           ),
                           const Spacer(),
@@ -134,32 +145,93 @@ class AdminCitizenDetailPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-          child: Row(
-            children: [
-              Expanded(
-                child: _SecondaryButton(
-                  label: 'Contacter',
-                  icon: Icons.mail_outline_rounded,
-                  onTap: () {},
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: _PrimaryButton(
-                  label: 'Modifier',
-                  icon: Icons.edit_rounded,
-                  onTap: () {},
-                ),
-              ),
-            ],
-          ),
+      bottomNavigationBar: _buildActionArea(context, citizenData),
+    );
+  }
+
+  Widget _buildActionArea(BuildContext context, CitizenData currentCitizen) {
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+        child: Row(
+          children: _getActions(context, currentCitizen),
         ),
       ),
     );
+  }
+
+  List<Widget> _getActions(BuildContext context, CitizenData currentCitizen) {
+    final provider = context.read<UserManagementProvider>();
+
+    if (currentCitizen.status == 'EN_ATTENTE') {
+      return [
+        Expanded(
+          child: _SecondaryButton(
+            label: 'Rejeter',
+            icon: Icons.close_rounded,
+            color: const Color(0xFFEF4444),
+            onTap: () {
+              provider.updateCitizenStatus(currentCitizen.id, 'REJETE');
+            },
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: _PrimaryButton(
+            label: 'Valider l\'accès',
+            icon: Icons.check_rounded,
+            onTap: () {
+              provider.updateCitizenStatus(currentCitizen.id, 'VALIDE');
+            },
+          ),
+        ),
+      ];
+    } else if (currentCitizen.status == 'BLOQUE') {
+      return [
+        Expanded(
+          child: _PrimaryButton(
+            label: 'Débloquer le compte',
+            icon: Icons.lock_open_rounded,
+            onTap: () {
+              provider.updateCitizenStatus(currentCitizen.id, 'VALIDE');
+            },
+          ),
+        ),
+      ];
+    } else if (currentCitizen.status == 'VALIDE') {
+      return [
+        Expanded(
+          child: _SecondaryButton(
+            label: 'Contacter',
+            icon: Icons.mail_outline_rounded,
+            onTap: () {},
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: _SecondaryButton(
+            label: 'Bloquer',
+            icon: Icons.block_flipped,
+            color: const Color(0xFF1E293B),
+            onTap: () {
+              provider.updateCitizenStatus(currentCitizen.id, 'BLOQUE');
+            },
+          ),
+        ),
+      ];
+    } else {
+      // Statut REJETE ou autre
+      return [
+        Expanded(
+          child: _SecondaryButton(
+            label: 'Retour',
+            icon: Icons.arrow_back,
+            onTap: () => Navigator.pop(context),
+          ),
+        ),
+      ];
+    }
   }
 }
 
@@ -227,7 +299,8 @@ class _TopBar extends StatelessWidget {
 }
 
 class _AvatarHeader extends StatelessWidget {
-  const _AvatarHeader();
+  final CitizenData citizen;
+  const _AvatarHeader({required this.citizen});
 
   @override
   Widget build(BuildContext context) {
@@ -242,26 +315,27 @@ class _AvatarHeader extends StatelessWidget {
               shape: BoxShape.circle,
               color: AppColors.sectionBg,
             ),
-            child: const Icon(
+            child: Icon(
               Icons.person,
               size: 52,
-              color: AppColors.textLight,
+              color: citizen.status == 'VALIDE' ? AppColors.primary : AppColors.textLight,
             ),
           ),
-          Positioned(
-            right: 4,
-            bottom: 4,
-            child: Container(
-              width: 22,
-              height: 22,
-              decoration: const BoxDecoration(
-                color: Color(0xFF22C55E),
-                shape: BoxShape.circle,
+          if (citizen.status == 'VALIDE')
+            Positioned(
+              right: 4,
+              bottom: 4,
+              child: Container(
+                width: 22,
+                height: 22,
+                decoration: const BoxDecoration(
+                  color: Color(0xFF22C55E),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.check_rounded,
+                    size: 16, color: AppColors.white),
               ),
-              child: const Icon(Icons.check_rounded,
-                  size: 16, color: AppColors.white),
             ),
-          ),
         ],
       ),
     );
@@ -269,7 +343,8 @@ class _AvatarHeader extends StatelessWidget {
 }
 
 class _InfoCard extends StatelessWidget {
-  const _InfoCard();
+  final CitizenData citizen;
+  const _InfoCard({required this.citizen});
 
   @override
   Widget build(BuildContext context) {
@@ -281,30 +356,36 @@ class _InfoCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(18),
         border: Border.all(color: AppColors.divider),
       ),
-      child: const Column(
+      child: Column(
         children: [
           _InfoRow(
             icon: Icons.badge_outlined,
             label: 'CNIB',
-            value: 'B12345678',
+            value: citizen.cnib,
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           _InfoRow(
             icon: Icons.phone_outlined,
             label: 'Téléphone',
-            value: '+226 70 00 00 00',
+            value: citizen.phone,
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           _InfoRow(
             icon: Icons.mail_outline_rounded,
             label: 'Email',
-            value: 'abdoulaye.traore@email.bf',
+            value: citizen.email,
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           _InfoRow(
             icon: Icons.cake_outlined,
             label: 'Date de naissance',
-            value: '15/05/1985',
+            value: citizen.birthDate,
+          ),
+          const SizedBox(height: 10),
+          _InfoRow(
+            icon: Icons.location_on_outlined,
+            label: 'Adresse',
+            value: citizen.address,
           ),
         ],
       ),
@@ -471,7 +552,7 @@ class _PrimaryButton extends StatelessWidget {
           backgroundColor: AppColors.primary,
           foregroundColor: AppColors.white,
           elevation: 10,
-          shadowColor: AppColors.primary.withValues(alpha: 0.35),
+          shadowColor: AppColors.primary.withOpacity(0.35),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(999),
           ),
@@ -499,11 +580,13 @@ class _SecondaryButton extends StatelessWidget {
   final String label;
   final IconData icon;
   final VoidCallback onTap;
+  final Color? color;
 
   const _SecondaryButton({
     required this.label,
     required this.icon,
     required this.onTap,
+    this.color,
   });
 
   @override
@@ -514,7 +597,7 @@ class _SecondaryButton extends StatelessWidget {
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.sectionBg,
-          foregroundColor: AppColors.textDark,
+          foregroundColor: color ?? AppColors.textDark,
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(999),
@@ -538,4 +621,3 @@ class _SecondaryButton extends StatelessWidget {
     );
   }
 }
-

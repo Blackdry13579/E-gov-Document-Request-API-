@@ -1,23 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:egov_mobile/core/constants/app_colors.dart';
 import '../auth/presentation/pages/citizen_auth_page.dart';
 import '../auth/presentation/pages/agent_auth_page.dart';
 
 
-
-// ============================================================================
-// COULEURS — NE PAS MODIFIER SANS AUTORISATION
-// ============================================================================
-class AppColors {
-  static const Color primaryBlue  = Color(0xFF1A3A5C);
-  static const Color darkBlue     = Color(0xFF0D1F35);
-  static const Color accentOrange = Color(0xFFE88C2A);
-  static const Color white        = Colors.white;
-  static const Color lightGray    = Color(0xFFF5F5F7);
-  static const Color textGray     = Color(0xFF6B7280);
-  static const Color iconBgGray   = Color(0xFFF3F4F6);
-  static const Color divider      = Color(0xFFE5E7EB);
-}
 
 // ============================================================================
 // LANDING PAGE
@@ -58,24 +45,30 @@ class LandingPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Image.asset(
-                  'assets/images/embleme.png',
-                  width: 40,
-                  height: 40,
-                  fit: BoxFit.contain,
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  'E-Gov',
-                  style: GoogleFonts.poppins(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.primaryBlue,
+            Expanded(
+              child: Row(
+                children: [
+                  Image.asset(
+                    'assets/images/embleme.png',
+                    width: 40,
+                    height: 40,
+                    fit: BoxFit.contain,
                   ),
-                ),
-              ],
+                  const SizedBox(width: 10),
+                  Flexible(
+                    child: Text(
+                      'E-Gov',
+                      style: GoogleFonts.poppins(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.primary,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
             ),
             GestureDetector(
               onTap: () {
@@ -84,7 +77,7 @@ class LandingPage extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                 decoration: BoxDecoration(
-                  color: AppColors.primaryBlue,
+                  color: AppColors.primary,
                   borderRadius: BorderRadius.circular(999),
                 ),
                 child: Row(
@@ -130,7 +123,7 @@ class LandingPage extends StatelessWidget {
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Color(0xFF1A5276), Color(0xFF1A3A5C)],
+                      colors: [AppColors.primaryLight, AppColors.primary],
                     ),
                   ),
                 );
@@ -140,7 +133,7 @@ class LandingPage extends StatelessWidget {
           // Overlay bleu semi-transparent
           Positioned.fill(
             child: Container(
-              color: AppColors.primaryBlue.withValues(alpha: 0.65),
+              color: AppColors.primary.withOpacity(0.65),
             ),
           ),
           // Contenu texte
@@ -172,7 +165,7 @@ class LandingPage extends StatelessWidget {
                       style: GoogleFonts.poppins(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.white.withValues(alpha: 0.9),
+                        color: AppColors.white.withOpacity(0.9),
                         height: 1.5,
                       ),
                     ),
@@ -190,10 +183,10 @@ class LandingPage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: AppColors.white.withValues(alpha: 0.18),
+        color: AppColors.white.withOpacity(0.18),
         borderRadius: BorderRadius.circular(999),
         border: Border.all(
-          color: AppColors.white.withValues(alpha: 0.25),
+          color: AppColors.white.withOpacity(0.25),
           width: 1,
         ),
       ),
@@ -204,18 +197,22 @@ class LandingPage extends StatelessWidget {
             width: 6,
             height: 6,
             decoration: const BoxDecoration(
-              color: AppColors.accentOrange,
+              color: AppColors.accent,
               shape: BoxShape.circle,
             ),
           ),
           const SizedBox(width: 8),
-          Text(
-            'SERVICES PUBLICS NUMÉRIQUES',
-            style: GoogleFonts.poppins(
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-              color: AppColors.white,
-              letterSpacing: 0.5,
+          Flexible(
+            child: Text(
+              'SERVICES PUBLICS NUMÉRIQUES',
+              style: GoogleFonts.poppins(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: AppColors.white,
+                letterSpacing: 0.5,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
@@ -228,14 +225,14 @@ class LandingPage extends StatelessWidget {
   // ==========================================================================
   Widget _buildCategoriesSection() {
     final categories = [
-      _CategoryData(icon: Icons.badge_outlined,         title: 'Identité &\nDocuments',   color: const Color(0xFF3B82F6)),
-      _CategoryData(icon: Icons.family_restroom_rounded, title: 'État Civil',              color: const Color(0xFF10B981)),
-      _CategoryData(icon: Icons.business_center_rounded, title: 'Entreprises &\nCommerce', color: const Color(0xFFF59E0B)),
-      _CategoryData(icon: Icons.school_rounded,          title: 'Éducation &\nExamens',    color: const Color(0xFF8B5CF6)),
+      _CategoryData(icon: Icons.badge_outlined,         title: 'Identité &\nDocuments',   color: AppColors.primary),
+      _CategoryData(icon: Icons.family_restroom_rounded, title: 'État Civil',              color: AppColors.success),
+      _CategoryData(icon: Icons.business_center_rounded, title: 'Entreprises &\nCommerce', color: AppColors.warning),
+      _CategoryData(icon: Icons.school_rounded,          title: 'Éducation &\nExamens',    color: AppColors.accent),
     ];
 
     return Container(
-      color: AppColors.lightGray,
+      color: AppColors.background,
       padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,12 +240,16 @@ class LandingPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Catégories de services',
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.primaryBlue,
+              Expanded(
+                child: Text(
+                  'Catégories de services',
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.primary,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               Text(
@@ -256,7 +257,7 @@ class LandingPage extends StatelessWidget {
                 style: GoogleFonts.poppins(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
-                  color: AppColors.accentOrange,
+                  color: AppColors.accent,
                 ),
               ),
             ],
@@ -287,7 +288,7 @@ class LandingPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
+            color: Colors.black.withOpacity(0.04),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -300,20 +301,24 @@ class LandingPage extends StatelessWidget {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: data.color.withValues(alpha: 0.15),
+              color: data.color.withOpacity(0.15),
               shape: BoxShape.circle,
             ),
             child: Icon(data.icon, color: data.color, size: 24),
           ),
           const SizedBox(height: 12),
-          Text(
-            data.title,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.poppins(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: AppColors.primaryBlue,
-              height: 1.3,
+          Expanded(
+            child: Text(
+              data.title,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: AppColors.primary,
+                height: 1.3,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
@@ -354,7 +359,7 @@ class LandingPage extends StatelessWidget {
             style: GoogleFonts.poppins(
               fontSize: 18,
               fontWeight: FontWeight.w700,
-              color: AppColors.primaryBlue,
+              color: AppColors.primary,
             ),
           ),
           const SizedBox(height: 36),
@@ -377,12 +382,12 @@ class LandingPage extends StatelessWidget {
             width: 64,
             height: 64,
             decoration: const BoxDecoration(
-              color: AppColors.iconBgGray,
+              color: AppColors.sectionBg,
               shape: BoxShape.circle,
             ),
             child: Icon(
               data.icon,
-              color: AppColors.primaryBlue,
+              color: AppColors.primary,
               size: 28,
             ),
           ),
@@ -394,7 +399,7 @@ class LandingPage extends StatelessWidget {
             style: GoogleFonts.poppins(
               fontSize: 15,
               fontWeight: FontWeight.w700,
-              color: AppColors.primaryBlue,
+              color: AppColors.primary,
             ),
           ),
           const SizedBox(height: 8),
@@ -404,7 +409,7 @@ class LandingPage extends StatelessWidget {
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
               fontSize: 13,
-              color: AppColors.textGray,
+              color: AppColors.textLight,
               height: 1.5,
             ),
           ),
@@ -418,20 +423,20 @@ class LandingPage extends StatelessWidget {
   // ==========================================================================
   Widget _buildCtaSection(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.only(left: 20, right: 20, bottom: 40),
       padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
-        color: AppColors.primaryBlue,
+        color: AppColors.primary,
         borderRadius: BorderRadius.circular(20),
         // Image de fond optionnelle
         image: const DecorationImage(
-          image: AssetImage('assets/images/cta_bg.png'),
+          image: AssetImage('assets/images/building.png'),
           fit: BoxFit.cover,
           opacity: 0.15,
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primaryBlue.withValues(alpha: 0.3),
+            color: AppColors.primary.withOpacity(0.3),
             blurRadius: 15,
             offset: const Offset(0, 8),
           ),
@@ -453,22 +458,24 @@ class LandingPage extends StatelessWidget {
             'Une administration de proximité, accessible à tous les citoyens, résidents ou de la diaspora.',
             style: GoogleFonts.poppins(
               fontSize: 13,
-              color: AppColors.white.withValues(alpha: 0.85),
+              color: AppColors.white.withOpacity(0.85),
               height: 1.5,
             ),
           ),
           const SizedBox(height: 24),
-          // Bouton "Créer mon compte" — outline blanc arrondi
-          OutlinedButton(
+          // Bouton "Créer mon compte" — blanc plein arrondi
+          ElevatedButton(
             onPressed: () {
               Navigator.of(context).pushNamed(
                 CitizenAuthPage.routeName,
                 arguments: {'initialIndex': 1},
               );
             },
-            style: OutlinedButton.styleFrom(
-              foregroundColor: AppColors.white,
-              side: const BorderSide(color: AppColors.white, width: 1.5),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.white,
+              foregroundColor: AppColors.primary,
+              elevation: 4,
+              shadowColor: AppColors.primary.withOpacity(0.3),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(999),
               ),
@@ -492,7 +499,7 @@ class LandingPage extends StatelessWidget {
   // ==========================================================================
   Widget _buildFooter() {
     return Container(
-      color: AppColors.darkBlue,
+      color: AppColors.footerBg,
       padding: const EdgeInsets.fromLTRB(20, 32, 20, 28),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -531,7 +538,7 @@ class LandingPage extends StatelessWidget {
                       style: GoogleFonts.poppins(
                         fontSize: 10,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.accentOrange,
+                        color: AppColors.accent,
                         letterSpacing: 0.8,
                       ),
                     ),
@@ -551,7 +558,7 @@ class LandingPage extends StatelessWidget {
                       style: GoogleFonts.poppins(
                         fontSize: 10,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.accentOrange,
+                        color: AppColors.accent,
                         letterSpacing: 0.8,
                       ),
                     ),
@@ -565,7 +572,7 @@ class LandingPage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 28),
-          Divider(color: AppColors.white.withValues(alpha: 0.1)),
+          Divider(color: AppColors.white.withOpacity(0.1)),
           const SizedBox(height: 16),
           Row(
             children: [
@@ -574,7 +581,7 @@ class LandingPage extends StatelessWidget {
                   '© 2025 GOUVERNEMENT DU BURKINA FASO',
                   style: GoogleFonts.poppins(
                     fontSize: 9,
-                    color: AppColors.white.withValues(alpha: 0.5),
+                    color: AppColors.white.withOpacity(0.5),
                   ),
                 ),
               ),
@@ -597,7 +604,7 @@ class LandingPage extends StatelessWidget {
         text,
         style: GoogleFonts.poppins(
           fontSize: 12,
-          color: AppColors.white.withValues(alpha: 0.7),
+          color: AppColors.white.withOpacity(0.7),
         ),
       ),
     );
@@ -608,7 +615,7 @@ class LandingPage extends StatelessWidget {
       width: 32,
       height: 32,
       decoration: BoxDecoration(
-        color: AppColors.white.withValues(alpha: 0.1),
+        color: AppColors.white.withOpacity(0.1),
         shape: BoxShape.circle,
       ),
       child: Icon(icon, color: AppColors.white, size: 16),

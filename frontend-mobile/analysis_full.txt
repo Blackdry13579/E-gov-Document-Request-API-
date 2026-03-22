@@ -1,0 +1,27 @@
+﻿Analyzing frontend-mobile...                                    
+
+  error - Target of URI doesn't exist: '../../../../shared/domain/models/demande_model.dart' - lib\features\agent\presentation\pages\agent_demandes_page.dart:5:8 - uri_does_not_exist
+  error - The name 'DemandeModel' isn't a type, so it can't be used as a type argument - lib\features\agent\presentation\pages\agent_demandes_page.dart:51:8 - non_type_as_type_argument
+  error - Undefined name 'DemandeModel' - lib\features\agent\presentation\pages\agent_demandes_page.dart:53:41 - undefined_identifier
+  error - The name 'DemandeModel' isn't a type, so it can't be used as a type argument - lib\features\agent\presentation\pages\agent_demandes_page.dart:56:8 - non_type_as_type_argument
+  error - The property 'service' can't be unconditionally accessed because the receiver can be 'null' - lib\features\agent\presentation\pages\agent_demandes_page.dart:61:17 - unchecked_use_of_nullable_value
+  error - The name 'DemandeModel' isn't a type, so it can't be used as a type argument - lib\features\agent\presentation\pages\agent_demandes_page.dart:65:10 - non_type_as_type_argument
+  error - The property 'statut' can't be unconditionally accessed because the receiver can be 'null' - lib\features\agent\presentation\pages\agent_demandes_page.dart:70:27 - unchecked_use_of_nullable_value
+  error - The name 'DemandeModel' isn't a type, so it can't be used as a type argument - lib\features\agent\presentation\pages\agent_demandes_page.dart:75:10 - non_type_as_type_argument
+  error - The property 'typeDocument' can't be unconditionally accessed because the receiver can be 'null' - lib\features\agent\presentation\pages\agent_demandes_page.dart:81:18 - unchecked_use_of_nullable_value
+  error - The property 'citoyenNom' can't be unconditionally accessed because the receiver can be 'null' - lib\features\agent\presentation\pages\agent_demandes_page.dart:82:15 - unchecked_use_of_nullable_value
+  error - The property 'reference' can't be unconditionally accessed because the receiver can be 'null' - lib\features\agent\presentation\pages\agent_demandes_page.dart:83:15 - unchecked_use_of_nullable_value
+  error - The property 'dateSoumission' can't be unconditionally accessed because the receiver can be 'null' - lib\features\agent\presentation\pages\agent_demandes_page.dart:90:18 - unchecked_use_of_nullable_value
+  error - The property 'dateSoumission' can't be unconditionally accessed because the receiver can be 'null' - lib\features\agent\presentation\pages\agent_demandes_page.dart:90:45 - unchecked_use_of_nullable_value
+  error - The property 'dateSoumission' can't be unconditionally accessed because the receiver can be 'null' - lib\features\agent\presentation\pages\agent_demandes_page.dart:92:18 - unchecked_use_of_nullable_value
+  error - The property 'dateSoumission' can't be unconditionally accessed because the receiver can be 'null' - lib\features\agent\presentation\pages\agent_demandes_page.dart:92:45 - unchecked_use_of_nullable_value
+  error - The property 'statut' can't be unconditionally accessed because the receiver can be 'null' - lib\features\agent\presentation\pages\agent_demandes_page.dart:179:45 - unchecked_use_of_nullable_value
+  error - Undefined class 'DemandeModel' - lib\features\agent\presentation\pages\agent_demandes_page.dart:294:28 - undefined_class
+  error - Undefined class 'DemandeModel' - lib\features\agent\presentation\pages\agent_demandes_page.dart:401:29 - undefined_class
+  error - Undefined name 'demande' - lib\features\agent\presentation\pages\detail_demande_page.dart:257:27 - undefined_identifier
+   info - Use 'const' with the constructor to improve performance - lib\features\catalogue\presentation\pages\paiement_page.dart:267:15 - prefer_const_constructors
+  error - Target of URI doesn't exist: 'package:egov_mobile/features/agent/presentation/pages/agent_home_page.dart' - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:2:8 - uri_does_not_exist
+  error - Target of URI doesn't exist: 'package:egov_mobile/features/agent/presentation/pages/agent_requests_page.dart' - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:3:8 - uri_does_not_exist
+  error - The name 'AgentHomePage' isn't a class - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:24:11 - creation_with_non_type
+  error - The name 'AgentRequestsPage' isn't a class - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:25:11 - creation_with_non_type
+

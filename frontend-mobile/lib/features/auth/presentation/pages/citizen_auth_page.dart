@@ -211,8 +211,8 @@ class _HeroHeader extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.black.withValues(alpha: 0.2),
-                  Colors.black.withValues(alpha: 0.6),
+                  Colors.black.withOpacity(0.2),
+                  Colors.black.withOpacity(0.6),
                 ],
               ),
             ),
@@ -246,7 +246,7 @@ class _HeroHeader extends StatelessWidget {
                   style: GoogleFonts.outfit(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.white.withValues(alpha: 0.85),
+                    color: AppColors.white.withOpacity(0.85),
                   ),
                 ),
               ],
@@ -481,7 +481,7 @@ class _LoginForm extends StatelessWidget {
               style: GoogleFonts.outfit(
                 fontSize: 9,
                 letterSpacing: 0.3,
-                color: AppColors.divider.withValues(alpha: 0.9),
+                color: AppColors.divider.withOpacity(0.9),
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -554,7 +554,7 @@ class _Input extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(vertical: 16),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide(color: AppColors.divider.withValues(alpha: 0.9)),
+          borderSide: BorderSide(color: AppColors.divider.withOpacity(0.9)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
@@ -598,7 +598,7 @@ class _InputNoPrefix extends StatelessWidget {
         contentPadding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: AppColors.divider.withValues(alpha: 0.9)),
+          borderSide: BorderSide(color: AppColors.divider.withOpacity(0.9)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
@@ -652,7 +652,7 @@ class _PasswordInput extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: AppColors.divider.withValues(alpha: 0.9)),
+          borderSide: BorderSide(color: AppColors.divider.withOpacity(0.9)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
@@ -899,9 +899,9 @@ class _RegisterStep3 extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: AppColors.primary.withValues(alpha: 0.1),
+              color: AppColors.primary.withOpacity(0.1),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
+              border: Border.all(color: AppColors.primary.withOpacity(0.2)),
             ),
             child: Row(
               children: [

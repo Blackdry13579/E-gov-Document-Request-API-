@@ -1,0 +1,34 @@
+﻿Analyzing frontend-mobile...                                    
+
+   info - The private field _tauxTraitement could be 'final' - lib\core\providers\stats_provider.dart:6:10 - prefer_final_fields
+   info - 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre - lib\features\admin\presentation\pages\admin_ajouter_agent_page.dart:244:11 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_edition_document_page.dart:214:11 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_edition_document_page.dart:226:11 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_edition_document_page.dart:261:21 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_edition_document_page.dart:281:21 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_edition_document_page.dart:300:11 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_edition_document_page.dart:309:11 - prefer_const_constructors
+warning - Unused import: 'admin_users_page.dart' - lib\features\admin\presentation\pages\admin_fiche_agent_page.dart:4:8 - unused_import
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_fiche_agent_page.dart:331:27 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_fiche_agent_page.dart:347:27 - prefer_const_constructors
+warning - Unused import: '../../../../core/constants/app_colors.dart' - lib\features\admin\presentation\pages\admin_home_page.dart:8:8 - unused_import
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_home_page.dart:676:31 - prefer_const_constructors
+warning - The value of the field 'routeName' isn't used - lib\features\admin\presentation\pages\admin_stats_page.dart:28:16 - unused_field
+warning - The declaration '_AvatarHeader' isn't referenced - lib\features\admin\presentation\pages\admin_stats_page.dart:218:7 - unused_element
+warning - The declaration '_KpiCard' isn't referenced - lib\features\admin\presentation\pages\admin_stats_page.dart:237:7 - unused_element
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_stats_page.dart:437:23 - prefer_const_constructors
+warning - The declaration '_kDark' isn't referenced - lib\features\admin\presentation\pages\admin_users_page.dart:17:7 - unused_element
+warning - The declaration '_kGreen' isn't referenced - lib\features\admin\presentation\pages\admin_users_page.dart:21:7 - unused_element
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\admin\presentation\pages\admin_users_page.dart:207:44 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\admin\presentation\pages\admin_users_page.dart:218:82 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\admin\presentation\pages\admin_users_page.dart:301:66 - deprecated_member_use
+   info - Unnecessary 'const' keyword - lib\features\agent\domain\models\agent_config.dart:25:25 - unnecessary_const
+   info - Unnecessary 'const' keyword - lib\features\agent\domain\models\agent_config.dart:33:25 - unnecessary_const
+   info - 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre - lib\features\agent\presentation\pages\agent_documents_page.dart:411:15 - deprecated_member_use
+warning - Unused import: '../../../shared/presentation/widgets/egov_app_bar.dart' - lib\features\catalogue\presentation\pages\catalogue_page.dart:8:8 - unused_import
+warning - Unused import: '../../../shared/presentation/widgets/citizen_bottom_nav.dart' - lib\features\catalogue\presentation\pages\catalogue_page.dart:9:8 - unused_import
+   info - Use 'const' with the constructor to improve performance - lib\features\catalogue\presentation\pages\paiement_page.dart:267:15 - prefer_const_constructors
+warning - Unused import: 'package:provider/provider.dart' - lib\features\citizen\presentation\pages\mes_demandes_page.dart:3:8 - unused_import
+warning - Unused import: '../../../../core/providers/demande_provider.dart' - lib\features\citizen\presentation\pages\mes_demandes_page.dart:5:8 - unused_import
+warning - Unused import: '../core/constants/app_colors.dart' - lib\scaffolds\agent_main_scaffold.dart:3:8 - unused_import
+

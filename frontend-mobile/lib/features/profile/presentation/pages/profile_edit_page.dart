@@ -99,7 +99,7 @@ class ProfileEditPage extends StatelessWidget {
                             color: AppColors.cardBg,
                             borderRadius: BorderRadius.circular(14),
                             border: Border.all(
-                              color: AppColors.divider.withValues(alpha: 0.9),
+                              color: AppColors.divider.withOpacity(0.9),
                             ),
                           ),
                           child: Text(
@@ -137,7 +137,7 @@ class ProfileEditPage extends StatelessWidget {
                           foregroundColor: AppColors.white,
                           elevation: 10,
                           shadowColor:
-                              AppColors.primary.withValues(alpha: 0.35),
+                              AppColors.primary.withOpacity(0.35),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(14),
                           ),
@@ -218,7 +218,7 @@ class _Input extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
           borderSide:
-              BorderSide(color: AppColors.divider.withValues(alpha: 0.9)),
+              BorderSide(color: AppColors.divider.withOpacity(0.9)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),

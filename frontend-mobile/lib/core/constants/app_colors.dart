@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // Primary brand colors
-  static const Color primary = Color(0xFF1A3A6B);      // Deep navy blue
+  static const Color primary = Color(0xFF1A237E);      // Deep navy blue
   static const Color primaryDark = Color(0xFF0F2244);   // Darker navy
   static const Color primaryLight = Color(0xFF2952A3);  // Lighter navy
 
@@ -23,6 +23,10 @@ class AppColors {
 
   // Footer
   static const Color footerBg = Color(0xFF0F1F3D);
+
+  static const Color success = Color(0xFF10B981);      // Emerald green
+  static const Color warning = Color(0xFFF59E0B);      // Amber orange
+  static const Color error = Color(0xFFEF4444);        // Rose red
 
   // Divider
   static const Color divider = Color(0xFFE2E8F0);

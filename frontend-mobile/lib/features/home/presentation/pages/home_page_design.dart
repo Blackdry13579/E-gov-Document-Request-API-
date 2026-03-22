@@ -1,10 +1,18 @@
+import 'package:egov_mobile/features/shared/presentation/widgets/egov_main_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
-import '../../../requests/presentation/pages/request_tracking_page_new.dart';
-import '../../../services/presentation/pages/services_page.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/providers/auth_provider.dart';
+import '../../../citizen/presentation/pages/dossier_approuve_page.dart';
+import '../../../citizen/presentation/pages/suivi_dossier_page.dart';
+import '../../../citizen/presentation/pages/suivi_dossier_rejete_page.dart';
+import '../../../citizen/presentation/pages/mes_demandes_page.dart';
+import '../../../catalogue/presentation/pages/catalogue_page.dart';
 import '../../../shared/presentation/widgets/citizen_bottom_nav.dart';
-
+import '../../../notifications/presentation/pages/notifications_page.dart';
+import '../../../../scaffolds/citizen_main_scaffold.dart';
 class HomePageSimple extends StatefulWidget {
   const HomePageSimple({super.key});
 
@@ -15,114 +23,18 @@ class HomePageSimple extends StatefulWidget {
 }
 
 class _HomePageSimpleState extends State<HomePageSimple> {
-  // ============================================================
-  // COULEURS — NE PAS MODIFIER
-  // ============================================================
-  static const Color primaryBlue    = Color(0xFF1A3C6E);
-  static const Color accentYellow   = Color(0xFFF5A623);
-  static const Color successGreen   = Color(0xFF27AE60);
-  static const Color warningOrange  = Color(0xFFF39C12);
-  static const Color errorRed       = Color(0xFFE74C3C);
-  static const Color backgroundLight = Color(0xFFF4F6F9);
-  static const Color textPrimary    = Color(0xFF1C1C1E);
-  static const Color textSecondary  = Color(0xFF8E8E93);
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: backgroundLight,
+    final authProvider = context.watch<AuthProvider>();
+    final agent = authProvider.agent;
+    final userName = agent?.nom ?? 'Citoyen';
 
-      // ============================================================
-      // APP BAR
-      // ============================================================
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        titleSpacing: 16,
-        title: Row(
-          children: [
-            // Emblème du Burkina Faso
-            Image.asset(
-              'assets/images/embleme.png',
-              width: 40,
-              height: 40,
-              fit: BoxFit.contain,
-            ),
-            const SizedBox(width: 8),
-            // Texte E-Gov / BURKINA FASO
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'E-Gov',
-                  style: GoogleFonts.inter(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: textPrimary,
-                  ),
-                ),
-                Text(
-                  'BURKINA FASO',
-                  style: GoogleFonts.inter(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
-                    color: accentYellow,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ],
-            ),
-            const Spacer(),
-            // Cloche avec point rouge
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade100,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.notifications_outlined,
-                    color: textPrimary,
-                    size: 22,
-                  ),
-                ),
-                Positioned(
-                  top: 6,
-                  right: 6,
-                  child: Container(
-                    width: 9,
-                    height: 9,
-                    decoration: BoxDecoration(
-                      color: errorRed,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 1.5),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(width: 10),
-            // Avatar profil
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.person,
-                color: Colors.white,
-                size: 22,
-              ),
-            ),
-          ],
-        ),
+    return Scaffold(
+      backgroundColor: AppColors.background,
+
+      appBar: EgovMainAppBar(
+        title: 'PORTAIL CITOYEN',
+        onProfileTap: () => CitizenMainScaffold.of(context)?.switchTab(3),
       ),
 
       // ============================================================
@@ -135,7 +47,7 @@ class _HomePageSimpleState extends State<HomePageSimple> {
             // --------------------------------------------------
             // HERO BANNER avec photo de bâtiment
             // --------------------------------------------------
-            _buildHeroBanner(),
+            _buildHeroBanner(userName),
             const SizedBox(height: 16),
 
             // --------------------------------------------------
@@ -162,7 +74,7 @@ class _HomePageSimpleState extends State<HomePageSimple> {
               reference: 'CDB-2026-004521',
               date: 'Effectué le 12 Mai 2026',
               statusText: 'VALIDÉE',
-              statusColor: successGreen,
+              statusColor: AppColors.success,
               actionLabel: 'Détails',
               actionIcon: Icons.open_in_new_rounded,
             ),
@@ -170,8 +82,8 @@ class _HomePageSimpleState extends State<HomePageSimple> {
               title: 'Renouvellement CNI',
               reference: 'CDB-2026-008912',
               date: 'Effectué le 18 Mai 2026',
-              statusText: 'EN COURS',
-              statusColor: warningOrange,
+              statusText: 'EN ATTENTE',
+              statusColor: AppColors.warning,
               actionLabel: 'Suivre',
               actionIcon: Icons.history_rounded,
             ),
@@ -180,7 +92,7 @@ class _HomePageSimpleState extends State<HomePageSimple> {
               reference: 'CDB-2026-003301',
               date: 'Effectué le 05 Mai 2026',
               statusText: 'REJETÉE',
-              statusColor: errorRed,
+              statusColor: AppColors.error,
               actionLabel: 'Motif',
               actionIcon: Icons.info_outline_rounded,
             ),
@@ -188,11 +100,6 @@ class _HomePageSimpleState extends State<HomePageSimple> {
           ],
         ),
       ),
-
-      // ============================================================
-      // BOTTOM NAV
-      // ============================================================
-      bottomNavigationBar: const CitizenBottomNav(currentIndex: 0),
     );
   }
 
@@ -200,14 +107,14 @@ class _HomePageSimpleState extends State<HomePageSimple> {
   // HERO BANNER
   // Card arrondie avec photo de bâtiment + texte de bienvenue
   // ============================================================
-  Widget _buildHeroBanner() {
+  Widget _buildHeroBanner(String userName) {
     return Container(
       width: double.infinity,
       height: 180,
       margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: primaryBlue, // fallback si image absente
+        color: AppColors.primary, // fallback si image absente
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
@@ -223,7 +130,7 @@ class _HomePageSimpleState extends State<HomePageSimple> {
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [Color(0xFF1A7FA8), Color(0xFF1A3C6E)],
+                    colors: [AppColors.primaryLight, AppColors.primary],
                   ),
                 ),
               ),
@@ -237,7 +144,7 @@ class _HomePageSimpleState extends State<HomePageSimple> {
                     end: Alignment.bottomCenter,
                     colors: [
                       Colors.transparent,
-                      Colors.black.withValues(alpha: 0.65),
+                      Colors.black.withOpacity(0.65),
                     ],
                     stops: const [0.3, 1.0],
                   ),
@@ -257,13 +164,13 @@ class _HomePageSimpleState extends State<HomePageSimple> {
                     style: GoogleFonts.inter(
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
-                      color: Colors.white.withValues(alpha: 0.85),
+                      color: Colors.white.withOpacity(0.85),
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Bonjour, Ibrahim 👋',
-                    style: GoogleFonts.inter(
+                    'Bonjour, $userName 👋',
+                    style: GoogleFonts.outfit(
                       fontSize: 22,
                       fontWeight: FontWeight.w700,
                       color: Colors.white,
@@ -289,10 +196,15 @@ class _HomePageSimpleState extends State<HomePageSimple> {
       height: 56,
       child: ElevatedButton(
         onPressed: () {
-          Navigator.of(context).pushNamed(ServicesPage.routeName);
+          final scaffold = CitizenMainScaffold.of(context);
+          if (scaffold != null) {
+            scaffold.switchTab(1);
+          } else {
+            Navigator.of(context).pushNamed(CataloguePage.routeName);
+          }
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: primaryBlue,
+          backgroundColor: AppColors.primary,
           foregroundColor: Colors.white,
           elevation: 0,
           shape: RoundedRectangleBorder(
@@ -305,12 +217,16 @@ class _HomePageSimpleState extends State<HomePageSimple> {
           children: [
             const Icon(Icons.add_circle_outline, size: 20),
             const SizedBox(width: 10),
-            Text(
-              'NOUVELLE DEMANDE',
-              style: GoogleFonts.inter(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1.2,
+            Flexible(
+              child: Text(
+                'NOUVELLE DEMANDE',
+                style: GoogleFonts.inter(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.2,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             const SizedBox(width: 8),
@@ -334,31 +250,36 @@ class _HomePageSimpleState extends State<HomePageSimple> {
             width: 4,
             height: 20,
             decoration: BoxDecoration(
-              color: accentYellow,
+              color: AppColors.accent,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
           const SizedBox(width: 10),
-          Text(
-            title,
-            style: GoogleFonts.inter(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: textPrimary,
+          Expanded(
+            child: Text(
+              title,
+              style: GoogleFonts.outfit(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: AppColors.textDark,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           if (showVoirTout) ...[
-            const Spacer(),
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed(RequestTrackingPageNew.routeName);
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => const MesDemandesPage(),
+                ));
               },
               child: Text(
                 'Voir tout',
                 style: GoogleFonts.inter(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: primaryBlue,
+                  color: AppColors.primary,
                 ),
               ),
             ),
@@ -385,14 +306,23 @@ class _HomePageSimpleState extends State<HomePageSimple> {
   }
 
   Widget _buildServiceCard(IconData icon, String label) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+    return GestureDetector(
+      onTap: () {
+        final scaffold = CitizenMainScaffold.of(context);
+        if (scaffold != null) {
+          scaffold.switchTab(1);
+        } else {
+          Navigator.of(context).pushNamed(CataloguePage.routeName);
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.06),
+            color: Colors.black.withOpacity(0.06),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -408,7 +338,7 @@ class _HomePageSimpleState extends State<HomePageSimple> {
               color: const Color(0xFFF0F2F5),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(icon, color: primaryBlue, size: 26),
+            child: Icon(icon, color: AppColors.primary, size: 26),
           ),
           const SizedBox(height: 12),
           Text(
@@ -416,13 +346,13 @@ class _HomePageSimpleState extends State<HomePageSimple> {
             style: GoogleFonts.inter(
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              color: textPrimary,
+              color: AppColors.textDark,
             ),
             textAlign: TextAlign.center,
           ),
         ],
       ),
-    );
+    ));
   }
 
   // ============================================================
@@ -440,7 +370,35 @@ class _HomePageSimpleState extends State<HomePageSimple> {
   }) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(RequestTrackingPageNew.routeName);
+        if (statusText == "VALIDÉE") {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => DossierApprouvePage(
+              reference: reference,
+              nomFichier: title,
+              tailleFichier: "2.4 MB",
+              delivrePar: "Mairie Centrale de Ouagadougou",
+              validite: "Permanente",
+            ),
+          ));
+        } else if (statusText == "REJETÉE") {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => SuiviDossierRejetePage(
+              reference: reference,
+              titreDemande: title,
+              dateDepot: date,
+              direction: "Mairie Centrale de Ouagadougou",
+              motifRejet: "Document expiré ou illisible",
+              noteInstructeur: "Veuillez fournir une copie numérisée en bonne qualité de la pièce demandée.",
+            ),
+          ));
+        } else {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => SuiviDossierPage(
+              reference: reference,
+              statut: statusText,
+            ),
+          ));
+        }
       },
       child: Container(
         margin: const EdgeInsets.fromLTRB(16, 0, 16, 12),
@@ -453,7 +411,7 @@ class _HomePageSimpleState extends State<HomePageSimple> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
+              color: Colors.black.withOpacity(0.05),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -468,26 +426,31 @@ class _HomePageSimpleState extends State<HomePageSimple> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    title,
-                    style: GoogleFonts.inter(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: textPrimary,
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: GoogleFonts.outfit(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textDark,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
+                  const SizedBox(width: 8),
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10,
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: statusColor.withValues(alpha: 0.12),
+                      color: statusColor.withOpacity(0.12),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
                       statusText,
-                      style: GoogleFonts.inter(
+                      style: GoogleFonts.outfit(
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
                         color: statusColor,
@@ -501,9 +464,9 @@ class _HomePageSimpleState extends State<HomePageSimple> {
               // Référence
               Text(
                 reference,
-                style: GoogleFonts.inter(
+                style: GoogleFonts.outfit(
                   fontSize: 12,
-                  color: textSecondary,
+                  color: AppColors.textLight,
                 ),
               ),
               const SizedBox(height: 10),
@@ -511,25 +474,30 @@ class _HomePageSimpleState extends State<HomePageSimple> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    date,
-                    style: GoogleFonts.inter(
-                      fontSize: 12,
-                      color: textSecondary,
+                  Expanded(
+                    child: Text(
+                      date,
+                      style: GoogleFonts.outfit(
+                        fontSize: 12,
+                        color: AppColors.textLight,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
+                  const SizedBox(width: 8),
                   Row(
                     children: [
                       Text(
                         actionLabel,
-                        style: GoogleFonts.inter(
+                        style: GoogleFonts.outfit(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
-                          color: primaryBlue,
+                          color: AppColors.primary,
                         ),
                       ),
                       const SizedBox(width: 4),
-                      Icon(actionIcon, size: 14, color: primaryBlue),
+                      Icon(actionIcon, size: 14, color: AppColors.primary),
                     ],
                   ),
                 ],
