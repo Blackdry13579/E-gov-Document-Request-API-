@@ -1,0 +1,25 @@
+Analyzing lib...                                                
+
+   info - The private field _isLoading could be 'final' - lib\core\providers\auth_provider.dart:5:8 - prefer_final_fields
+  error - Undefined name 'errorRed' - lib\features\agent\presentation\pages\agent_home_page.dart:158:33 - undefined_identifier
+  error - Undefined name 'errorRed' - lib\features\agent\presentation\pages\agent_home_page.dart:159:30 - undefined_identifier
+   info - Use 'const' with the constructor to improve performance - lib\features\agent\presentation\pages\detail_demande_page.dart:106:105 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\agent\presentation\pages\detail_demande_page.dart:106:134 - prefer_const_constructors
+warning - The value of the local variable 'accentBlue' isn't used - lib\features\agent\presentation\pages\profil_page.dart:11:11 - unused_local_variable
+  error - The name 'accentBlue' is already defined - lib\features\agent\presentation\pages\profil_page.dart:11:11 - duplicate_definition
+warning - The value of the local variable 'infoBg' isn't used - lib\features\agent\presentation\pages\validation_succes_page.dart:27:11 - unused_local_variable
+warning - Unused import: 'package:egov_mobile/app_pages.dart' - lib\features\auth\presentation\pages\citizen_auth_page.dart:5:8 - unused_import
+warning - Unused import: 'package:google_fonts/google_fonts.dart' - lib\features\home\presentation\pages\home_page_design.dart:2:8 - unused_import
+warning - The value of the local variable 'accentYellow' isn't used - lib\features\mairie\presentation\pages\demandes_mairie_page.dart:10:11 - unused_local_variable
+warning - Unused import: 'package:google_fonts/google_fonts.dart' - lib\features\requests\presentation\pages\payment_confirmation_page.dart:2:8 - unused_import
+warning - Unused import: 'package:google_fonts/google_fonts.dart' - lib\features\requests\presentation\pages\request_tracking_details_page.dart:2:8 - unused_import
+warning - Unused import: 'package:google_fonts/google_fonts.dart' - lib\features\requests\presentation\pages\request_tracking_page_new.dart:2:8 - unused_import
+warning - Unused import: 'package:google_fonts/google_fonts.dart' - lib\features\services\presentation\pages\services_page.dart:2:8 - unused_import
+  error - Target of URI doesn't exist: '../../agent/presentation/pages/agent_home_page.dart' - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:2:8 - uri_does_not_exist
+  error - Target of URI doesn't exist: '../../agent/presentation/pages/agent_requests_page.dart' - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:3:8 - uri_does_not_exist
+  error - Target of URI doesn't exist: '../../agent/domain/models/agent_config.dart' - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:4:8 - uri_does_not_exist
+  error - The name 'AgentHomePage' isn't a class - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:24:11 - creation_with_non_type
+  error - Undefined name 'AgentRole' - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:24:31 - undefined_identifier
+  error - The name 'AgentRequestsPage' isn't a class - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:25:11 - creation_with_non_type
+  error - Undefined name 'AgentRole' - lib\features\shared\presentation\widgets\agent_bottom_nav.dart:25:35 - undefined_identifier
+

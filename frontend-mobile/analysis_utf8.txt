@@ -1,0 +1,96 @@
+﻿Analyzing frontend-mobile...                                    
+
+   info - The private field _tauxTraitement could be 'final' - lib\core\providers\stats_provider.dart:6:10 - prefer_final_fields
+   info - 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre - lib\features\admin\presentation\pages\admin_ajouter_agent_page.dart:244:11 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_edition_document_page.dart:214:11 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_edition_document_page.dart:226:11 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_edition_document_page.dart:261:21 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_edition_document_page.dart:281:21 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_edition_document_page.dart:300:11 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_edition_document_page.dart:309:11 - prefer_const_constructors
+warning - Unused import: 'admin_users_page.dart' - lib\features\admin\presentation\pages\admin_fiche_agent_page.dart:4:8 - unused_import
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_fiche_agent_page.dart:331:27 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_fiche_agent_page.dart:347:27 - prefer_const_constructors
+warning - Unused import: '../../../../core/constants/app_colors.dart' - lib\features\admin\presentation\pages\admin_home_page.dart:8:8 - unused_import
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_home_page.dart:676:31 - prefer_const_constructors
+warning - The value of the field 'routeName' isn't used - lib\features\admin\presentation\pages\admin_stats_page.dart:28:16 - unused_field
+warning - The declaration '_AvatarHeader' isn't referenced - lib\features\admin\presentation\pages\admin_stats_page.dart:218:7 - unused_element
+warning - The declaration '_KpiCard' isn't referenced - lib\features\admin\presentation\pages\admin_stats_page.dart:237:7 - unused_element
+  error - The getter 'success' isn't defined for the type 'AppColors' - lib\features\admin\presentation\pages\admin_stats_page.dart:320:53 - undefined_getter
+  error - The getter 'error' isn't defined for the type 'AppColors' - lib\features\admin\presentation\pages\admin_stats_page.dart:372:42 - undefined_getter
+  error - The getter 'error' isn't defined for the type 'AppColors' - lib\features\admin\presentation\pages\admin_stats_page.dart:377:42 - undefined_getter
+   info - Use 'const' with the constructor to improve performance - lib\features\admin\presentation\pages\admin_stats_page.dart:437:23 - prefer_const_constructors
+warning - The declaration '_kDark' isn't referenced - lib\features\admin\presentation\pages\admin_users_page.dart:17:7 - unused_element
+warning - The declaration '_kGreen' isn't referenced - lib\features\admin\presentation\pages\admin_users_page.dart:21:7 - unused_element
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\admin\presentation\pages\admin_users_page.dart:207:44 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\admin\presentation\pages\admin_users_page.dart:218:82 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\admin\presentation\pages\admin_users_page.dart:301:66 - deprecated_member_use
+   info - Unnecessary 'const' keyword - lib\features\agent\domain\models\agent_config.dart:25:25 - unnecessary_const
+   info - Unnecessary 'const' keyword - lib\features\agent\domain\models\agent_config.dart:33:25 - unnecessary_const
+  error - Undefined class 'AgentRole' - lib\features\agent\presentation\pages\agent_dashboard_page.dart:8:9 - undefined_class
+  error - Undefined name 'AgentRole' - lib\features\agent\presentation\pages\agent_dashboard_page.dart:21:53 - undefined_identifier
+  error - Undefined name '_successGreen' - lib\features\agent\presentation\pages\agent_dashboard_page.dart:217:32 - undefined_identifier
+  error - Undefined name '_primaryBlue' - lib\features\agent\presentation\pages\agent_dashboard_page.dart:226:32 - undefined_identifier
+  error - Undefined name '_primaryBlue' - lib\features\agent\presentation\pages\agent_dashboard_page.dart:240:28 - undefined_identifier
+  error - Undefined name '_accentYellow' - lib\features\agent\presentation\pages\agent_dashboard_page.dart:250:30 - undefined_identifier
+  error - Undefined name '_infoBlue' - lib\features\agent\presentation\pages\agent_dashboard_page.dart:261:26 - undefined_identifier
+  error - Undefined name '_errorRed' - lib\features\agent\presentation\pages\agent_dashboard_page.dart:265:27 - undefined_identifier
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:70:24 - undefined_identifier
+  error - Invalid constant value - lib\features\agent\presentation\pages\agent_documents_page.dart:91:72 - invalid_constant
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:91:72 - undefined_identifier
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:104:24 - undefined_identifier
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:112:24 - undefined_identifier
+  error - Invalid constant value - lib\features\agent\presentation\pages\agent_documents_page.dart:122:71 - invalid_constant
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:122:71 - undefined_identifier
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:129:35 - undefined_identifier
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:149:36 - undefined_identifier
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:157:36 - undefined_identifier
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:182:40 - undefined_identifier
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:205:68 - undefined_identifier
+  error - Invalid constant value - lib\features\agent\presentation\pages\agent_documents_page.dart:206:79 - invalid_constant
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:206:79 - undefined_identifier
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:250:32 - undefined_identifier
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:322:26 - undefined_identifier
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:363:30 - undefined_identifier
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:372:34 - undefined_identifier
+  error - Invalid constant value - lib\features\agent\presentation\pages\agent_documents_page.dart:380:36 - invalid_constant
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:380:36 - undefined_identifier
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:391:71 - undefined_identifier
+   info - 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre - lib\features\agent\presentation\pages\agent_documents_page.dart:410:15 - deprecated_member_use
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:410:28 - undefined_identifier
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:411:33 - undefined_identifier
+  error - Undefined name 'AppColors' - lib\features\agent\presentation\pages\agent_documents_page.dart:413:35 - undefined_identifier
+warning - Unused import: '../../../shared/presentation/widgets/egov_app_bar.dart' - lib\features\catalogue\presentation\pages\catalogue_page.dart:8:8 - unused_import
+warning - Unused import: '../../../shared/presentation/widgets/citizen_bottom_nav.dart' - lib\features\catalogue\presentation\pages\catalogue_page.dart:9:8 - unused_import
+   info - Use 'const' with the constructor to improve performance - lib\features\catalogue\presentation\pages\paiement_page.dart:267:15 - prefer_const_constructors
+  error - Undefined name 'GoogleFonts' - lib\features\citizen\presentation\pages\mes_demandes_page.dart:61:22 - undefined_identifier
+  error - Undefined name 'GoogleFonts' - lib\features\citizen\presentation\pages\mes_demandes_page.dart:69:22 - undefined_identifier
+  error - Undefined name 'GoogleFonts' - lib\features\citizen\presentation\pages\mes_demandes_page.dart:147:34 - undefined_identifier
+  error - The getter 'success' isn't defined for the type 'AppColors' - lib\features\citizen\presentation\pages\mes_demandes_page.dart:166:38 - undefined_getter
+  error - The getter 'warning' isn't defined for the type 'AppColors' - lib\features\citizen\presentation\pages\mes_demandes_page.dart:176:38 - undefined_getter
+  error - The getter 'error' isn't defined for the type 'AppColors' - lib\features\citizen\presentation\pages\mes_demandes_page.dart:186:38 - undefined_getter
+  error - Undefined name 'GoogleFonts' - lib\features\citizen\presentation\pages\mes_demandes_page.dart:250:26 - undefined_identifier
+  error - Undefined name 'GoogleFonts' - lib\features\citizen\presentation\pages\mes_demandes_page.dart:266:20 - undefined_identifier
+  error - Undefined name 'textPrimary' - lib\features\citizen\presentation\pages\mes_demandes_page.dart:269:22 - undefined_identifier
+  error - Invalid constant value - lib\features\citizen\presentation\pages\mes_demandes_page.dart:281:24 - invalid_constant
+  error - Undefined name 'textSecondary' - lib\features\citizen\presentation\pages\mes_demandes_page.dart:281:24 - undefined_identifier
+  error - Undefined name 'GoogleFonts' - lib\features\citizen\presentation\pages\mes_demandes_page.dart:288:26 - undefined_identifier
+  error - Undefined name 'textSecondary' - lib\features\citizen\presentation\pages\mes_demandes_page.dart:290:28 - undefined_identifier
+  error - Undefined name 'GoogleFonts' - lib\features\citizen\presentation\pages\mes_demandes_page.dart:312:26 - undefined_identifier
+  error - Undefined name 'GoogleFonts' - lib\features\citizen\presentation\pages\mes_demandes_page.dart:363:24 - undefined_identifier
+  error - The getter 'user' isn't defined for the type 'AuthProvider' - lib\features\home\presentation\pages\home_page_design.dart:25:31 - undefined_getter
+warning - The value of the local variable 'userName' isn't used - lib\features\home\presentation\pages\home_page_design.dart:26:11 - unused_local_variable
+  error - Undefined name 'successGreen' - lib\features\home\presentation\pages\home_page_design.dart:151:28 - undefined_identifier
+  error - Undefined name 'warningOrange' - lib\features\home\presentation\pages\home_page_design.dart:160:28 - undefined_identifier
+  error - Undefined name 'errorRed' - lib\features\home\presentation\pages\home_page_design.dart:169:28 - undefined_identifier
+  error - Undefined name 'primaryBlue' - lib\features\home\presentation\pages\home_page_design.dart:196:16 - undefined_identifier
+  error - Undefined name 'userName' - lib\features\home\presentation\pages\home_page_design.dart:251:32 - undefined_identifier
+  error - Undefined name 'accentYellow' - lib\features\home\presentation\pages\home_page_design.dart:327:22 - undefined_identifier
+  error - Undefined name 'textPrimary' - lib\features\home\presentation\pages\home_page_design.dart:472:32 - undefined_identifier
+  error - Undefined name 'textSecondary' - lib\features\home\presentation\pages\home_page_design.dart:506:26 - undefined_identifier
+  error - Undefined name 'textSecondary' - lib\features\home\presentation\pages\home_page_design.dart:519:32 - undefined_identifier
+  error - Target of URI doesn't exist: '../../../auth/domain/models/user_model.dart' - lib\features\profile\presentation\pages\profile_page.dart:7:8 - uri_does_not_exist
+  error - The getter 'user' isn't defined for the type 'AuthProvider' - lib\features\profile\presentation\pages\profile_page.dart:20:31 - undefined_getter
+  error - Undefined class 'UserModel' - lib\features\profile\presentation\pages\profile_page.dart:229:9 - undefined_class
+warning - Unused import: '../core/constants/app_colors.dart' - lib\scaffolds\agent_main_scaffold.dart:3:8 - unused_import
+

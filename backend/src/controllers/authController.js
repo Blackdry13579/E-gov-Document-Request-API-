@@ -3,6 +3,7 @@ const AuditLog = require('../models/AuditLog');
 const AppError = require('../utils/AppError');
 const asyncHandler = require('../middleware/asyncHandler');
 const { generateToken } = require('../utils/jwt');
+const logger = require('../utils/logger');
 const crypto = require('crypto');
 
 /**
@@ -176,8 +177,8 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   const resetToken = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
 
-  // Simulation envoi email
-  console.log(`[EMAIL SIM] Reset token pour ${user.email}: ${resetToken}`);
+  // TODO: intégrer un vrai service d'envoi d'email
+  logger.info(`[EMAIL] Token de réinitialisation généré pour : ${user.email}`);
 
   res.status(200).json({
     success: true,

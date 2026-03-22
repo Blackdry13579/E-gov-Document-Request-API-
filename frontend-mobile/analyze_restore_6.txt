@@ -1,0 +1,5 @@
+Analyzing lib...                                                
+
+   info - Use 'const' with the constructor to improve performance - lib\features\agent\presentation\pages\detail_demande_page.dart:106:105 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\agent\presentation\pages\detail_demande_page.dart:106:134 - prefer_const_constructors
+
