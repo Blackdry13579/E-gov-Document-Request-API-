@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a5275",
+                        "accent-gold": "#d4af37",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#131a1f",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Public Sans", sans-serif;
+        }
+        .form-input-focus:focus {
+            border-color: #1a5275;
+            ring-color: #1a5275;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header / TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-primary/10 bg-white dark:bg-background-dark px-6 md:px-20 py-4 sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 flex items-center justify-center rounded-lg bg-white overflow-hidden border border-slate-100">
+<img alt="Armoiries du Burkina Faso" class="h-10 w-auto" data-alt="Official coat of arms of Burkina Faso" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5P7ho7BXYQ-uqZsOLFSBQ8ykUVx2CSEN4P6hUWg_FCNC4G_SO1L62Pple_CIi8D2-1mrcbAkYr9uQJS9MXpQaAHeLeU4Mf2qNZxqZJcqX3lQGbhySzDOI-68JIDBOvWAoo5QfS_pUCq1kPSySDm2usFt9CEE2ACZfjLMZ03ys_mWszFL_1x8lYkNFLMqy3XkQQ0Zk5Da2PTZ4UM8mCJ-0Tb4HEWfubtIz6HugWoX8pHLjEncv9mrZ8YvrOohVSHi8WalE6ZgCw_A"/>
+</div>
+<div class="flex flex-col">
+<h2 class="text-primary dark:text-slate-100 text-lg font-bold leading-tight tracking-tight uppercase">E-Gov Burkina Faso</h2>
+<span class="text-[10px] text-accent-gold font-bold tracking-[0.2em] uppercase">Administration Centrale</span>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white text-sm font-semibold transition-colors" href="#">Documents</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white text-sm font-semibold transition-colors" href="#">Statistiques</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white text-sm font-semibold transition-colors" href="#">Utilisateurs</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="relative flex size-10 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary/10 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white dark:border-background-dark"></span>
+</button>
+<div class="h-10 w-10 rounded-full border-2 border-accent-gold p-0.5">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-full w-full bg-slate-200" data-alt="Photo de profil de l'administrateur" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAExO7wY6ZD2L9XeMcYh-zu6H08PIpZIky1CgZS1bakXAGbwxeZnrc8D-2OYadOcfLndJ6_WOsoIzk-cNv8xeoYShZb1hRg0D-uy1OadF8DkEYrNcFw-jyLzcxzRuqe_QuXCG9qP1rHd7Lp9s07DS9_lkCArqpxBWp2Vk5Al0mqmG-5TAB7gNgQrZxHbDhjt2uKAd-ZqXv9icgDZ0cETClf9M3Iz8wocT-CSIJxyXjXljWJBeZyO6_ulHmYINz6STY-LgpRchTXn5M");'></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 px-6 md:px-40 py-10">
+<div class="max-w-[1000px] mx-auto">
+<!-- Title Section -->
+<div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4 border-l-4 border-accent-gold pl-6">
+<div>
+<h1 class="text-primary dark:text-slate-100 text-3xl md:text-4xl font-black leading-tight tracking-tight">Configuration de Document</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal mt-1">Définissez les paramètres légaux et administratifs pour une nouvelle prestation e-gov.</p>
+</div>
+<div class="flex items-center gap-2 text-xs font-bold text-accent-gold bg-accent-gold/10 px-3 py-1.5 rounded-full uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm">security</span>
+                        Accès Administrateur
+                    </div>
+</div>
+<!-- Main Form Container -->
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="p-8">
+<form class="space-y-8">
+<!-- Section 1: Informations Générales -->
+<div>
+<h3 class="text-primary dark:text-accent-gold text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">description</span>
+                                    Informations Générales
+                                </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-slate-700 dark:text-slate-300 text-sm font-semibold">Nom officiel du document</label>
+<input class="rounded-lg border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary h-12 px-4 w-full" placeholder="Ex: Certificat de Nationalité Burkinabè" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-slate-700 dark:text-slate-300 text-sm font-semibold">Catégorie Administrative</label>
+<select class="rounded-lg border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary h-12 px-4 w-full">
+<option value="">Sélectionner une catégorie</option>
+<option value="identite">Identité (CNIB, Passeport...)</option>
+<option value="etat-civil">État Civil (Actes de naissance...)</option>
+<option value="judiciaire">Judiciaire (Casier judiciaire...)</option>
+<option value="foncier">Foncier &amp; Urbanisme</option>
+<option value="professionnel">Professionnel &amp; Commerce</option>
+</select>
+</div>
+</div>
+</div>
+<hr class="border-slate-100 dark:border-slate-800"/>
+<!-- Section 2: Modalités de traitement -->
+<div>
+<h3 class="text-primary dark:text-accent-gold text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">settings_suggest</span>
+                                    Paramètres de Service
+                                </h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-slate-700 dark:text-slate-300 text-sm font-semibold">Coût de la prestation (FCFA)</label>
+<div class="relative">
+<input class="rounded-lg border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary h-12 pl-4 pr-16 w-full" placeholder="5000" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">FCFA</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-slate-700 dark:text-slate-300 text-sm font-semibold">Délai de délivrance</label>
+<input class="rounded-lg border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary h-12 px-4 w-full" placeholder="Ex: 72 heures" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-slate-700 dark:text-slate-300 text-sm font-semibold">Mode de délivrance</label>
+<select class="rounded-lg border-slate-300 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary h-12 px-4 w-full">
+<option value="online">100% En ligne (Digital)</option>
+<option value="semi">Semi-ligne (Dépôt en ligne / Retrait physique)</option>
+<option value="physical">Présentiel obligatoire</option>
+</select>
+</div>
+</div>
+</div>
+<hr class="border-slate-100 dark:border-slate-800"/>
+<!-- Section 3: Pièces Requises -->
+<div>
+<h3 class="text-primary dark:text-accent-gold text-lg font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined">attachment</span>
+                                    Pièces justificatives requises
+                                </h3>
+<p class="text-slate-500 text-xs mb-4">Listez les documents que l'usager doit téléverser pour sa demande.</p>
+<div class="space-y-3">
+<div class="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-dashed border-slate-300 dark:border-slate-700">
+<span class="material-symbols-outlined text-slate-400">add_circle</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm flex-1" placeholder="Ajouter un intitulé de pièce (ex: Copie légalisée CNIB...)" type="text"/>
+<button class="text-primary font-bold text-xs px-3 py-1 hover:bg-primary/5 rounded" type="button">Ajouter</button>
+</div>
+<!-- Examples of added items -->
+<div class="flex items-center justify-between p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="text-sm font-medium">Copie d'extrait d'acte de naissance</span>
+</div>
+<button class="text-slate-400 hover:text-red-500 transition-colors" type="button">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+<div class="flex items-center justify-between p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="text-sm font-medium">Timbre fiscal (valeur scannée)</span>
+</div>
+<button class="text-slate-400 hover:text-red-500 transition-colors" type="button">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</div>
+</div>
+</form>
+</div>
+<!-- Form Footer Buttons -->
+<div class="bg-slate-50 dark:bg-slate-800/50 px-8 py-6 flex items-center justify-end gap-4 border-t border-slate-200 dark:border-slate-700">
+<button class="px-6 py-3 rounded-xl text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all uppercase tracking-wider">
+                            Annuler
+                        </button>
+<button class="px-8 py-3 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-sm shadow-lg shadow-primary/20 transition-all flex items-center gap-2 uppercase tracking-wider">
+<span class="material-symbols-outlined text-lg">save</span>
+                            Enregistrer le document
+                        </button>
+</div>
+</div>
+<!-- Assistance Footer -->
+<div class="mt-8 flex justify-center items-center gap-6 text-slate-400 text-xs">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">help_outline</span>
+                        Besoin d'aide ? Consulter le guide d'administration
+                    </div>
+<div class="h-1 w-1 bg-slate-300 rounded-full"></div>
+<div class="text-primary font-bold">Portail National de l'Administration Electronique</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

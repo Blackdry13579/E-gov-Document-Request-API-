@@ -1,0 +1,2 @@
+body { font-family: 'Public Sans', sans-serif; }
+        .permission-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; }

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>E-Gov Burkina - Portail Citoyen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a5275",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#131a1f",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<div class="flex min-h-screen">
+<!-- Sidebar -->
+<aside class="w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col fixed h-full z-50">
+<div class="p-6 flex flex-col gap-8 h-full">
+<!-- National Emblem & Logo -->
+<div class="flex flex-col items-center gap-4 text-center">
+<img alt="Armoiries Burkina Faso" class="w-24 h-24 object-contain" data-alt="Armoiries officielles de la République du Burkina Faso" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQXJybPNH4004ieJqy4yv_yu4-5EpOcSBSaOO_Hfn2Wj4YVRi-8XLAKhL6-XyL5A5sJK2Vutu2I6n13d96zWO5fvJ9PuiFacQ1QuvgWfxI-zSzWMUlEjw_y78QS0UNrzcx4D_yUORISSC3Asa6rus9dnL4ljwWwlroq8B0ZSYT-yPHMr0f-onXHJ2n04vyiPngxuSlYfv47ysGJO7jN-ltxiaK25fIqnnZh2rXmSZSVMpDIyXR3x1hd1A9bzZVc3hD7av06Lqz-rc"/>
+<div>
+<h1 class="text-primary dark:text-slate-100 text-lg font-bold leading-tight uppercase tracking-wider">E-Gov Burkina</h1>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium">Portail Citoyen Officiel</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white font-semibold transition-all shadow-md shadow-primary/20" href="#">
+<span class="material-symbols-outlined fill-1">dashboard</span>
+<span class="text-sm">Tableau de bord</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-sm">Mes Demandes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">library_books</span>
+<span class="text-sm">Catalogue</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span class="text-sm">Notifications</span>
+<span class="ml-auto bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">3</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-sm">Mon Profil</span>
+</a>
+</nav>
+<!-- Logout -->
+<button class="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all">
+<span class="material-symbols-outlined text-lg">logout</span>
+<span class="text-sm">Déconnexion</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-72">
+<!-- Header -->
+<header class="h-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 px-8 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
+<h2 class="text-slate-800 dark:text-slate-100 font-bold text-xl tracking-tight">République du Burkina Faso</h2>
+</div>
+<div class="flex items-center gap-6">
+<!-- Search -->
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-primary w-64 transition-all" placeholder="Rechercher un service..." type="text"/>
+</div>
+<!-- Quick Actions -->
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary/10 transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary/10 transition-all">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+<!-- User Profile Brief -->
+<div class="flex items-center gap-3 border-l border-slate-200 dark:border-slate-800 pl-6">
+<div class="text-right">
+<p class="text-sm font-bold text-slate-800 dark:text-slate-100">Ibrahim Traoré</p>
+<p class="text-[10px] text-slate-500 font-medium">Citoyen Vérifié</p>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Photo de profil de l'utilisateur" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFYgcjUEdkASAzLylzaUFszIlQjTrpxS0NCUy6jkC3fTuH6dPcFPru-PaIIZ7CBnUxqIpaXFSo9bX5mdHZVtIXUzvrJEP4N8t6cUQoF2e53VljDWOw96pWxCWYe4bWyUDKI-4WMacXOyQvX3jibsvUBA_F63vbdoW94xFETVvHxr_HDqOWaLCn98oHuaGVHPLlB995vtPZiANVzpfScLIXxZj4IE3isLgkUlNPH3C9qp8lgtT7X8nTghDAseLBc6DbbUvCgiWkHs4"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-8 max-w-7xl mx-auto space-y-8">
+<!-- Welcome Section -->
+<div class="flex flex-col md:flex-row gap-6 items-end justify-between">
+<div>
+<h3 class="text-3xl font-black text-slate-900 dark:text-white mb-2">Bonjour, Ibrahim</h3>
+<p class="text-slate-500 dark:text-slate-400 max-w-lg">Bienvenue sur votre espace sécurisé. Simplifiez vos démarches administratives et accédez à vos documents officiels en un clic.</p>
+</div>
+<div class="bg-primary/10 px-4 py-2 rounded-lg border border-primary/20 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+<span class="text-primary font-bold text-sm">Services en ligne : Opérationnels</span>
+</div>
+</div>
+<!-- Heritage Hero Card -->
+<div class="relative group overflow-hidden rounded-xl shadow-2xl">
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent z-10"></div>
+<div class="h-72 w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Paysage iconique du Burkina Faso avec les Pics de Sindou" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCgpNSafkQcU0SSnukmiazvoEzegIs_JXf5QNsC46pRZXWhRR_N8rhUHMYhygb488TU0tmYgLv1xpj7oDaXWKOOwRQKMA8nIxqYnDA4rmk4rW3T7u7et5YkPONR11B3Gv9s3D3dw4jJ7FDloBTdrZt3j-5EaokPYQjFGysHsXd_N0iVYArqIcCgvmO18eA9mXT7Yu9VTUw9-oDiTRdlLzP53UbA0TI2MNbS-fbRaUHGmQJb_H9FRRsYv8zoi0qNg9Fqo6Q2puXInvE');"></div>
+<div class="absolute bottom-0 left-0 p-8 z-20 w-full">
+<span class="inline-block px-3 py-1 bg-primary text-white text-[10px] font-bold uppercase tracking-widest rounded-full mb-3">Patrimoine National</span>
+<h4 class="text-white text-3xl font-bold mb-2">Fier de notre héritage</h4>
+<p class="text-slate-200 max-w-2xl text-sm leading-relaxed">
+                            Le Burkina Faso, « Pays des Hommes Intègres », regorge de richesses culturelles et naturelles uniques. Du parc d'Arly aux pics de Sindou, notre nation bâtit son avenir numérique sur les piliers de son histoire.
+                        </p>
+</div>
+</div>
+<!-- Catalogue Section -->
+<section class="space-y-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">apps</span>
+<h4 class="text-xl font-bold text-slate-800 dark:text-slate-100 uppercase tracking-tight">Catalogue des documents populaires</h4>
+</div>
+<a class="text-primary text-sm font-bold flex items-center gap-1 hover:underline" href="#">
+                            Voir tout le catalogue
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card 1: CNIB -->
+<div class="group bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-primary/50 transition-all flex flex-col items-start gap-4">
+<div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-2xl">badge</span>
+</div>
+<div>
+<h5 class="font-bold text-slate-800 dark:text-slate-100 mb-1">CNIB</h5>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Carte Nationale d'Identité Burkinabè</p>
+</div>
+<button class="mt-auto w-full py-2 bg-slate-50 dark:bg-slate-800 text-primary dark:text-slate-300 text-xs font-bold rounded-lg border border-slate-100 dark:border-slate-700 hover:bg-primary hover:text-white transition-all">Demander maintenant</button>
+</div>
+<!-- Card 2: Acte de naissance -->
+<div class="group bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-primary/50 transition-all flex flex-col items-start gap-4">
+<div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-2xl">child_care</span>
+</div>
+<div>
+<h5 class="font-bold text-slate-800 dark:text-slate-100 mb-1">Acte de naissance</h5>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Copie intégrale ou extrait d'acte de naissance</p>
+</div>
+<button class="mt-auto w-full py-2 bg-slate-50 dark:bg-slate-800 text-primary dark:text-slate-300 text-xs font-bold rounded-lg border border-slate-100 dark:border-slate-700 hover:bg-primary hover:text-white transition-all">Demander maintenant</button>
+</div>
+<!-- Card 3: Passeport -->
+<div class="group bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-primary/50 transition-all flex flex-col items-start gap-4">
+<div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-2xl">flight_takeoff</span>
+</div>
+<div>
+<h5 class="font-bold text-slate-800 dark:text-slate-100 mb-1">Passeport</h5>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Demande de nouveau passeport ou renouvellement</p>
+</div>
+<button class="mt-auto w-full py-2 bg-slate-50 dark:bg-slate-800 text-primary dark:text-slate-300 text-xs font-bold rounded-lg border border-slate-100 dark:border-slate-700 hover:bg-primary hover:text-white transition-all">Demander maintenant</button>
+</div>
+<!-- Card 4: Casier Judiciaire -->
+<div class="group bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-primary/50 transition-all flex flex-col items-start gap-4">
+<div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-2xl">gavel</span>
+</div>
+<div>
+<h5 class="font-bold text-slate-800 dark:text-slate-100 mb-1">Casier Judiciaire</h5>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Extrait de casier judiciaire (Bulletin n°3)</p>
+</div>
+<button class="mt-auto w-full py-2 bg-slate-50 dark:bg-slate-800 text-primary dark:text-slate-300 text-xs font-bold rounded-lg border border-slate-100 dark:border-slate-700 hover:bg-primary hover:text-white transition-all">Demander maintenant</button>
+</div>
+</div>
+</section>
+<!-- Status Overview (Small Cards) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center gap-4">
+<div class="p-3 bg-blue-50 dark:bg-blue-900/30 text-blue-600 rounded-full">
+<span class="material-symbols-outlined">pending_actions</span>
+</div>
+<div>
+<p class="text-2xl font-black text-slate-800 dark:text-slate-100">02</p>
+<p class="text-slate-500 text-xs uppercase font-bold tracking-wider">Demandes en cours</p>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center gap-4">
+<div class="p-3 bg-green-50 dark:bg-green-900/30 text-green-600 rounded-full">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<div>
+<p class="text-2xl font-black text-slate-800 dark:text-slate-100">14</p>
+<p class="text-slate-500 text-xs uppercase font-bold tracking-wider">Documents délivrés</p>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center gap-4">
+<div class="p-3 bg-amber-50 dark:bg-amber-900/30 text-amber-600 rounded-full">
+<span class="material-symbols-outlined">notification_important</span>
+</div>
+<div>
+<p class="text-2xl font-black text-slate-800 dark:text-slate-100">03</p>
+<p class="text-slate-500 text-xs uppercase font-bold tracking-wider">Rendez-vous à venir</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Content -->
+<footer class="mt-8 px-8 py-6 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-slate-400 text-xs">
+<p>© 2024 Ministère de la Transition Digitale, des Postes et des Communications Électroniques.</p>
+<div class="flex gap-4">
+<a class="hover:text-primary" href="#">Conditions d'utilisation</a>
+<a class="hover:text-primary" href="#">Confidentialité</a>
+<a class="hover:text-primary" href="#">Contact support</a>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

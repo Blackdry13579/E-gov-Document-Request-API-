@@ -1,4 +1,5 @@
 const { body, validationResult } = require('express-validator');
+// eslint-disable-next-line no-unused-vars
 const AppError = require('../utils/AppError');
 
 /**

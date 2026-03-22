@@ -44,6 +44,20 @@ exports.getDemandesAgent = asyncHandler(async (req, res) => {
 });
 
 /**
+ * Obtenir les détails d'une demande pour un agent
+ */
+exports.getDemandeDetail = asyncHandler(async (req, res, next) => {
+  const demande = await Demande.findById(req.params.id)
+    .populate('citoyenId', 'nom prenom email telephone')
+    .populate('documentTypeId', 'nom code service description mandatoryDocuments')
+    .populate('agentId', 'nom prenom');
+
+  if (!demande) return next(new AppError('Demande non trouvée', 404));
+
+  res.status(200).json({ success: true, data: demande });
+});
+
+/**
  * Prendre en charge une demande
  */
 exports.prendreEnCharge = asyncHandler(async (req, res, next) => {

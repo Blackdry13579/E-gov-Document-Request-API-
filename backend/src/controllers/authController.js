@@ -119,7 +119,7 @@ exports.getMe = asyncHandler(async (req, res) => {
 /**
  * Mettre à jour le profil (sauf email/password/role)
  */
-exports.updateProfil = asyncHandler(async (req, res, next) => {
+exports.updateProfil = asyncHandler(async (req, res, _next) => {
   const allowedFields = ['nom', 'prenom', 'telephone', 'dateNaissance', 'lieuNaissance', 'adresse'];
   
   const updates = {};
@@ -162,7 +162,7 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
 /**
  * Mot de passe oublié
  */
-exports.forgotPassword = asyncHandler(async (req, res, next) => {
+exports.forgotPassword = asyncHandler(async (req, res, _next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0055A4", /* Adjusted to Royal Blue as per user request, while keeping theme structure */
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#1a1c1e",
+                        "accent-gold": "#FFD700",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>E-Gov Burkina - Ajouter un Document</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="flex min-h-screen">
+<!-- Sidebar -->
+<aside class="w-72 bg-slate-900 text-white flex flex-col fixed h-full z-10">
+<div class="p-6 flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<div class="size-12 rounded-full bg-white p-1 flex items-center justify-center overflow-hidden">
+<img class="w-full h-auto" data-alt="Armoiries du Burkina Faso" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCobnIjde3vnwIiVeTFEUpCoB-Tjp1VDmc3oYNl_8FMeQuVxEhmzvifs9YitOvCWMBpNx_WVkQDOxXQ6vuU6Yk6oUNGLSPKclxYyl8z-iFPlU5AewuitmI1kpbtAeIwtQXjxSTWYRstQ79vzgHM8Whpia6-NPqLu7mElxETK2t4riWxHZgt50BU2NZRMa_1vqsDwQ6nOeYzZV7bEjeuLL43yHUa6byu7wuB3cKyYQ6BaN3LeBrhPui_LYIvvJR1qkD9TQFEKek7FtY"/>
+</div>
+<div class="flex flex-col">
+<h1 class="text-lg font-bold leading-tight">E-Gov BF</h1>
+<p class="text-slate-400 text-xs uppercase tracking-wider">Administration</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Tableau de bord</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Services Publics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined">folder_shared</span>
+<span class="text-sm font-medium">Documents</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Utilisateurs</span>
+</a>
+<div class="h-px bg-slate-800 my-2"></div>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-white shadow-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Système</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-slate-800">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">AD</div>
+<div class="flex flex-col">
+<p class="text-sm font-semibold">Admin Système</p>
+<p class="text-xs text-slate-400">Déconnexion</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 ml-72 p-8 lg:p-12">
+<header class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<nav class="flex items-center gap-2 text-sm text-slate-500 mb-2">
+<a class="hover:text-primary" href="#">Système</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<a class="hover:text-primary" href="#">Gestion des documents</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="font-medium text-slate-900 dark:text-slate-100">Nouveau document</span>
+</nav>
+<h1 class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50">Ajouter un Nouveau Document</h1>
+<p class="text-slate-500 mt-1">Configurez un nouveau type de document officiel pour le portail citoyen.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-5 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 transition-all">
+                    Annuler
+                </button>
+<button class="px-5 py-2.5 rounded-lg bg-primary text-white font-semibold shadow-md hover:opacity-90 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">save</span> Enregistrer le document
+                </button>
+</div>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Form Section -->
+<section class="lg:col-span-2 space-y-6">
+<div class="bg-white dark:bg-slate-800/50 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
+<h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">info</span> Informations Générales
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2 md:col-span-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Nom du Document</label>
+<input class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="ex: Extrait d'acte de naissance" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Service Associé</label>
+<div class="relative">
+<select class="w-full appearance-none px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all">
+<option value="">Sélectionner un service</option>
+<option value="civil">État Civil</option>
+<option value="justice">Ministère de la Justice</option>
+<option value="interieur">Sécurité Intérieure</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3.5 text-slate-400 pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Coût (FCFA)</label>
+<div class="relative">
+<input class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="ex: 500" type="number"/>
+<span class="absolute right-4 top-3.5 text-slate-400 text-sm font-medium">FCFA</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Délai de Délivrance Estimé</label>
+<input class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 dark:bg-slate-900 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="ex: 48 Heures" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Mode de Délivrance</label>
+<div class="flex gap-4 items-center h-full">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="text-primary focus:ring-primary/20" name="mode" type="radio"/>
+<span class="text-sm">En ligne</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="text-primary focus:ring-primary/20" name="mode" type="radio"/>
+<span class="text-sm">Semi-en ligne</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800/50 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
+<h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">attachment</span> Pièces Jointes Requises
+                    </h2>
+<div class="space-y-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 cursor-pointer hover:border-primary transition-all">
+<input checked="" class="rounded text-primary focus:ring-primary/20" type="checkbox"/>
+<div class="flex flex-col">
+<span class="text-sm font-semibold">CNIB / Passeport</span>
+<span class="text-xs text-slate-500">Copie numérisée obligatoire</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 cursor-pointer hover:border-primary transition-all">
+<input class="rounded text-primary focus:ring-primary/20" type="checkbox"/>
+<div class="flex flex-col">
+<span class="text-sm font-semibold">Ancien Acte</span>
+<span class="text-xs text-slate-500">Pour renouvellement</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 cursor-pointer hover:border-primary transition-all">
+<input class="rounded text-primary focus:ring-primary/20" type="checkbox"/>
+<div class="flex flex-col">
+<span class="text-sm font-semibold">Timbre Fiscal</span>
+<span class="text-xs text-slate-500">Version numérique</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 cursor-pointer hover:border-primary transition-all">
+<input class="rounded text-primary focus:ring-primary/20" type="checkbox"/>
+<div class="flex flex-col">
+<span class="text-sm font-semibold">Justificatif de Domicile</span>
+<span class="text-xs text-slate-500">Facture SONABEL/ONEA</span>
+</div>
+</label>
+</div>
+<button class="flex items-center gap-2 text-primary text-sm font-bold hover:underline mt-2">
+<span class="material-symbols-outlined text-base">add_circle</span> Ajouter un nouveau type de pièce
+                        </button>
+</div>
+</div>
+</section>
+<!-- Preview/Status Section -->
+<section class="space-y-6">
+<div class="bg-slate-900 text-white rounded-xl p-8 shadow-xl relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="text-xl font-bold mb-4">Aperçu Citoyen</h3>
+<div class="bg-white/10 rounded-lg p-5 border border-white/10 backdrop-blur-sm">
+<p class="text-xs text-white/60 uppercase tracking-widest mb-1">Document</p>
+<h4 class="text-lg font-semibold mb-3" id="preview-title">Nom du document...</h4>
+<div class="flex items-center justify-between text-sm py-2 border-b border-white/10">
+<span>Coût</span>
+<span class="font-bold text-accent-gold">--- FCFA</span>
+</div>
+<div class="flex items-center justify-between text-sm py-2 border-b border-white/10">
+<span>Délai</span>
+<span class="font-bold">---</span>
+</div>
+<div class="mt-4 flex gap-2">
+<span class="px-2 py-1 bg-primary rounded text-[10px] font-bold uppercase">Public</span>
+<span class="px-2 py-1 bg-white/20 rounded text-[10px] font-bold uppercase">Numérique</span>
+</div>
+</div>
+</div>
+<div class="absolute -right-10 -bottom-10 opacity-10">
+<span class="material-symbols-outlined text-[150px]">verified</span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800/50 rounded-xl p-8 border border-slate-200 dark:border-slate-700 shadow-sm">
+<h3 class="font-bold mb-4">Statut du Document</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-sm text-slate-600 dark:text-slate-400">Visibilité publique</span>
+<div class="w-12 h-6 bg-slate-200 dark:bg-slate-700 rounded-full relative p-1 cursor-pointer">
+<div class="w-4 h-4 bg-white rounded-full shadow-sm"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm text-slate-600 dark:text-slate-400">Activer le paiement mobile</span>
+<div class="w-12 h-6 bg-primary rounded-full relative p-1 cursor-pointer flex justify-end">
+<div class="w-4 h-4 bg-white rounded-full shadow-sm"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm text-slate-600 dark:text-slate-400">Signature électronique</span>
+<div class="w-12 h-6 bg-primary rounded-full relative p-1 cursor-pointer flex justify-end">
+<div class="w-4 h-4 bg-white rounded-full shadow-sm"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 p-4 bg-primary/10 rounded-lg border border-primary/20">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary">tips_and_updates</span>
+<p class="text-xs text-primary-900/80 leading-relaxed font-medium">
+                                Les documents en ligne nécessitent une validation préalable de la Direction Générale des Services Numériques (DGSN).
+                            </p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

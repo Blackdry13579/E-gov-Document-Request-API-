@@ -1,77 +1,24 @@
-# ================================
-# SECRETS & ENVIRONNEMENT
-# ================================
-.env
-.env.local
-.env.production
-.env.development
-backend/.env
-frontend-web/.env
-frontend-mobile/.env
-
-# ================================
-# DÉPENDANCES (trop lourdes)
-# ================================
-**/node_modules/
-frontend-mobile/.dart_tool/
-frontend-mobile/.pub-cache/
-frontend-mobile/build/
-
-# ================================
-# FICHIERS DE BUILD
-# ================================
-**/build/
-**/dist/
-frontend-web/build/
-frontend-mobile/build/
-
-*.apk
-*.aab
-*.ipa
-
-# ================================
-# LOGS
-# ================================
+# Logs
+logs
 *.log
-logs/
 npm-debug.log*
 yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# ================================
-# CLOUDINARY / UPLOADS LOCAUX
-# ================================
-backend/uploads/
-backend/tmp/
+node_modules
+dist
+dist-ssr
+*.local
 
-# ================================
-# CERTIFICATS & CLÉS
-# ================================
-*.pem
-*.key
-*.cert
-*.p12
-*.jks
-keystore/
-
-# ================================
-# IDE & SYSTÈME
-# ================================
-.vscode/
-.idea/
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
 .DS_Store
-Thumbs.db
-*.swp
-*.swo
-
-# ================================
-# TESTS & COVERAGE
-# ================================
-coverage/
-.nyc_output/
-# ================================
-# INTERFACES HTML (référence)
-# ================================
-admin/
-citoyen/
-agent/
-
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

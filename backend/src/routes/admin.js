@@ -12,12 +12,14 @@ router.use(restrictTo('ADMIN'));
 router.get('/stats', adminController.getStatsGlobales);
 router.get('/demandes', adminController.getAllDemandes);
 router.get('/users', adminController.getAllUsers);
+router.get('/users/:id', adminController.getUserById);
 router.post('/users', adminController.createUser);
 router.put('/users/:id/toggle', adminController.toggleUserStatus);
 router.get('/logs', adminController.getAuditLogs);
 
 // GESTION DYNAMIQUE SERVICES
 router.get('/services', adminController.getAllServices);
+router.get('/services/:id', adminController.getServiceById);
 router.post('/services', adminController.createService);
 router.put('/services/:id', adminController.updateService);
 router.delete('/services/:id', adminController.deleteService);
@@ -29,6 +31,8 @@ router.put('/roles/:id', adminController.updateRole);
 router.delete('/roles/:id', adminController.deleteRole);
 
 // GESTION DYNAMIQUE DOCUMENTS
+router.get('/documents', adminController.getAllDocuments);
+router.get('/documents/:id', adminController.getDocumentById);
 router.post('/documents', adminController.createDocument);
 router.put('/documents/:id', adminController.updateDocument);
 router.delete('/documents/:id', adminController.toggleDocument);

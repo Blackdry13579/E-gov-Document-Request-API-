@@ -5,11 +5,8 @@
  * npm install puppeteer
  */
 
-const path = require('path');
 const logger = require('./logger');
 
-// Chemin vers les templates (sera utilisé quand les templates seront fournis)
-const TEMPLATES_DIR = path.join(__dirname, '../templates/documents');
 
 /**
  * Remplace les variables {{clé}} dans un template HTML par les valeurs fournies
@@ -34,7 +31,7 @@ const injectVariables = (template, variables) => {
  * @param {Object} agent - L'agent qui a validé (nom, prénom, service)
  * @returns {Promise<Object>}
  */
-const generateDocumentPDF = async (demande, agent) => {
+const generateDocumentPDF = async (demande, _agent) => {
   logger.info(`[PDF STUB] Génération simulée pour demande ${demande.reference}`);
 
   // Simulation d'un délai de génération

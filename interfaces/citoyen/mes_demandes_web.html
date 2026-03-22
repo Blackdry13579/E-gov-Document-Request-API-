@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>E-Gov Burkina - Mes Demandes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a5275",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#131a1f",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col fixed h-full z-50">
+<div class="p-6 flex flex-col h-full">
+<!-- Branding -->
+<div class="flex items-center gap-3 mb-10">
+<div class="w-12 h-12 bg-contain bg-no-repeat bg-center" data-alt="Armoiries du Burkina Faso" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDDc4y4GeaA1MdRiYvChbpzqx_vq3I6-lFIBVJAM4dwF_2dNroan6Ww7SR8A8llmWZ9uUHwSAK1jH3hqDwVmqv202yRJ3OdQqkKCiDQOVB7mjHByRgJS_N0-V1cm3D8Nf7m-_JZXXEmDcP-mtxz2N-HXZAhL-HTFlWe0M5SDSIzsgj7N8wIooptwF0YbYC_WWjiL61HaHfhDUbTlob3LCQEO27m2C2uHUYFXoIfQe1ucNxQnuNpy-kTRMabACW5or7uNq9YsJQexR4');"></div>
+<div class="flex flex-col">
+<h1 class="text-primary dark:text-white text-lg font-bold leading-tight">E-Gov Burkina</h1>
+<p class="text-slate-500 text-xs font-medium uppercase tracking-wider">Portail Citoyen</p>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-primary/5 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium">Tableau de bord</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary text-white rounded-lg shadow-md shadow-primary/20" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-medium">Mes Demandes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-primary/5 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="font-medium">Documents</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-primary/5 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-medium">Mon Profil</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-primary/5 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-medium">Aide &amp; Support</span>
+</a>
+</nav>
+<!-- Logout -->
+<div class="mt-auto pt-6 border-t border-slate-100 dark:border-slate-800">
+<button class="flex items-center gap-3 px-4 py-3 w-full text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-medium">Déconnexion</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 ml-72">
+<!-- Header -->
+<header class="h-20 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 sticky top-0 z-40">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
+<h2 class="text-xl font-bold text-slate-800 dark:text-white">Services Publics Numériques</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-800 border-none rounded-lg w-64 focus:ring-2 focus:ring-primary/50 text-sm" placeholder="Rechercher une demande..." type="text"/>
+</div>
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
+</button>
+<div class="flex items-center gap-3 pl-6 border-l border-slate-200 dark:border-slate-800">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-bold text-slate-800 dark:text-white leading-none">Abdoulaye Traoré</p>
+<p class="text-xs text-slate-500 mt-1">CNIB: B12345678</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary/10 border-2 border-primary/20 flex items-center justify-center text-primary font-bold overflow-hidden">
+<img alt="Avatar" class="w-full h-full object-cover" data-alt="Portrait photo d'un citoyen burkinabé" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzPhwiRSTizd-DsPmtk6vavnKNlivDCnjL9Yp1uWCyV_UwSCYm0ZMzOrtK1UxITQT2KC0AuCyRQaArzV1SEfDL-3hI0pR7Uocbq1iyRiOxVusL0iwCVjfHye9HpzfjXYLd5qO25IyeBYWUGcArkvEQmKvnJ2cVOjRl7CIbZA_8s1Q1HT_QYqcDpftfhxUyfcl06q4hgBV67IllptTMQU82NzBmKHvWCUiswjxUzp2Oss4dyRmVtxS70ata6hMA6hC-KmRoSHIPnSw"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Body -->
+<div class="p-8">
+<!-- Title & Action -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div>
+<h1 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Mes Demandes</h1>
+<p class="text-slate-500 mt-1">Suivez l'état d'avancement de vos requêtes administratives en temps réel.</p>
+</div>
+<button class="bg-primary text-white px-6 py-3 rounded-lg font-bold flex items-center gap-2 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">add</span>
+                        Nouvelle Demande
+                    </button>
+</div>
+<!-- Tabs/Filters -->
+<div class="mb-6 bg-white dark:bg-slate-900 rounded-xl p-1 shadow-sm border border-slate-200 dark:border-slate-800 flex flex-wrap">
+<button class="flex-1 py-3 px-4 rounded-lg font-bold text-sm bg-primary text-white transition-all">Tous <span class="ml-1 opacity-60 text-xs">12</span></button>
+<button class="flex-1 py-3 px-4 rounded-lg font-bold text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">En attente <span class="ml-1 opacity-60 text-xs">3</span></button>
+<button class="flex-1 py-3 px-4 rounded-lg font-bold text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">En cours <span class="ml-1 opacity-60 text-xs">2</span></button>
+<button class="flex-1 py-3 px-4 rounded-lg font-bold text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Validées <span class="ml-1 opacity-60 text-xs">6</span></button>
+<button class="flex-1 py-3 px-4 rounded-lg font-bold text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Rejetées <span class="ml-1 opacity-60 text-xs">1</span></button>
+</div>
+<!-- Demandes List -->
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 uppercase text-xs font-bold tracking-wider">
+<th class="px-6 py-4">Type de document</th>
+<th class="px-6 py-4">Référence</th>
+<th class="px-6 py-4">Date de dépôt</th>
+<th class="px-6 py-4 text-center">Statut</th>
+<th class="px-6 py-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600">
+<span class="material-symbols-outlined">badge</span>
+</div>
+<span class="font-bold text-slate-700 dark:text-slate-200">Passeport Biométrique</span>
+</div>
+</td>
+<td class="px-6 py-5 font-mono text-sm text-slate-500">BF-PSS-2023-4509</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-slate-400">12 Oct. 2023</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 border border-amber-200 dark:border-amber-800 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                                En cours
+                                            </span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 ml-auto">
+                                            Voir <span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-green-50 dark:bg-green-900/20 flex items-center justify-center text-green-600">
+<span class="material-symbols-outlined">article</span>
+</div>
+<span class="font-bold text-slate-700 dark:text-slate-200">Certificat de Nationalité</span>
+</div>
+</td>
+<td class="px-6 py-5 font-mono text-sm text-slate-500">BF-NAT-2023-8821</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-slate-400">05 Oct. 2023</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                                Validée
+                                            </span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 ml-auto">
+                                            Télécharger <span class="material-symbols-outlined text-sm">download</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 flex items-center justify-center text-indigo-600">
+<span class="material-symbols-outlined">description</span>
+</div>
+<span class="font-bold text-slate-700 dark:text-slate-200">Casier Judiciaire</span>
+</div>
+</td>
+<td class="px-6 py-5 font-mono text-sm text-slate-500">BF-CJ-2023-0192</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-slate-400">28 Sept. 2023</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 border border-slate-200 dark:border-slate-700 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                                                En attente
+                                            </span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 ml-auto">
+                                            Voir <span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 flex items-center justify-center text-red-600">
+<span class="material-symbols-outlined">assignment_late</span>
+</div>
+<span class="font-bold text-slate-700 dark:text-slate-200">Permis de Construire</span>
+</div>
+</td>
+<td class="px-6 py-5 font-mono text-sm text-slate-500">BF-URB-2023-1120</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-slate-400">15 Sept. 2023</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-800 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                                Rejetée
+                                            </span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 ml-auto">
+                                            Motif <span class="material-symbols-outlined text-sm">info</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-green-50 dark:bg-green-900/20 flex items-center justify-center text-green-600">
+<span class="material-symbols-outlined">cake</span>
+</div>
+<span class="font-bold text-slate-700 dark:text-slate-200">Copie intégrale d'Acte de Naissance</span>
+</div>
+</td>
+<td class="px-6 py-5 font-mono text-sm text-slate-500">BF-CIV-2023-7742</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-slate-400">02 Sept. 2023</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                                Validée
+                                            </span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 ml-auto">
+                                            Télécharger <span class="material-symbols-outlined text-sm">download</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination-like footer -->
+<div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
+<p class="text-sm text-slate-500 font-medium">Affichage de 1 à 5 sur 12 demandes</p>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:bg-white dark:hover:bg-slate-800">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary text-white font-bold text-xs">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-800 font-bold text-xs">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-800 font-bold text-xs">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:bg-white dark:hover:bg-slate-800">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Burkina Faso Official Seal at Footer -->
+<div class="mt-12 flex flex-col items-center justify-center opacity-40 grayscale pointer-events-none">
+<img alt="Sceau National" class="w-20 mb-2" data-alt="Armoiries officielles de la République du Burkina Faso" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-jTig96xd4k7HKS-F7paihaLlhnzc82AsrplGfzJ3U-n0Z5k7Vr7bV5AE39cveMxNitz9hm3fL7NivcyySjZVgnJw5O7QQFkOUjSxLEEy3RvPtpz7LL5435uLVOnenKxIHRS3MKad8iuvw6z-e03ZGUTpnyopA-Y-DqexDXnwtQ5h08rqypkHvepX9efI6BUOdzFevsRYoZfb21cjEKi9Lfc3NWsvZsVHOPdBFpPAp2YkHNuKGPMamOzMpWqStyOwuG9em0aob2k"/>
+<p class="text-[10px] font-bold uppercase tracking-[0.2em] text-center">Unité - Progrès - Justice</p>
+</div>
+</div>
+</main>
+</div>
+</body></html>

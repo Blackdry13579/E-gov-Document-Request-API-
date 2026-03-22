@@ -10,6 +10,7 @@ router.use(protect);
 router.use(restrictTo('AGENT_MAIRIE', 'AGENT_JUSTICE', 'SUPERVISEUR', 'ADMIN'));
 
 router.get('/demandes', agentController.getDemandesAgent);
+router.get('/demandes/:id', agentController.getDemandeDetail);
 router.put('/demandes/:id/prendre-en-charge', agentController.prendreEnCharge);
 router.put('/demandes/:id/valider', agentController.validerDemande);
 router.put('/demandes/:id/rejeter', agentController.rejeterDemande);
