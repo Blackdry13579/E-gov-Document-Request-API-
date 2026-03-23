@@ -108,5 +108,46 @@ E-gov-Document-Request-API/
 
 ## 🚀 Démarrage rapide
 
-### Prérequis
-- Node.js 18+
+### 1. Clonage du projet
+```bash
+git clone https://github.com/Blackdry13579/E-gov-Document-Request-API-.git
+cd E-gov-Document-Request-API-
+```
+
+### 2. Prérequis
+- **Node.js** 18+ & **npm**
+- **Flutter SDK** (pour la partie mobile)
+- **MongoDB** (local ou Atlas)
+
+### 3. Installation & Configuration
+
+#### 🔴 Backend (API)
+```bash
+cd backend
+npm install
+cp .env.example .env  # Puis configurez vos clés (MONGO_URI, JWT_SECRET, etc.)
+npm run dev
+```
+
+#### 🔵 Frontend Web (React)
+```bash
+cd frontend-web
+npm install
+cp .env.example .env  # Puis configurez VITE_API_URL
+npm run dev
+```
+
+#### 🟢 Frontend Mobile (Flutter)
+```bash
+cd frontend-mobile
+flutter pub get
+flutter run
+```
+
+---
+
+## 🛠️ Maintenance & Git Workflow
+
+- **develop** : Branche de développement principale (Monorepo).
+- **main** : Branche de production stable.
+- **feature/frontend-web** : Vue standalone du frontend (uniquement le contenu de `frontend-web/` à la racine).
