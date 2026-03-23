@@ -35,14 +35,15 @@ Le citoyen remplit un formulaire, uploade ses pièces justificatives, paie via *
 
 ---
 
-## 👥 Rôles du système
+## 👥 Rôles du système (Dynamiques)
+
+Le système utilise désormais une architecture de rôles **basée sur la base de données**, permettant une extension infinie :
 
 ```
 🧑 Citoyen          → Crée des demandes, paie, suit et télécharge ses documents
-👮 Agent Mairie      → Traite les demandes d'état civil (naissance, mariage, décès)
-⚖️  Agent Justice    → Traite les demandes judiciaires (casier, nationalité)
-👔 Superviseur       → Supervise les agents de son service
-🔧 Administrateur    → Gestion globale, stats, configuration système
+👮 Agents           → Traitent les demandes (Mairie, Justice, Police, etc.)
+💼 Superviseurs    → Gestion d'équipe et statistiques de service
+🔧 Administrateur    → Gestion des services, des rôles et configuration globale
 ```
 
 ---
@@ -70,11 +71,10 @@ Le citoyen remplit un formulaire, uploade ses pièces justificatives, paie via *
 | **API** | ![Node.js](https://img.shields.io/badge/-Node.js-339933?logo=node.js&logoColor=white) ![Express](https://img.shields.io/badge/-Express-000000?logo=express&logoColor=white) | Serveur REST API |
 | **Base de données** | ![MongoDB](https://img.shields.io/badge/-MongoDB-47A248?logo=mongodb&logoColor=white) ![Mongoose](https://img.shields.io/badge/-Mongoose-880000?logoColor=white) | Stockage données |
 | **Auth** | ![JWT](https://img.shields.io/badge/-JWT-000000?logo=jsonwebtokens&logoColor=white) ![bcrypt](https://img.shields.io/badge/-bcrypt-003A70?logoColor=white) | Authentification sécurisée |
-| **Frontend Web** | ![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black) | Interface web |
+| **Frontend Web** | ![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black) ![Vite](https://img.shields.io/badge/-Vite-646CFF?logo=vite&logoColor=white) | Interface web moderne |
 | **Mobile** | ![Flutter](https://img.shields.io/badge/-Flutter-02569B?logo=flutter&logoColor=white) | Application mobile |
 | **Fichiers** | ![Cloudinary](https://img.shields.io/badge/-Cloudinary-3448C5?logo=cloudinary&logoColor=white) | Upload & stockage fichiers |
-| **Paiement** | ![Orange Money](https://img.shields.io/badge/-Orange%20Money-FF6600?logoColor=white) ![Moov Money](https://img.shields.io/badge/-Moov%20Money-00A651?logoColor=white) | Paiement mobile |
-| **Déploiement** | ![Render](https://img.shields.io/badge/-Render-46E3B7?logo=render&logoColor=black) ![Vercel](https://img.shields.io/badge/-Vercel-000000?logo=vercel&logoColor=white) | Hébergement |
+| **Paiement** | ![Orange Money](https://img.shields.io/badge/-Orange%20Money-FF6600?logoColor=white) ![Moov Money](https://img.shields.io/badge/-Moov%20Money-00A651?logoColor=white) | Intégration API de paiement |
 
 </div>
 
@@ -87,24 +87,67 @@ E-gov-Document-Request-API/
 │
 ├── 🔴 backend/              → API REST (NodeJS/Express)
 │   └── src/
-│       ├── config/          → MongoDB, Cloudinary, variables env
-│       ├── models/          → 5 modèles Mongoose
-│       ├── controllers/     → Logique métier
-│       ├── routes/          → Endpoints API
-│       ├── middleware/       → Auth JWT, rôles, validation
-│       ├── utils/           → JWT, email, PDF, logger
-│       └── templates/       → Templates documents officiels ⏳
+│       ├── config/          → MongoDB, Seeds & Migration logic
+│       ├── models/          → 8 modèles (User, Service, Role, Demande...)
+│       ├── controllers/     → Administration, Agent, Documents logic
+│       ├── routes/          → Endpoints API versionnés
+│       ├── middleware/       → RoleGuard dynamiques & Auth
+│       └── scripts/         → Scripts de seeding & utils
 │
-├── 🔵 frontend-web/         → Interface React
+├── 🔵 frontend-web/         → Interface React (Vite)
+│   ├── src/pages/agent/     → Dashboard & Gestion demandes Agent
+│   ├── src/pages/citoyen/   → Suivi & Confirmation Citoyen
+│   └── src/services/        → Services API (Axios bundle)
+│
 ├── 🟢 frontend-mobile/      → Application Flutter
-├── 📦 common/               → Constantes et utilitaires partagés
-├── 🎭 mock/                 → Mock API pour développement
-└── 📚 docs/                 → Documentation technique
+├── 📦 common/               → Constantes partagées
+└── 📚 docs/                 → Documentation technique & MCD
 ```
 
 ---
 
 ## 🚀 Démarrage rapide
 
-### Prérequis
-- Node.js 18+
+### 1. Clonage du projet
+```bash
+git clone https://github.com/Blackdry13579/E-gov-Document-Request-API-.git
+cd E-gov-Document-Request-API-
+```
+
+### 2. Prérequis
+- **Node.js** 18+ & **npm**
+- **Flutter SDK** (pour la partie mobile)
+- **MongoDB** (local ou Atlas)
+
+### 3. Installation & Configuration
+
+#### 🔴 Backend (API)
+```bash
+cd backend
+npm install
+cp .env.example .env  # Puis configurez vos clés (MONGO_URI, JWT_SECRET, etc.)
+npm run dev
+```
+
+#### 🔵 Frontend Web (React)
+```bash
+cd frontend-web
+npm install
+cp .env.example .env  # Puis configurez VITE_API_URL
+npm run dev
+```
+
+#### 🟢 Frontend Mobile (Flutter)
+```bash
+cd frontend-mobile
+flutter pub get
+flutter run
+```
+
+---
+
+## 🛠️ Maintenance & Git Workflow
+
+- **develop** : Branche de développement principale (Monorepo).
+- **main** : Branche de production stable.
+- **feature/frontend-web** : Vue standalone du frontend (uniquement le contenu de `frontend-web/` à la racine).
